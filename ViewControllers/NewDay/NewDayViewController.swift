@@ -53,16 +53,18 @@ class NewDayViewController: UIViewController {
     //MARK: ConstraintsLabel
     func createConstraintsNewDayLabel() {
         newDayLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        newDayLabel.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: -30).isActive = true
+        newDayLabel.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: -10).isActive = true
     }
     //MARK: ConstraintsButton
     func createConstraintsStartNewDayButton() {
         startNewDayButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        startNewDayButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 3).isActive = true
+        startNewDayButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 10).isActive = true
         startNewDayButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
     }
     //MARK: @objc
     @objc func startNewDay() {
-        print("0_0")
+        let viewController = InputPlanViewController()
+        viewController.modalPresentationStyle = .fullScreen
+        self.present(viewController, animated: true, completion: nil)
     }
 }

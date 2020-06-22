@@ -109,7 +109,10 @@ class BirthdayPickerViewController: UIViewController {
     
     @objc func saveBirthday() {
         guard birthdayField.text == "" else {
-            print("0_0")
+            RegistrationAndDateBirthday.dateBirthday = birthdayField.text
+            let viewController = NewDayViewController()
+            viewController.modalPresentationStyle = .fullScreen
+            self.present(viewController, animated: true, completion: nil)
             return
         }
         

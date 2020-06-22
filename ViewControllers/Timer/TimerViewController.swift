@@ -144,4 +144,3 @@ extension TimerViewController: UITableViewDelegate, UITableViewDataSource {
         return tableView.bounds.height/3
     }
 }
-

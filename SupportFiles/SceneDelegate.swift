@@ -20,10 +20,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = UINavigationController(rootViewController: BirthdayPickerViewController())
+//        window?.rootViewController = UINavigationController(rootViewController: BirthdayPickerViewController())
 //        window?.rootViewController = UINavigationController(rootViewController: NewDayViewController())
 //        window?.rootViewController = UINavigationController(rootViewController: InputPlanViewController())
 //        window?.rootViewController = UINavigationController(rootViewController: TimerViewController())
+        if RegistrationAndDateBirthday.dateBirthday != nil {
+            window?.rootViewController = NewDayViewController()
+        } else {
+            window?.rootViewController = BirthdayPickerViewController()
+        }
         window?.makeKeyAndVisible()
     }
 

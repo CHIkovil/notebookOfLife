@@ -156,7 +156,9 @@ class InputPlanViewController: UIViewController {
     }
     //MARK: @objc
     @objc func inputPlan() {
-        print("0_0")
+        let viewController = TimerViewController()
+        viewController.modalPresentationStyle = .fullScreen
+        self.present(viewController, animated: true, completion: nil)
     }
 }
 //MARK: Extension
