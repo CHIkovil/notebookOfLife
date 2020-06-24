@@ -99,7 +99,7 @@ class BirthdayPickerViewController: UIViewController {
     
     func getDateFromBirthdayPicker() {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMM d, yyyy"
+        formatter.dateFormat = "dd.MM.yyyy"
         birthdayField.text = formatter.string(from: birthdayPicker.date)
     }
     //MARK: @objc

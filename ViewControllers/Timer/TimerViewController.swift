@@ -9,6 +9,10 @@
 import UIKit
 
 class TimerViewController: UIViewController {
+    //MARK: Let, Var
+    var counterTime:Int!
+    var oneDayTimer = Timer()
+    
     //MARK: View
     lazy var tasksTableView: UITableView = {
         let tableView = UITableView()
@@ -45,7 +49,7 @@ class TimerViewController: UIViewController {
     lazy var timerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "24:00:00"
+        label.text = "0_0"
         label.font = .systemFont(ofSize: 25)
         label.textAlignment = .center
         label.layer.cornerRadius = 5
@@ -57,7 +61,7 @@ class TimerViewController: UIViewController {
     lazy var lifeTimeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "6123d."
+        label.text = conversionDateBirthdayForLifeTimeLabel()
         label.font = .systemFont(ofSize: 30)
         label.textAlignment = .center
         label.layer.cornerRadius = 5
@@ -81,9 +85,12 @@ class TimerViewController: UIViewController {
         createConstraintsTimerLabel()
         createConstraintsLifeTimeLabel()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
+        getNowDateInSecondsForTimer()
+        startTimer()
     }
     //MARK: Func
     
@@ -117,9 +124,46 @@ class TimerViewController: UIViewController {
     }
     
     func createConstraintsLifeTimeLabel(){
-        lifeTimeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100).isActive = true
-        lifeTimeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -100).isActive = true
+        lifeTimeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 70).isActive = true
+        lifeTimeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -70).isActive = true
         lifeTimeLabel.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 10).isActive = true
+    }
+    
+    func startTimer() {
+        oneDayTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+    }
+    
+    func timeStringForTimerLabel(_ time:Int) -> String {
+        let hours = time / 3600
+        let minutes = time / 60 % 60
+        let seconds = time % 60
+        return String(format:"%02i:%02i:%02i", hours, minutes, seconds)
+    }
+    
+    func conversionDateBirthdayForLifeTimeLabel() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        let date = Date()
+        let calendar = Calendar.current
+        let startDate = formatter.date(from: RegistrationAndDateBirthday.dateBirthday!)
+        return "Your " + String(calendar.dateComponents([.day], from: startDate!, to: date).day! + 1) + " day:)"
+    }
+    
+    func getNowDateInSecondsForTimer() {
+        let date = Date()
+        let calendar = Calendar.current
+        let hours = calendar.component(.hour, from: date)
+        let minutes = calendar.component(.minute, from: date)
+        let seconds = calendar.component(.second, from: date)
+        counterTime = 86400 - hours * 3600 + minutes * 60 + seconds
+    }
+    //MARK: @objc
+    @objc func timerAction() {
+        counterTime -= 1
+        timerLabel.text = "\(timeStringForTimerLabel(counterTime))"
+        if counterTime == 0 {
+            oneDayTimer.invalidate()
+        }
     }
 }
 //MARK: Extension
