@@ -16,20 +16,7 @@ class InputPlanViewController: UIViewController {
         textView.text = "Just do it!"
         textView.font = .systemFont(ofSize: 20)
         textView.textAlignment = .justified
-        textView.layer.borderWidth = 1
-        textView.layer.borderColor = UIColor.black.cgColor
-        textView.backgroundColor = .clear
-        textView.textColor = .lightGray
-        textView.delegate = self
-        return textView
-    }()
-    
-    lazy var tasksTextView: UITextView = {
-        let textView = UITextView()
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.text = "Сome on more!"
-        textView.font = .systemFont(ofSize: 20)
-        textView.textAlignment = .justified
+        textView.layer.cornerRadius = 5
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.black.cgColor
         textView.backgroundColor = .clear
@@ -42,16 +29,7 @@ class InputPlanViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Target"
-        label.font = .systemFont(ofSize: 25)
-        label.textAlignment = .center
-        return label
-    }()
-    
-    lazy var tasksTitleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Tasks"
-        label.font = .systemFont(ofSize: 25)
+        label.font = .systemFont(ofSize: 40)
         label.textAlignment = .center
         return label
     }()
@@ -74,14 +52,10 @@ class InputPlanViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(targetTextView)
-        view.addSubview(tasksTextView)
         view.addSubview(targetTitleLabel)
-        view.addSubview(tasksTitleLabel)
         view.addSubview(inputPlanButton)
         createConstraintsTargetTextView()
-        createConstraintsTasksTextView()
         createConstraintsTargetTitleLabel()
-        createConstraintsTasksTitleLabel()
         createConstraintsInputPlanButton()
         
     }
@@ -102,44 +76,28 @@ class InputPlanViewController: UIViewController {
     func createConstraintsTargetTextView() {
         targetTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
         targetTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
-        targetTextView.topAnchor.constraint(equalTo: targetTitleLabel.bottomAnchor, constant: 10).isActive = true
+        targetTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         targetTextView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-    }
-    
-    func createConstraintsTasksTextView() {
-        tasksTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
-        tasksTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
-        tasksTextView.topAnchor.constraint(equalTo: tasksTitleLabel.bottomAnchor, constant: 10).isActive = true
-        tasksTextView.heightAnchor.constraint(equalToConstant: 200).isActive = true
     }
     
     //MARK: ConstraintsLabel
     func createConstraintsTargetTitleLabel() {
-        targetTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
-        targetTitleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
-    }
-    
-    func createConstraintsTasksTitleLabel() {
-        tasksTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
-        tasksTitleLabel.topAnchor.constraint(equalTo: targetTextView.bottomAnchor, constant: 40).isActive = true
+        targetTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        targetTitleLabel.bottomAnchor.constraint(equalTo: targetTextView.topAnchor, constant: -15).isActive = true
     }
     
     //MARK: ConstraintsButton
     func createConstraintsInputPlanButton() {
-         inputPlanButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-         inputPlanButton.topAnchor.constraint(equalTo: tasksTextView.bottomAnchor, constant: 30).isActive = true
-         inputPlanButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        inputPlanButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        inputPlanButton.topAnchor.constraint(equalTo: targetTextView.bottomAnchor, constant: 20).isActive = true
+        inputPlanButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        inputPlanButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
      }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if (targetTextView.textColor == UIColor.lightGray) && (targetTextView.text == textView.text) {
+        if targetTextView.textColor == UIColor.lightGray {
             targetTextView.text = nil
             targetTextView.textColor = UIColor.black
-        }
-        
-        if (tasksTextView.textColor == UIColor.lightGray) && (tasksTextView.text == textView.text) {
-            tasksTextView.text = nil
-            tasksTextView.textColor = UIColor.black
         }
     }
     
@@ -148,14 +106,15 @@ class InputPlanViewController: UIViewController {
             targetTextView.text = "Just do it!"
             targetTextView.textColor = .lightGray
         }
-        
-        if tasksTextView.text.isEmpty {
-            tasksTextView.text = "Сome on more!"
-            tasksTextView.textColor = .lightGray
-        }
     }
     //MARK: @objc
     @objc func inputPlan() {
+        if targetTextView.text == "Just do it!" {
+            targetTextView.text = ""
+            RegistrationAndDateBirthday.targetText = targetTextView.text
+        } else {
+            RegistrationAndDateBirthday.targetText = targetTextView.text
+        }
         let viewController = TimerViewController()
         viewController.modalPresentationStyle = .fullScreen
         self.present(viewController, animated: true, completion: nil)

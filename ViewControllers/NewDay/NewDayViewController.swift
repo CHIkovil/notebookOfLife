@@ -14,7 +14,7 @@ class NewDayViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "New day!"
-        label.font = .systemFont(ofSize: 25)
+        label.font = .systemFont(ofSize: 40)
         label.textAlignment = .center
         return label
     }()
@@ -53,13 +53,14 @@ class NewDayViewController: UIViewController {
     //MARK: ConstraintsLabel
     func createConstraintsNewDayLabel() {
         newDayLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        newDayLabel.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: -10).isActive = true
+        newDayLabel.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: -7).isActive = true
     }
     //MARK: ConstraintsButton
     func createConstraintsStartNewDayButton() {
         startNewDayButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        startNewDayButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 10).isActive = true
-        startNewDayButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        startNewDayButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 7).isActive = true
+        startNewDayButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        startNewDayButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     //MARK: @objc
     @objc func startNewDay() {

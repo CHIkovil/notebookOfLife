@@ -14,7 +14,7 @@ class BirthdayPickerViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Enter date of birth"
-        textField.font = .systemFont(ofSize: 13)
+        textField.font = .systemFont(ofSize: 25)
         textField.textAlignment = .center
         
         textField.borderStyle = UITextField.BorderStyle.roundedRect
@@ -27,7 +27,7 @@ class BirthdayPickerViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "NoL"
-        label.font = .systemFont(ofSize: 25)
+        label.font = .systemFont(ofSize: 40)
         label.textAlignment = .center
         return label
     }()
@@ -83,18 +83,20 @@ class BirthdayPickerViewController: UIViewController {
     func createConstraintsBirthdayField() {
         birthdayField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         birthdayField.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        birthdayField.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        birthdayField.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        birthdayField.heightAnchor.constraint(equalToConstant: 50).isActive =  true
     }
     //MARK: ConstraintsLabel
     func createConstraintsApplicationTitleLabel() {
         applicationTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        applicationTitleLabel.bottomAnchor.constraint(equalTo: birthdayField.topAnchor, constant: -5).isActive = true
+        applicationTitleLabel.bottomAnchor.constraint(equalTo: birthdayField.topAnchor, constant: -10).isActive = true
     }
     //MARK: ConstraintsButton
     func createConstraintsSaveBirthdayButton() {
         saveBirthdayButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        saveBirthdayButton.topAnchor.constraint(equalTo: birthdayField.bottomAnchor, constant: 5).isActive = true
-        saveBirthdayButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        saveBirthdayButton.topAnchor.constraint(equalTo: birthdayField.bottomAnchor, constant: 10).isActive = true
+        saveBirthdayButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        saveBirthdayButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     func getDateFromBirthdayPicker() {

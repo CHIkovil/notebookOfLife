@@ -14,23 +14,20 @@ class TimerViewController: UIViewController {
     var oneDayTimer = Timer()
     
     //MARK: View
-    lazy var tasksTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
-        tableView.layer.borderWidth = 1
-        tableView.layer.borderColor = UIColor.black.cgColor
-        tableView.separatorColor = .black
-        tableView.dataSource = self
-        tableView.delegate = self
-        return tableView
+    lazy var targetView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 5
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.black.cgColor
+        return view
     }()
     
     lazy var planTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "My plan"
-        label.font = .systemFont(ofSize: 25)
+        label.font = .systemFont(ofSize: 50)
         label.textAlignment = .center
         return label
     }()
@@ -38,11 +35,11 @@ class TimerViewController: UIViewController {
     lazy var targetLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "    Wow, this my target."
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
+        label.text = RegistrationAndDateBirthday.targetText
         label.font = .systemFont(ofSize: 15)
-        label.textAlignment = .left
-        label.layer.borderWidth = 1
-        label.layer.borderColor = UIColor.black.cgColor
+        label.textAlignment = .justified
         return label
     }()
     
@@ -50,7 +47,7 @@ class TimerViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "0_0"
-        label.font = .systemFont(ofSize: 25)
+        label.font = .systemFont(ofSize: 40)
         label.textAlignment = .center
         label.layer.cornerRadius = 5
         label.layer.borderWidth = 1
@@ -62,7 +59,7 @@ class TimerViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = conversionDateBirthdayForLifeTimeLabel()
-        label.font = .systemFont(ofSize: 30)
+        label.font = .systemFont(ofSize: 20)
         label.textAlignment = .center
         label.layer.cornerRadius = 5
         label.layer.borderWidth = 1
@@ -74,12 +71,12 @@ class TimerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        view.addSubview(tasksTableView)
+        view.addSubview(targetView)
         view.addSubview(planTitleLabel)
         view.addSubview(targetLabel)
         view.addSubview(timerLabel)
         view.addSubview(lifeTimeLabel)
-        createConstraintsTasksTableView()
+        createConstraintsTargetView()
         createConstraintsPlanTitleLabel()
         createConstraintsTargetLabel()
         createConstraintsTimerLabel()
@@ -96,37 +93,37 @@ class TimerViewController: UIViewController {
     
     
     
-    
-    //MARK: ConstraintsTableView
-    func createConstraintsTasksTableView(){
-        tasksTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
-        tasksTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
-        tasksTableView.topAnchor.constraint(equalTo: targetLabel.bottomAnchor, constant: 20).isActive = true
-        tasksTableView.heightAnchor.constraint(equalToConstant: 200).isActive = true
-    }
     //MARK: ConstraintsLabel
+    func createConstraintsTargetView(){
+        targetView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
+        targetView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
+        targetView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        targetView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+    }
+    
     func createConstraintsPlanTitleLabel(){
-        planTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
-        planTitleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+        planTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        planTitleLabel.bottomAnchor.constraint(equalTo: targetView.topAnchor, constant: -20).isActive = true
     }
     
     func createConstraintsTargetLabel(){
-        targetLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
-        targetLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
-        targetLabel.topAnchor.constraint(equalTo: planTitleLabel.bottomAnchor, constant: 10).isActive = true
-        targetLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        targetLabel.topAnchor.constraint(equalTo: targetView.topAnchor, constant: 5).isActive = true
+        targetLabel.leadingAnchor.constraint(equalTo: targetView.leadingAnchor, constant: 20).isActive = true
     }
     
     func createConstraintsTimerLabel(){
         timerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100).isActive = true
         timerLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -100).isActive = true
-        timerLabel.topAnchor.constraint(equalTo: tasksTableView.bottomAnchor, constant: 40).isActive = true
+        timerLabel.topAnchor.constraint(equalTo: targetView.bottomAnchor, constant: 20).isActive = true
+        timerLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     func createConstraintsLifeTimeLabel(){
-        lifeTimeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 70).isActive = true
-        lifeTimeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -70).isActive = true
+        lifeTimeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 120).isActive = true
+        lifeTimeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -120).isActive = true
         lifeTimeLabel.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 10).isActive = true
+        lifeTimeLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+
     }
     
     func startTimer() {

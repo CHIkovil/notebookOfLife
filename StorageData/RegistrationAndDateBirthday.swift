@@ -17,4 +17,12 @@ class RegistrationAndDateBirthday {
             UserDefaults.standard.set(newValue, forKey: "dateBirthday")
         }
     }
+    static var targetText: String? {
+        get {
+            return UserDefaults.standard.string(forKey: "targetText")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "targetText")
+        }
+    }
 }
