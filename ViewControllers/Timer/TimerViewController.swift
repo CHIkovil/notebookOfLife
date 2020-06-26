@@ -108,7 +108,9 @@ class TimerViewController: UIViewController {
     
     func createConstraintsTargetLabel(){
         targetLabel.topAnchor.constraint(equalTo: targetView.topAnchor, constant: 5).isActive = true
-        targetLabel.leadingAnchor.constraint(equalTo: targetView.leadingAnchor, constant: 20).isActive = true
+        targetLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 70).isActive = true
+        targetLabel.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -70).isActive = true
+        targetLabel.heightAnchor.constraint(lessThanOrEqualToConstant: 140).isActive = true
     }
     
     func createConstraintsTimerLabel(){

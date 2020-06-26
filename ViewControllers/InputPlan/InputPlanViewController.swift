@@ -109,15 +109,14 @@ class InputPlanViewController: UIViewController {
     }
     //MARK: @objc
     @objc func inputPlan() {
-        if targetTextView.text == "Just do it!" {
-            targetTextView.text = ""
-            RegistrationAndDateBirthday.targetText = targetTextView.text
+        if targetTextView.text == "Just do it!" || targetTextView.text == ""{
+            RegistrationAndDateBirthday.targetText = ""
         } else {
             RegistrationAndDateBirthday.targetText = targetTextView.text
+            let viewController = TimerViewController()
+            viewController.modalPresentationStyle = .fullScreen
+            self.present(viewController, animated: true, completion: nil)
         }
-        let viewController = TimerViewController()
-        viewController.modalPresentationStyle = .fullScreen
-        self.present(viewController, animated: true, completion: nil)
     }
 }
 //MARK: Extension
