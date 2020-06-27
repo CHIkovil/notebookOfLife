@@ -67,6 +67,21 @@ class TimerViewController: UIViewController {
         return label
     }()
     
+    lazy var inputNotesButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("A", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        
+        button.backgroundColor = .clear
+        button.layer.cornerRadius = 5
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.addTarget(self, action: #selector(addRecordsNote), for: .touchUpInside)
+        return button
+    }()
+    
+    
     //MARK: Override
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,11 +91,13 @@ class TimerViewController: UIViewController {
         view.addSubview(targetLabel)
         view.addSubview(timerLabel)
         view.addSubview(lifeTimeLabel)
+        view.addSubview(inputNotesButton)
         createConstraintsTargetView()
         createConstraintsPlanTitleLabel()
         createConstraintsTargetLabel()
         createConstraintsTimerLabel()
         createConstraintsLifeTimeLabel()
+        createConstraintsInputNotesButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,7 +113,7 @@ class TimerViewController: UIViewController {
     //MARK: ConstraintsLabel
     func createConstraintsTargetView(){
         targetView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
-        targetView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
+        targetView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -80).isActive = true
         targetView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         targetView.heightAnchor.constraint(equalToConstant: 150).isActive = true
     }
@@ -109,7 +126,7 @@ class TimerViewController: UIViewController {
     func createConstraintsTargetLabel(){
         targetLabel.topAnchor.constraint(equalTo: targetView.topAnchor, constant: 5).isActive = true
         targetLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 70).isActive = true
-        targetLabel.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -70).isActive = true
+        targetLabel.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -100).isActive = true
         targetLabel.heightAnchor.constraint(lessThanOrEqualToConstant: 140).isActive = true
     }
     
@@ -126,6 +143,13 @@ class TimerViewController: UIViewController {
         lifeTimeLabel.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 10).isActive = true
         lifeTimeLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
 
+    }
+    
+    func createConstraintsInputNotesButton(){
+        inputNotesButton.topAnchor.constraint(equalTo: targetView.topAnchor, constant: 10).isActive = true
+        inputNotesButton.leadingAnchor.constraint(equalTo: targetView.trailingAnchor, constant: 10).isActive = true
+        inputNotesButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        inputNotesButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
     }
     
     func startTimer() {
@@ -163,6 +187,9 @@ class TimerViewController: UIViewController {
         if counterTime == 0 {
             oneDayTimer.invalidate()
         }
+    }
+    
+    @objc func addRecordsNote() {
     }
 }
 //MARK: Extension
