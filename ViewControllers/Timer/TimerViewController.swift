@@ -70,7 +70,7 @@ class TimerViewController: UIViewController {
     lazy var inputNotesButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("A", for: .normal)
+        button.setTitle("N", for: .normal)
         button.setTitleColor(.black, for: .normal)
         
         button.backgroundColor = .clear
@@ -113,7 +113,7 @@ class TimerViewController: UIViewController {
     //MARK: ConstraintsLabel
     func createConstraintsTargetView(){
         targetView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
-        targetView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -80).isActive = true
+        targetView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
         targetView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         targetView.heightAnchor.constraint(equalToConstant: 150).isActive = true
     }
@@ -126,7 +126,7 @@ class TimerViewController: UIViewController {
     func createConstraintsTargetLabel(){
         targetLabel.topAnchor.constraint(equalTo: targetView.topAnchor, constant: 5).isActive = true
         targetLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 70).isActive = true
-        targetLabel.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -100).isActive = true
+        targetLabel.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -70).isActive = true
         targetLabel.heightAnchor.constraint(lessThanOrEqualToConstant: 140).isActive = true
     }
     
