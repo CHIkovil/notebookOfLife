@@ -17,6 +17,9 @@ class InputPlanViewController: UIViewController {
         controller.settings.autoStart = false
         controller.settings.autoStop = true
         controller.settings.autoStopTimeout = 5
+        controller.settings.layout.inputScreen.titleListening = "Speak and wait 5 sec"
+        controller.settings.layout.inputScreen.subtitleBulletList = ["Do not forget to wash your hands", "Plant another tree"]
+
         return controller
     }()
     //MARK: View
@@ -122,9 +125,9 @@ class InputPlanViewController: UIViewController {
     
     func createConstraintsVoiceInputTextButton() {
         voiceInputTextButton.topAnchor.constraint(equalTo: targetTextView.topAnchor, constant: 10).isActive = true
-        voiceInputTextButton.leadingAnchor.constraint(equalTo: targetTextView.trailingAnchor, constant: 10).isActive = true
-        voiceInputTextButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        voiceInputTextButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        voiceInputTextButton.trailingAnchor.constraint(equalTo: targetTextView.trailingAnchor, constant: -10).isActive = true
+        voiceInputTextButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        voiceInputTextButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -155,9 +158,10 @@ class InputPlanViewController: UIViewController {
     @objc func voiceInputText() {
         voiceOverlay.start(on: self, textHandler: { text, final, _ in
             if final {
-                print("Final text: \(text)")
+            
             } else {
-                print("In progress: \(text)")
+                self.targetTextView.textColor = .black
+                self.targetTextView.text = text
             }
         }, errorHandler: { error in
             
