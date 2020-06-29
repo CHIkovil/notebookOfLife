@@ -77,7 +77,7 @@ class TimerViewController: UIViewController {
         button.layer.cornerRadius = 5
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.lightGray.cgColor
-        button.addTarget(self, action: #selector(addRecordsNote), for: .touchUpInside)
+        button.addTarget(self, action: #selector(addNotes), for: .touchUpInside)
         return button
     }()
     
@@ -189,7 +189,10 @@ class TimerViewController: UIViewController {
         }
     }
     
-    @objc func addRecordsNote() {
+    @objc func addNotes() {
+        let viewController = NotesViewController()
+        viewController.modalPresentationStyle = .fullScreen
+        self.present(viewController, animated: true, completion: nil)
     }
 }
 //MARK: Extension

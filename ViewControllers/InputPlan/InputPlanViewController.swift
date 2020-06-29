@@ -11,7 +11,7 @@ import InstantSearchVoiceOverlay
 
 class InputPlanViewController: UIViewController {
     //MARK: Let, Var
-    lazy var voiceOverlay: VoiceOverlayController = {
+    lazy var voiceOverlayInputPlanVC: VoiceOverlayController = {
         let controller = VoiceOverlayController()
         controller.delegate = self
         controller.settings.autoStart = false
@@ -156,7 +156,7 @@ class InputPlanViewController: UIViewController {
     }
     
     @objc func voiceInputText() {
-        voiceOverlay.start(on: self, textHandler: { text, final, _ in
+        voiceOverlayInputPlanVC.start(on: self, textHandler: { text, final, _ in
             if final {
             
             } else {
