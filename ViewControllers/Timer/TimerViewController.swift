@@ -178,7 +178,7 @@ class TimerViewController: UIViewController {
         let hours = calendar.component(.hour, from: date)
         let minutes = calendar.component(.minute, from: date)
         let seconds = calendar.component(.second, from: date)
-        counterTime = 86400 - hours * 3600 + minutes * 60 + seconds
+        counterTime = 86400 - (hours * 3600 + minutes * 60 + seconds)
     }
     //MARK: @objc
     @objc func timerAction() {
@@ -186,6 +186,9 @@ class TimerViewController: UIViewController {
         timerLabel.text = "\(timeStringForTimerLabel(counterTime))"
         if counterTime == 0 {
             oneDayTimer.invalidate()
+            let viewController = NewDayViewController()
+            viewController.modalPresentationStyle = .fullScreen
+            self.present(viewController, animated: true, completion: nil)
         }
     }
     

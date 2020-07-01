@@ -148,7 +148,7 @@ class NotesViewController: UIViewController {
         if notesTextView.text == "What have you decided?" || notesTextView.text == ""{
             
         } else {
-            print("0_0")
+            self.dismissMe(animated: true)
         }
     }
     
