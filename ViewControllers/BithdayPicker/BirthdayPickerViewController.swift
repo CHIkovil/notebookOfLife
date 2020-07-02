@@ -7,8 +7,21 @@
 //
 
 import UIKit
+import LTMorphingLabel
 
 class BirthdayPickerViewController: UIViewController {
+    //MARK: Let, Var
+    let morphingLabel:LTMorphingLabel = {
+        let label = LTMorphingLabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.morphingEffect = .evaporate
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.textColor = .black
+        label.textAlignment = .center
+        label.text = "Wow"
+        label.text = "0_0"
+        return label
+    }()
     //MARK: View
     lazy var birthdayField: UITextField = {
         let textField = UITextField()
@@ -63,9 +76,11 @@ class BirthdayPickerViewController: UIViewController {
         view.addSubview(birthdayField)
         view.addSubview(applicationTitleLabel)
         view.addSubview(saveBirthdayButton)
+        view.addSubview(morphingLabel)
         createConstraintsBirthdayField()
         createConstraintsApplicationTitleLabel()
         createConstraintsSaveBirthdayButton()
+        createConstraintsMorphingLabel()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -97,6 +112,11 @@ class BirthdayPickerViewController: UIViewController {
         saveBirthdayButton.topAnchor.constraint(equalTo: birthdayField.bottomAnchor, constant: 10).isActive = true
         saveBirthdayButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
         saveBirthdayButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    }
+    //MARK: ConstraintsLabel
+    func createConstraintsMorphingLabel() {
+        morphingLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        morphingLabel.bottomAnchor.constraint(equalTo: applicationTitleLabel.topAnchor, constant: -10).isActive = true
     }
     
     func getDateFromBirthdayPicker() {
