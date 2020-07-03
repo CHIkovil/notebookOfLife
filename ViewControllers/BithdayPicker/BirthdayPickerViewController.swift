@@ -10,18 +10,6 @@ import UIKit
 import LTMorphingLabel
 
 class BirthdayPickerViewController: UIViewController {
-    //MARK: Let, Var
-    let morphingLabel:LTMorphingLabel = {
-        let label = LTMorphingLabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.morphingEffect = .evaporate
-        label.font = UIFont.systemFont(ofSize: 20)
-        label.textColor = .black
-        label.textAlignment = .center
-        label.text = "Wow"
-        label.text = "0_0"
-        return label
-    }()
     //MARK: View
     lazy var birthdayField: UITextField = {
         let textField = UITextField()
@@ -76,11 +64,9 @@ class BirthdayPickerViewController: UIViewController {
         view.addSubview(birthdayField)
         view.addSubview(applicationTitleLabel)
         view.addSubview(saveBirthdayButton)
-        view.addSubview(morphingLabel)
         createConstraintsBirthdayField()
         createConstraintsApplicationTitleLabel()
         createConstraintsSaveBirthdayButton()
-        createConstraintsMorphingLabel()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -113,11 +99,6 @@ class BirthdayPickerViewController: UIViewController {
         saveBirthdayButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
         saveBirthdayButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
-    //MARK: ConstraintsLabel
-    func createConstraintsMorphingLabel() {
-        morphingLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        morphingLabel.bottomAnchor.constraint(equalTo: applicationTitleLabel.topAnchor, constant: -10).isActive = true
-    }
     
     func getDateFromBirthdayPicker() {
         let formatter = DateFormatter()
@@ -126,6 +107,7 @@ class BirthdayPickerViewController: UIViewController {
     }
     //MARK: @objc
     @objc func dateChangedInBithdayPicker() {
+        birthdayField.shake()
         getDateFromBirthdayPicker()
     }
     
@@ -137,10 +119,21 @@ class BirthdayPickerViewController: UIViewController {
             self.present(viewController, animated: true, completion: nil)
             return
         }
-        
     }
 }
 //MARK: Extension
 extension BirthdayPickerViewController: UITextFieldDelegate {
     
+}
+
+extension UITextField {
+    func shake() {
+          let animation = CABasicAnimation(keyPath: "position")
+          animation.duration = 0.1
+          animation.repeatCount = 5
+          animation.autoreverses = true
+          animation.fromValue = CGPoint(x: self.center.x - 4.0, y: self.center.y)
+          animation.toValue = CGPoint(x: self.center.x + 4.0, y: self.center.y)
+          layer.add(animation, forKey: "position")
+      }
 }
