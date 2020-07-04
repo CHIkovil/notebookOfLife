@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import LTMorphingLabel
+import DWAnimatedLabel
 
 class BirthdayPickerViewController: UIViewController {
     //MARK: View
@@ -17,19 +17,23 @@ class BirthdayPickerViewController: UIViewController {
         textField.placeholder = "Enter date of birth"
         textField.font = .systemFont(ofSize: 25)
         textField.textAlignment = .center
-        
-        textField.borderStyle = UITextField.BorderStyle.roundedRect
+        textField.layer.cornerRadius = 15
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.lightGray.cgColor
+        textField.layer.cornerRadius = 20
         textField.tintColor = .clear
         textField.delegate = self
         return textField
     }()
     
-    lazy var applicationTitleLabel: UILabel = {
-        let label = UILabel()
+    lazy var applicationTitleLabel: DWAnimatedLabel = {
+        let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 40, weight: .bold)
         label.text = "NoL"
-        label.font = .systemFont(ofSize: 40)
         label.textAlignment = .center
+        label.animationType = .fade
+        label.startAnimation(duration: 5, .none)
         return label
     }()
     
@@ -38,9 +42,8 @@ class BirthdayPickerViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Save", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        
         button.backgroundColor = .clear
-        button.layer.cornerRadius = 5
+        button.layer.cornerRadius = 20
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.addTarget(self, action: #selector(saveBirthday), for: .touchUpInside)
@@ -108,6 +111,7 @@ class BirthdayPickerViewController: UIViewController {
     //MARK: @objc
     @objc func dateChangedInBithdayPicker() {
         birthdayField.shake()
+        applicationTitleLabel.startAnimation(duration: 5, nextText: "Note of Life", .none)
         getDateFromBirthdayPicker()
     }
     
