@@ -33,7 +33,6 @@ class BirthdayPickerViewController: UIViewController {
         label.text = "NoL"
         label.textAlignment = .center
         label.animationType = .fade
-        label.startAnimation(duration: 5, .none)
         return label
     }()
     
@@ -74,6 +73,7 @@ class BirthdayPickerViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: false)
+        applicationTitleLabel.startAnimation(duration: 5, .none)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -108,10 +108,11 @@ class BirthdayPickerViewController: UIViewController {
         formatter.dateFormat = "dd.MM.yyyy"
         birthdayField.text = formatter.string(from: birthdayPicker.date)
     }
+    
     //MARK: @objc
     @objc func dateChangedInBithdayPicker() {
         birthdayField.shake()
-        applicationTitleLabel.startAnimation(duration: 5, nextText: "Note of Life", .none)
+        applicationTitleLabel.startAnimation(duration: 5, nextText: "Notebook of Life", .none)
         getDateFromBirthdayPicker()
     }
     

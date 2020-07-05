@@ -7,15 +7,20 @@
 //
 
 import UIKit
+import DWAnimatedLabel
 
 class NewDayViewController: UIViewController {
     //MARK: View
-    lazy var newDayLabel: UILabel = {
-        let label = UILabel()
+     lazy var newDayLabel: DWAnimatedLabel = {
+        let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "New day!"
-        label.font = .systemFont(ofSize: 40)
+        label.font = .systemFont(ofSize: 40, weight: .bold)
         label.textAlignment = .center
+        label.textColor = .white
+        label.backgroundColor = .white
+        label.placeHolderColor = .black
+        label.animationType = .wave
         return label
     }()
     
@@ -25,8 +30,8 @@ class NewDayViewController: UIViewController {
         button.setTitle("Start", for: .normal)
         button.setTitleColor(.black, for: .normal)
         
-        button.backgroundColor = .clear
-        button.layer.cornerRadius = 5
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 20
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.addTarget(self, action: #selector(startNewDay), for: .touchUpInside)
@@ -45,6 +50,7 @@ class NewDayViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
+        newDayLabel.startAnimation(duration: 150, .none)
     }
     //MARK: Func
     
