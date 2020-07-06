@@ -112,7 +112,7 @@ class BirthdayPickerViewController: UIViewController {
     //MARK: @objc
     @objc func dateChangedInBithdayPicker() {
         birthdayField.shake()
-        applicationTitleLabel.startAnimation(duration: 5, nextText: "Notebook of Life", .none)
+        applicationTitleLabel.startAnimation(duration: 5, nextText: "NotebookofLife", .none)
         getDateFromBirthdayPicker()
     }
     
