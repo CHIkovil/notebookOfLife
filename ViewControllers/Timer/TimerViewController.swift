@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import CountdownLabel
 
 class TimerViewController: UIViewController {
     //MARK: Let, Var
-    var counterTime:Int!
-    var oneDayTimer = Timer()
-    
+    var counterTime: Double!
+    var lifeTime: String!
+
     //MARK: View
     lazy var targetView: UIView = {
         let view = UIView()
@@ -43,11 +44,11 @@ class TimerViewController: UIViewController {
         return label
     }()
     
-    lazy var timerLabel: UILabel = {
-        let label = UILabel()
+    lazy var timerLabel: CountdownLabel = {
+        let label = CountdownLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "0_0"
-        label.font = .systemFont(ofSize: 40)
+        label.font = UIFont(name:"Courier", size: 30)
+        label.animationType = .Evaporate
         label.textAlignment = .center
         label.layer.cornerRadius = 5
         label.layer.borderWidth = 1
@@ -58,7 +59,7 @@ class TimerViewController: UIViewController {
     lazy var lifeTimeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = conversionDateBirthdayForLifeTimeLabel()
+        label.text = lifeTime
         label.font = .systemFont(ofSize: 10)
         label.textAlignment = .center
         label.layer.cornerRadius = 5
@@ -72,7 +73,6 @@ class TimerViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("N", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        
         button.backgroundColor = .clear
         button.layer.cornerRadius = 5
         button.layer.borderWidth = 1
@@ -86,6 +86,7 @@ class TimerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        conversionDateBirthdayForLifeTimeLabel()
         view.addSubview(targetView)
         view.addSubview(planTitleLabel)
         view.addSubview(targetLabel)
@@ -104,7 +105,8 @@ class TimerViewController: UIViewController {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
         getNowDateInSecondsForTimer()
-        startTimer()
+        timerLabel.setCountDownTime(minutes: counterTime)
+        timerLabel.start()
     }
     //MARK: Func
     
@@ -152,71 +154,27 @@ class TimerViewController: UIViewController {
         inputNotesButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
     }
     
-    func startTimer() {
-        oneDayTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-    }
-    
-    func timeStringForTimerLabel(_ time:Int) -> String {
-        let hours = time / 3600
-        let minutes = time / 60 % 60
-        let seconds = time % 60
-        return String(format:"%02i:%02i:%02i", hours, minutes, seconds)
-    }
-    
-    func conversionDateBirthdayForLifeTimeLabel() -> String {
+    func conversionDateBirthdayForLifeTimeLabel() {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
         let date = Date()
         let calendar = Calendar.current
         let startDate = formatter.date(from: RegistrationAndDateBirthday.dateBirthday!)
-        return "Your " + String(calendar.dateComponents([.day], from: startDate!, to: date).day! + 1) + " day:)"
+        lifeTime = "Your " + String(calendar.dateComponents([.day], from: startDate!, to: date).day! + 1) + " day:)"
     }
-    
+
     func getNowDateInSecondsForTimer() {
         let date = Date()
         let calendar = Calendar.current
         let hours = calendar.component(.hour, from: date)
         let minutes = calendar.component(.minute, from: date)
         let seconds = calendar.component(.second, from: date)
-        counterTime = 86400 - (hours * 3600 + minutes * 60 + seconds)
+        counterTime = Double(86400 - (hours * 3600 + minutes * 60 + seconds))
     }
     //MARK: @objc
-    @objc func timerAction() {
-        counterTime -= 1
-        timerLabel.text = "\(timeStringForTimerLabel(counterTime))"
-        if counterTime == 0 {
-            oneDayTimer.invalidate()
-            let viewController = NewDayViewController()
-            viewController.modalPresentationStyle = .fullScreen
-            self.present(viewController, animated: true, completion: nil)
-        }
-    }
-    
     @objc func addNotes() {
         let viewController = NotesViewController()
         viewController.modalPresentationStyle = .fullScreen
         self.present(viewController, animated: true, completion: nil)
-    }
-}
-//MARK: Extension
-extension TimerViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath)
-        cell.textLabel?.text = "Wow"
-        cell.textLabel?.font = .systemFont(ofSize: 15)
-        cell.separatorInset = .zero
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.bounds.height/3
     }
 }
