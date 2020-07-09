@@ -8,8 +8,9 @@
 
 import UIKit
 import CountdownLabel
+import LTMorphingLabel
 
-class TimerViewController: UIViewController {
+class TimerViewController: UIViewController{
     //MARK: Let, Var
     var counterTime: Double!
     var lifeTime: String!
@@ -53,6 +54,7 @@ class TimerViewController: UIViewController {
         label.layer.cornerRadius = 5
         label.layer.borderWidth = 1
         label.layer.borderColor = UIColor.black.cgColor
+        label.delegate = self
         return label
     }()
     
@@ -177,4 +179,8 @@ class TimerViewController: UIViewController {
         viewController.modalPresentationStyle = .fullScreen
         self.present(viewController, animated: true, completion: nil)
     }
+}
+
+extension TimerViewController:  LTMorphingLabelDelegate {
+    
 }
