@@ -16,11 +16,7 @@ class NewDayViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "New day!"
         label.font = .systemFont(ofSize: 40, weight: .bold)
-        label.textAlignment = .center
-        label.textColor = .white
-        label.backgroundColor = .white
-        label.placeHolderColor = .black
-        label.animationType = .wave
+        label.animationType = .shine
         return label
     }()
     
@@ -50,7 +46,7 @@ class NewDayViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        newDayLabel.startAnimation(duration: 150, .none)
+        newDayLabel.startAnimation(duration: 5, .none)
     }
     //MARK: Func
     

@@ -72,6 +72,7 @@ class BirthdayPickerViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
         applicationTitleLabel.startAnimation(duration: 5, .none)
     }
@@ -112,7 +113,9 @@ class BirthdayPickerViewController: UIViewController {
     //MARK: @objc
     @objc func dateChangedInBithdayPicker() {
         birthdayField.shake()
-        applicationTitleLabel.startAnimation(duration: 5, nextText: "NotebookofLife", .none)
+        applicationTitleLabel.font = .systemFont(ofSize: 25, weight: .bold)
+        applicationTitleLabel.animationType = .fade
+        applicationTitleLabel.startAnimation(duration: 5, nextText: "NotebookOfLife", .none)
         getDateFromBirthdayPicker()
     }
     
@@ -134,11 +137,11 @@ extension BirthdayPickerViewController: UITextFieldDelegate {
 extension UITextField {
     func shake() {
           let animation = CABasicAnimation(keyPath: "position")
-          animation.duration = 0.1
+          animation.duration = 0.2
           animation.repeatCount = 5
           animation.autoreverses = true
-          animation.fromValue = CGPoint(x: self.center.x - 4.0, y: self.center.y)
-          animation.toValue = CGPoint(x: self.center.x + 4.0, y: self.center.y)
+          animation.fromValue = CGPoint(x: self.center.x - 1.0, y: self.center.y)
+          animation.toValue = CGPoint(x: self.center.x + 1.0, y: self.center.y)
           layer.add(animation, forKey: "position")
       }
 }

@@ -8,9 +8,8 @@
 
 import UIKit
 import CountdownLabel
-import LTMorphingLabel
 
-class TimerViewController: UIViewController{
+class TimerViewController: UIViewController {
     //MARK: Let, Var
     var counterTime: Double!
     var lifeTime: String!
@@ -29,7 +28,7 @@ class TimerViewController: UIViewController{
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "My plan"
-        label.font = .systemFont(ofSize: 55)
+        label.font = .systemFont(ofSize: 40, weight: .bold)
         label.textAlignment = .center
         return label
     }()
@@ -54,7 +53,7 @@ class TimerViewController: UIViewController{
         label.layer.cornerRadius = 5
         label.layer.borderWidth = 1
         label.layer.borderColor = UIColor.black.cgColor
-        label.delegate = self
+        label.countdownDelegate = self
         return label
     }()
     
@@ -76,9 +75,6 @@ class TimerViewController: UIViewController{
         button.setTitle("N", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
-        button.layer.cornerRadius = 5
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.lightGray.cgColor
         button.addTarget(self, action: #selector(addNotes), for: .touchUpInside)
         return button
     }()
@@ -103,7 +99,7 @@ class TimerViewController: UIViewController{
         createConstraintsInputNotesButton()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
         getNowDateInSecondsForTimer()
@@ -114,14 +110,14 @@ class TimerViewController: UIViewController{
     
     
     
-    //MARK: ConstraintsLabel
+    //MARK: ConstraintsView
     func createConstraintsTargetView(){
         targetView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
         targetView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
         targetView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         targetView.heightAnchor.constraint(equalToConstant: 150).isActive = true
     }
-    
+    //MARK: ConstraintsLabel
     func createConstraintsPlanTitleLabel(){
         planTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         planTitleLabel.bottomAnchor.constraint(equalTo: targetView.topAnchor, constant: -20).isActive = true
@@ -142,16 +138,16 @@ class TimerViewController: UIViewController{
     }
     
     func createConstraintsLifeTimeLabel(){
-        lifeTimeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 150).isActive = true
-        lifeTimeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -150).isActive = true
+        lifeTimeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 140).isActive = true
+        lifeTimeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -140).isActive = true
         lifeTimeLabel.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 10).isActive = true
         lifeTimeLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
 
     }
-    
+    //MARK: ConstraintsButton
     func createConstraintsInputNotesButton(){
-        inputNotesButton.topAnchor.constraint(equalTo: targetView.topAnchor, constant: 10).isActive = true
-        inputNotesButton.trailingAnchor.constraint(equalTo: targetView.trailingAnchor, constant: -10).isActive = true
+        inputNotesButton.topAnchor.constraint(equalTo: targetView.topAnchor, constant: 5).isActive = true
+        inputNotesButton.trailingAnchor.constraint(equalTo: targetView.trailingAnchor, constant: -5).isActive = true
         inputNotesButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         inputNotesButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
     }
@@ -173,6 +169,7 @@ class TimerViewController: UIViewController{
         let seconds = calendar.component(.second, from: date)
         counterTime = Double(86400 - (hours * 3600 + minutes * 60 + seconds))
     }
+    
     //MARK: @objc
     @objc func addNotes() {
         let viewController = NotesViewController()
@@ -181,6 +178,11 @@ class TimerViewController: UIViewController{
     }
 }
 
-extension TimerViewController:  LTMorphingLabelDelegate {
-    
+extension TimerViewController: CountdownLabelDelegate {
+    func countdownFinished() {
+        RegistrationAndDateBirthday.targetText = nil
+        let viewController = NewDayViewController()
+        viewController.modalPresentationStyle = .fullScreen
+        self.present(viewController, animated: true, completion: nil)
+    }
 }

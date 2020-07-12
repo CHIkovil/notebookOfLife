@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DWAnimatedLabel
 import InstantSearchVoiceOverlay
 
 class NotesViewController: UIViewController {
@@ -29,7 +30,7 @@ class NotesViewController: UIViewController {
         textView.text = "What have you decided?"
         textView.font = .systemFont(ofSize: 20)
         textView.textAlignment = .justified
-        textView.layer.cornerRadius = 5
+        textView.layer.cornerRadius = 10
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.black.cgColor
         textView.backgroundColor = .clear
@@ -38,12 +39,16 @@ class NotesViewController: UIViewController {
         return textView
     }()
     
-    lazy var notesTitleLabel: UILabel = {
-        let label = UILabel()
+    lazy var notesTitleLabel: DWAnimatedLabel = {
+        let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Notes"
-        label.font = .systemFont(ofSize: 40)
+        label.font = .systemFont(ofSize: 40, weight: .bold)
         label.textAlignment = .center
+        label.textColor = .white
+        label.backgroundColor = .white
+        label.placeHolderColor = .black
+        label.animationType = .wave
         return label
     }()
     
@@ -54,7 +59,7 @@ class NotesViewController: UIViewController {
         button.setTitleColor(.black, for: .normal)
         
         button.backgroundColor = .clear
-        button.layer.cornerRadius = 5
+        button.layer.cornerRadius = 20
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.addTarget(self, action: #selector(inputNotes), for: .touchUpInside)
@@ -64,13 +69,9 @@ class NotesViewController: UIViewController {
     lazy var voiceInputTextNotesButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("V", for: .normal)
+        button.setTitle("+", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        
         button.backgroundColor = .clear
-        button.layer.cornerRadius = 5
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.lightGray.cgColor
         button.addTarget(self, action: #selector(voiceInputTextNotes), for: .touchUpInside)
         return button
     }()
@@ -86,14 +87,14 @@ class NotesViewController: UIViewController {
         createConstraintsNotesTitleLabel()
         createConstraintsInputNotesButton()
         createConstraintsVoiceInputTextNotesButton()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
+        notesTitleLabel.startAnimation(duration: 150, .none)
     }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
@@ -124,8 +125,8 @@ class NotesViewController: UIViewController {
      }
     
     func createConstraintsVoiceInputTextNotesButton() {
-        voiceInputTextNotesButton.topAnchor.constraint(equalTo: notesTextView.topAnchor, constant: 10).isActive = true
-        voiceInputTextNotesButton.trailingAnchor.constraint(equalTo: notesTextView.trailingAnchor, constant: -10).isActive = true
+        voiceInputTextNotesButton.topAnchor.constraint(equalTo: notesTextView.topAnchor, constant: 5).isActive = true
+        voiceInputTextNotesButton.trailingAnchor.constraint(equalTo: notesTextView.trailingAnchor, constant: -5).isActive = true
         voiceInputTextNotesButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         voiceInputTextNotesButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
     }

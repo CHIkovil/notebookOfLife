@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DWAnimatedLabel
 import InstantSearchVoiceOverlay
 
 class InputPlanViewController: UIViewController {
@@ -29,7 +30,7 @@ class InputPlanViewController: UIViewController {
         textView.text = "Just do it!"
         textView.font = .systemFont(ofSize: 20)
         textView.textAlignment = .justified
-        textView.layer.cornerRadius = 5
+        textView.layer.cornerRadius = 10
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.black.cgColor
         textView.backgroundColor = .clear
@@ -38,12 +39,16 @@ class InputPlanViewController: UIViewController {
         return textView
     }()
     
-    lazy var targetTitleLabel: UILabel = {
-        let label = UILabel()
+    lazy var targetTitleLabel: DWAnimatedLabel = {
+        let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Target"
-        label.font = .systemFont(ofSize: 40)
+        label.font = .systemFont(ofSize: 40, weight: .bold)
         label.textAlignment = .center
+        label.textColor = .white
+        label.backgroundColor = .white
+        label.placeHolderColor = .black
+        label.animationType = .wave
         return label
     }()
     
@@ -52,9 +57,8 @@ class InputPlanViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Let's go", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        
         button.backgroundColor = .clear
-        button.layer.cornerRadius = 5
+        button.layer.cornerRadius = 20
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.addTarget(self, action: #selector(inputPlan), for: .touchUpInside)
@@ -64,13 +68,9 @@ class InputPlanViewController: UIViewController {
     lazy var voiceInputTextButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("V", for: .normal)
+        button.setTitle("+", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        
         button.backgroundColor = .clear
-        button.layer.cornerRadius = 5
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.lightGray.cgColor
         button.addTarget(self, action: #selector(voiceInputText), for: .touchUpInside)
         return button
     }()
@@ -92,6 +92,7 @@ class InputPlanViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
+        targetTitleLabel.startAnimation(duration: 150, .none)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -124,8 +125,8 @@ class InputPlanViewController: UIViewController {
      }
     
     func createConstraintsVoiceInputTextButton() {
-        voiceInputTextButton.topAnchor.constraint(equalTo: targetTextView.topAnchor, constant: 10).isActive = true
-        voiceInputTextButton.trailingAnchor.constraint(equalTo: targetTextView.trailingAnchor, constant: -10).isActive = true
+        voiceInputTextButton.topAnchor.constraint(equalTo: targetTextView.topAnchor, constant: 5).isActive = true
+        voiceInputTextButton.trailingAnchor.constraint(equalTo: targetTextView.trailingAnchor, constant: -5).isActive = true
         voiceInputTextButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         voiceInputTextButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
     }
