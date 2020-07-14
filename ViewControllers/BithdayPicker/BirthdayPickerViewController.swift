@@ -8,6 +8,7 @@
 
 import UIKit
 import DWAnimatedLabel
+import WCLShineButton
 
 class BirthdayPickerViewController: UIViewController {
     //MARK: View
@@ -36,16 +37,15 @@ class BirthdayPickerViewController: UIViewController {
         return label
     }()
     
-    lazy var saveBirthdayButton: UIButton = {
-        let button = UIButton()
+    lazy var saveBirthdayButton: WCLShineButton = {
+        var param = WCLShineParams()
+        param.bigShineColor = UIColor(rgb: (153,152,38))
+        param.smallShineColor = UIColor(rgb: (102,102,102))
+        let button = WCLShineButton(frame: .init(x: 100, y: 100, width: 60, height: 60), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Save", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = .clear
-        button.layer.cornerRadius = 20
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.lightGray.cgColor
-        button.addTarget(self, action: #selector(saveBirthday), for: .touchUpInside)
+        button.fillColor = UIColor(rgb: (153,152,38))
+        button.color = UIColor(rgb: (170,170,170))
+        button.addTarget(self, action: #selector(saveBirthday), for: .valueChanged)
         return button
     }()
     
@@ -74,7 +74,7 @@ class BirthdayPickerViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        applicationTitleLabel.startAnimation(duration: 5, .none)
+        applicationTitleLabel.startAnimation(duration: 10, .none)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -100,7 +100,7 @@ class BirthdayPickerViewController: UIViewController {
     func createConstraintsSaveBirthdayButton() {
         saveBirthdayButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         saveBirthdayButton.topAnchor.constraint(equalTo: birthdayField.bottomAnchor, constant: 10).isActive = true
-        saveBirthdayButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        saveBirthdayButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
         saveBirthdayButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
