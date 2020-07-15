@@ -16,7 +16,8 @@ class BirthdayPickerViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Enter date of birth"
-        textField.font = .systemFont(ofSize: 25)
+        textField.textColor = .lightGray
+        textField.font = UIFont(name: ".SFUIText-Medium", size: 25)
         textField.textAlignment = .center
         textField.layer.cornerRadius = 15
         textField.layer.borderWidth = 1
@@ -30,7 +31,8 @@ class BirthdayPickerViewController: UIViewController {
     lazy var applicationTitleLabel: DWAnimatedLabel = {
         let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 40, weight: .bold)
+        label.font = UIFont(name: ".SFUIText-Medium", size: 40)
+        label.textColor = .lightGray
         label.text = "NoL"
         label.textAlignment = .center
         label.animationType = .fade
@@ -113,7 +115,7 @@ class BirthdayPickerViewController: UIViewController {
     //MARK: @objc
     @objc func dateChangedInBithdayPicker() {
         birthdayField.shake()
-        applicationTitleLabel.font = .systemFont(ofSize: 25, weight: .bold)
+        applicationTitleLabel.font = .systemFont(ofSize: 35, weight: .bold)
         applicationTitleLabel.animationType = .fade
         applicationTitleLabel.startAnimation(duration: 5, nextText: "NotebookOfLife", .none)
         getDateFromBirthdayPicker()
