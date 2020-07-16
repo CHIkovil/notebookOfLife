@@ -15,14 +15,13 @@ class BirthdayPickerViewController: UIViewController {
     lazy var birthdayField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.font = UIFont(name: "Chalkduster", size: 20)
         textField.placeholder = "Enter date of birth"
         textField.textColor = .lightGray
-        textField.font = UIFont(name: ".SFUIText-Medium", size: 25)
         textField.textAlignment = .center
-        textField.layer.cornerRadius = 15
-        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = 25
+        textField.layer.borderWidth = 0.5
         textField.layer.borderColor = UIColor.lightGray.cgColor
-        textField.layer.cornerRadius = 20
         textField.tintColor = .clear
         textField.delegate = self
         return textField
@@ -31,9 +30,9 @@ class BirthdayPickerViewController: UIViewController {
     lazy var applicationTitleLabel: DWAnimatedLabel = {
         let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: ".SFUIText-Medium", size: 40)
-        label.textColor = .lightGray
         label.text = "NoL"
+        label.font = UIFont(name: "Chalkduster", size: 50)
+        label.textColor = .lightGray
         label.textAlignment = .center
         label.animationType = .fade
         return label
@@ -41,12 +40,11 @@ class BirthdayPickerViewController: UIViewController {
     
     lazy var saveBirthdayButton: WCLShineButton = {
         var param = WCLShineParams()
-        param.bigShineColor = UIColor(rgb: (153,152,38))
-        param.smallShineColor = UIColor(rgb: (102,102,102))
-        let button = WCLShineButton(frame: .init(x: 100, y: 100, width: 60, height: 60), params: param)
+        param.enableFlashing = true
+        param.animDuration = 2
+        let button = WCLShineButton(frame: .init(x: 100, y: 100, width: 55, height: 55), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.fillColor = UIColor(rgb: (153,152,38))
-        button.color = UIColor(rgb: (170,170,170))
+        button.image = .heart
         button.addTarget(self, action: #selector(saveBirthday), for: .valueChanged)
         return button
     }()
@@ -76,7 +74,7 @@ class BirthdayPickerViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        applicationTitleLabel.startAnimation(duration: 10, .none)
+        applicationTitleLabel.startAnimation(duration: 7, .none)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -103,7 +101,7 @@ class BirthdayPickerViewController: UIViewController {
         saveBirthdayButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         saveBirthdayButton.topAnchor.constraint(equalTo: birthdayField.bottomAnchor, constant: 10).isActive = true
         saveBirthdayButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
-        saveBirthdayButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        saveBirthdayButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
     }
     
     func getDateFromBirthdayPicker() {
@@ -115,7 +113,7 @@ class BirthdayPickerViewController: UIViewController {
     //MARK: @objc
     @objc func dateChangedInBithdayPicker() {
         birthdayField.shake()
-        applicationTitleLabel.font = .systemFont(ofSize: 35, weight: .bold)
+        applicationTitleLabel.font = UIFont(name: "Chalkduster", size: 35)
         applicationTitleLabel.animationType = .fade
         applicationTitleLabel.startAnimation(duration: 5, nextText: "NotebookOfLife", .none)
         getDateFromBirthdayPicker()
@@ -142,8 +140,8 @@ extension UITextField {
           animation.duration = 0.2
           animation.repeatCount = 5
           animation.autoreverses = true
-          animation.fromValue = CGPoint(x: self.center.x - 1.0, y: self.center.y)
-          animation.toValue = CGPoint(x: self.center.x + 1.0, y: self.center.y)
+        animation.fromValue = CGPoint(x: self.center.x - 0.7, y: self.center.y)
+        animation.toValue = CGPoint(x: self.center.x + 0.7, y: self.center.y)
           layer.add(animation, forKey: "position")
       }
 }
