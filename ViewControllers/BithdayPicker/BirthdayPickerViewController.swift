@@ -40,10 +40,9 @@ class BirthdayPickerViewController: UIViewController {
     
     lazy var saveBirthdayButton: WCLShineButton = {
         var param = WCLShineParams()
-        param.bigShineColor = UIColor(rgb: (255,255,255))
-        param.smallShineColor = UIColor(rgb: (255,255,255))
-        param.enableFlashing = false
-        param.animDuration = 0
+        param.bigShineColor = .white
+        param.smallShineColor = .white
+//        param.enableFlashing = false
         param.shineCount = 0
         param.shineSize = 0
         let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 60, height: 60), params: param)
@@ -70,7 +69,6 @@ class BirthdayPickerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        birthdayField.inputView = birthdayPicker
         view.addSubview(birthdayField)
         view.addSubview(applicationTitleLabel)
         view.addSubview(saveBirthdayButton)
@@ -83,6 +81,7 @@ class BirthdayPickerViewController: UIViewController {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
         applicationTitleLabel.startAnimation(duration: 7, .none)
+        birthdayField.inputView = birthdayPicker
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -113,31 +112,42 @@ class BirthdayPickerViewController: UIViewController {
     }
     
     func getDateFromBirthdayPicker() {
+        addAnimationSaveBirthdayButton()
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
         birthdayField.text = formatter.string(from: birthdayPicker.date)
     }
     
+    func addAnimationSaveBirthdayButton() {
+        saveBirthdayButton.params.enableFlashing = true
+        saveBirthdayButton.params.animDuration = 2
+        saveBirthdayButton.params.shineCount = 50
+        saveBirthdayButton.params.shineSize = 10
+        saveBirthdayButton.fillColor = UIColor(rgb: (153,152,38))
+    }
+    
+    func changeTextApplicationTitleLabel() {
+        guard applicationTitleLabel.text == "NotebookOfLife" else {
+            applicationTitleLabel.text = "NotebookOfLife"
+            applicationTitleLabel.font = UIFont(name: "Chalkduster", size: 35)
+            applicationTitleLabel.animationType = .fade
+            applicationTitleLabel.startAnimation(duration: 3, .none)
+            return
+        }
+    }
+    
     //MARK: @objc
     @objc func dateChangedInBithdayPicker() {
-        birthdayField.shake()
-        applicationTitleLabel.font = UIFont(name: "Chalkduster", size: 35)
-        applicationTitleLabel.animationType = .fade
-        applicationTitleLabel.startAnimation(duration: 5, nextText: "NotebookOfLife", .none)
+        changeTextApplicationTitleLabel()
         getDateFromBirthdayPicker()
+        birthdayField.shake()
+
     }
     
     @objc func saveBirthday() {
-        if  birthdayField.text == "" {
+        if birthdayField.text == "" {
             birthdayField.attention()
         } else {
-            saveBirthdayButton.fillColor = UIColor(rgb: (153,152,38))
-            saveBirthdayButton.params.smallShineColor = .random
-            saveBirthdayButton.params.bigShineColor = .random
-            saveBirthdayButton.params.enableFlashing = true
-            saveBirthdayButton.params.animDuration = 2
-            saveBirthdayButton.params.shineCount = 50
-            saveBirthdayButton.params.shineSize = 8
 //            RegistrationAndDateBirthday.dateBirthday = birthdayField.text
 //            let viewController = NewDayViewController()
 //            viewController.modalPresentationStyle = .fullScreen
@@ -175,14 +185,5 @@ extension UITextField {
         animationTwo.fromValue = 1
         animationTwo.toValue = 1.05
         layer.add(animationTwo, forKey: "transform.scale.y")
-    }
-}
-
-extension UIColor {
-    static var random: UIColor {
-        return UIColor(red: .random(in: 0...1),
-                       green: .random(in: 0...1),
-                       blue: .random(in: 0...1),
-                       alpha: 1.0)
     }
 }
