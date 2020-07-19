@@ -40,17 +40,25 @@ class BirthdayPickerViewController: UIViewController {
     
     lazy var saveBirthdayButton: WCLShineButton = {
         var param = WCLShineParams()
-        param.enableFlashing = true
-        param.animDuration = 2
-        let button = WCLShineButton(frame: .init(x: 100, y: 100, width: 55, height: 55), params: param)
+        param.bigShineColor = UIColor(rgb: (255,255,255))
+        param.smallShineColor = UIColor(rgb: (255,255,255))
+        param.enableFlashing = false
+        param.animDuration = 0
+        param.shineCount = 0
+        param.shineSize = 0
+        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 60, height: 60), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.image = .heart
+        button.color = .lightGray
+        button.fillColor = .lightGray
         button.addTarget(self, action: #selector(saveBirthday), for: .valueChanged)
         return button
     }()
     
     lazy var birthdayPicker:  UIDatePicker = {
         let datePicker = UIDatePicker()
+        datePicker.backgroundColor = .white
+        datePicker.setValue(UIColor.lightGray, forKey: "textColor")
         datePicker.datePickerMode = .date
         let localeID = Locale.preferredLanguages.first
         datePicker.locale = Locale(identifier: localeID!)
@@ -100,8 +108,8 @@ class BirthdayPickerViewController: UIViewController {
     func createConstraintsSaveBirthdayButton() {
         saveBirthdayButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         saveBirthdayButton.topAnchor.constraint(equalTo: birthdayField.bottomAnchor, constant: 10).isActive = true
-        saveBirthdayButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
-        saveBirthdayButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        saveBirthdayButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        saveBirthdayButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
     
     func getDateFromBirthdayPicker() {
@@ -120,12 +128,20 @@ class BirthdayPickerViewController: UIViewController {
     }
     
     @objc func saveBirthday() {
-        guard birthdayField.text == "" else {
-            RegistrationAndDateBirthday.dateBirthday = birthdayField.text
-            let viewController = NewDayViewController()
-            viewController.modalPresentationStyle = .fullScreen
-            self.present(viewController, animated: true, completion: nil)
-            return
+        if  birthdayField.text == "" {
+            birthdayField.attention()
+        } else {
+            saveBirthdayButton.fillColor = UIColor(rgb: (153,152,38))
+            saveBirthdayButton.params.smallShineColor = .random
+            saveBirthdayButton.params.bigShineColor = .random
+            saveBirthdayButton.params.enableFlashing = true
+            saveBirthdayButton.params.animDuration = 2
+            saveBirthdayButton.params.shineCount = 50
+            saveBirthdayButton.params.shineSize = 8
+//            RegistrationAndDateBirthday.dateBirthday = birthdayField.text
+//            let viewController = NewDayViewController()
+//            viewController.modalPresentationStyle = .fullScreen
+//            self.present(viewController, animated: true, completion: nil)
         }
     }
 }
@@ -136,12 +152,37 @@ extension BirthdayPickerViewController: UITextFieldDelegate {
 
 extension UITextField {
     func shake() {
-          let animation = CABasicAnimation(keyPath: "position")
-          animation.duration = 0.2
-          animation.repeatCount = 5
-          animation.autoreverses = true
-        animation.fromValue = CGPoint(x: self.center.x - 0.7, y: self.center.y)
-        animation.toValue = CGPoint(x: self.center.x + 0.7, y: self.center.y)
-          layer.add(animation, forKey: "position")
+        let animationTwo = CABasicAnimation(keyPath: "transform.scale.x")
+        animationTwo.duration = 0.3
+        animationTwo.repeatCount = 1
+        animationTwo.autoreverses = true
+        animationTwo.fromValue = 1
+        animationTwo.toValue = 1.03
+        layer.add(animationTwo, forKey: "transform.scale.x")
       }
+    func attention() {
+        let animationOne = CABasicAnimation(keyPath: "transform.scale.x")
+        animationOne.duration = 0.3
+        animationOne.repeatCount = 2
+        animationOne.autoreverses = true
+        animationOne.fromValue = 1
+        animationOne.toValue = 1.05
+        layer.add(animationOne, forKey: "transform.scale.x")
+        let animationTwo = CABasicAnimation(keyPath: "transform.scale.y")
+        animationTwo.duration = 0.3
+        animationTwo.repeatCount = 2
+        animationTwo.autoreverses = true
+        animationTwo.fromValue = 1
+        animationTwo.toValue = 1.05
+        layer.add(animationTwo, forKey: "transform.scale.y")
+    }
+}
+
+extension UIColor {
+    static var random: UIColor {
+        return UIColor(red: .random(in: 0...1),
+                       green: .random(in: 0...1),
+                       blue: .random(in: 0...1),
+                       alpha: 1.0)
+    }
 }
