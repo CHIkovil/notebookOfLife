@@ -8,6 +8,7 @@
 
 import UIKit
 import DWAnimatedLabel
+import WCLShineButton
 
 class NewDayViewController: UIViewController {
     //MARK: View
@@ -15,22 +16,22 @@ class NewDayViewController: UIViewController {
         let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "New day!"
-        label.font = .systemFont(ofSize: 40, weight: .bold)
+        label.font = UIFont(name: "Chalkduster", size: 60)
+        label.textColor = .lightGray
         label.animationType = .shine
         return label
     }()
     
-    lazy var startNewDayButton: UIButton = {
-        let button = UIButton()
+    lazy var startNewDayButton: WCLShineButton = {
+        var param = WCLShineParams()
+        param.enableFlashing = true
+        param.animDuration = 1
+        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 60, height: 60), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Start", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        
-        button.backgroundColor = .white
-        button.layer.cornerRadius = 20
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.lightGray.cgColor
-        button.addTarget(self, action: #selector(startNewDay), for: .touchUpInside)
+        button.image = .smile
+        button.color = .lightGray
+        button.fillColor = UIColor(rgb: (255,127,80))
+        button.addTarget(self, action: #selector(startNewDay), for: .valueChanged)
         return button
     }()
     //MARK: Override
@@ -46,7 +47,7 @@ class NewDayViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        newDayLabel.startAnimation(duration: 5, .none)
+        newDayLabel.startAnimation(duration: 7, .none)
     }
     //MARK: Func
     
@@ -61,11 +62,15 @@ class NewDayViewController: UIViewController {
     func createConstraintsStartNewDayButton() {
         startNewDayButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         startNewDayButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 7).isActive = true
-        startNewDayButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        startNewDayButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        startNewDayButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        startNewDayButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
     //MARK: @objc
     @objc func startNewDay() {
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.transitionDelayNextViewController), userInfo: nil, repeats: false)
+    }
+    
+    @objc func transitionDelayNextViewController() {
         let viewController = InputPlanViewController()
         viewController.modalPresentationStyle = .fullScreen
         self.present(viewController, animated: true, completion: nil)
