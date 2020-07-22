@@ -155,11 +155,11 @@ class BirthdayPickerViewController: UIViewController {
             birthdayField.attention()
         } else {
             RegistrationAndDateBirthday.dateBirthday = birthdayField.text
-            Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.transitionDelayNextViewController), userInfo: nil, repeats: false)
+            Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.transitionDelayNewDayViewController), userInfo: nil, repeats: false)
         }
     }
     
-    @objc func transitionDelayNextViewController() {
+    @objc func transitionDelayNewDayViewController() {
         let viewController = NewDayViewController()
         viewController.modalPresentationStyle = .fullScreen
         self.present(viewController, animated: true, completion: nil)

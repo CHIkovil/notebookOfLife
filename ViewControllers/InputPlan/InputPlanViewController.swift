@@ -8,6 +8,7 @@
 
 import UIKit
 import DWAnimatedLabel
+import WCLShineButton
 import InstantSearchVoiceOverlay
 
 class InputPlanViewController: UIViewController {
@@ -28,13 +29,14 @@ class InputPlanViewController: UIViewController {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.text = "Just do it!"
-        textView.font = .systemFont(ofSize: 20)
-        textView.textAlignment = .justified
-        textView.layer.cornerRadius = 10
-        textView.layer.borderWidth = 1
-        textView.layer.borderColor = UIColor.black.cgColor
-        textView.backgroundColor = .clear
+        textView.font = UIFont(name: "Chalkduster", size: 20)
+        textView.tintColor = .lightGray
         textView.textColor = .lightGray
+        textView.textAlignment = .justified
+        textView.layer.cornerRadius = 15
+        textView.layer.borderWidth = 1
+        textView.layer.borderColor = UIColor.lightGray.cgColor
+        textView.backgroundColor = .clear
         textView.delegate = self
         return textView
     }()
@@ -43,30 +45,39 @@ class InputPlanViewController: UIViewController {
         let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Target"
-        label.font = .systemFont(ofSize: 40, weight: .bold)
+        label.font = UIFont(name: "Chalkduster", size: 50)
         label.textAlignment = .center
         label.textColor = .white
         label.backgroundColor = .white
-        label.placeHolderColor = .black
+        label.placeHolderColor = .lightGray
         label.animationType = .wave
         return label
     }()
     
-    lazy var inputPlanButton: UIButton = {
-        let button = UIButton()
+    lazy var inputPlanButton: WCLShineButton = {
+        var param = WCLShineParams()
+        param.bigShineColor = .white
+        param.smallShineColor = .white
+        param.shineCount = 0
+        param.shineSize = 0
+        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 60, height: 60), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Let's go", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = .clear
-        button.layer.cornerRadius = 20
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.lightGray.cgColor
-        button.addTarget(self, action: #selector(inputPlan), for: .touchUpInside)
+        button.image = .heart
+        button.color = .lightGray
+        button.fillColor = .lightGray
+//        param.enableFlashing = true
+//        param.animDuration = 1
+//        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 60, height: 60), params: param)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.image = .like
+//        button.color = .lightGray
+//        button.fillColor = UIColor(rgb: (50,205,50))
+        button.addTarget(self, action: #selector(inputPlan), for: .valueChanged)
         return button
     }()
     
     lazy var voiceInputTextButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("+", for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -86,7 +97,6 @@ class InputPlanViewController: UIViewController {
         createConstraintsTargetTitleLabel()
         createConstraintsInputPlanButton()
         createConstraintsVoiceInputTextButton()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -120,8 +130,8 @@ class InputPlanViewController: UIViewController {
     func createConstraintsInputPlanButton() {
         inputPlanButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputPlanButton.topAnchor.constraint(equalTo: targetTextView.bottomAnchor, constant: 20).isActive = true
-        inputPlanButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
-        inputPlanButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        inputPlanButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        inputPlanButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
      }
     
     func createConstraintsVoiceInputTextButton() {
@@ -134,7 +144,7 @@ class InputPlanViewController: UIViewController {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if targetTextView.textColor == UIColor.lightGray {
             targetTextView.text = nil
-            targetTextView.textColor = UIColor.black
+            targetTextView.textColor = UIColor.lightGray
         }
     }
     
@@ -144,18 +154,13 @@ class InputPlanViewController: UIViewController {
             targetTextView.textColor = .lightGray
         }
     }
-    //MARK: @objc
-    @objc func inputPlan() {
-        if targetTextView.text == "Just do it!" || targetTextView.text == ""{
-            RegistrationAndDateBirthday.targetText = ""
-        } else {
-            RegistrationAndDateBirthday.targetText = targetTextView.text
-            let viewController = TimerViewController()
-            viewController.modalPresentationStyle = .fullScreen
-            self.present(viewController, animated: true, completion: nil)
-        }
-    }
     
+    func addAnimationInputPlanButton() {
+       inputPlanButton.params.enableFlashing = true
+       inputPlanButton.params.animDuration = 1
+       inputPlanButton.fillColor = UIColor(rgb: (50,205,50))
+    }
+    //MARK: @objc
     @objc func voiceInputText() {
         voiceOverlayInputPlanVC.start(on: self, textHandler: { text, final, _ in
             if final {
@@ -168,6 +173,21 @@ class InputPlanViewController: UIViewController {
             
         })
     }
+   
+    @objc func inputPlan() {
+        if targetTextView.text == "Just do it!" || targetTextView.text == "" {
+            targetTextView.attention()
+        } else {
+            RegistrationAndDateBirthday.targetText = targetTextView.text
+            Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.transitionDelayTimerViewController), userInfo: nil, repeats: false)
+        }
+    }
+    
+    @objc func transitionDelayTimerViewController() {
+//        let viewController = TimerViewController()
+//        viewController.modalPresentationStyle = .fullScreen
+//        self.present(viewController, animated: true, completion: nil)
+    }
 }
 //MARK: Extension
 extension InputPlanViewController: UITextViewDelegate {
@@ -177,5 +197,25 @@ extension InputPlanViewController: UITextViewDelegate {
 extension InputPlanViewController: VoiceOverlayDelegate {
     func recording(text: String?, final: Bool?, error: Error?) {
         
+    }
+}
+
+extension UITextView {
+    
+    func attention() {
+        let animationOne = CABasicAnimation(keyPath: "transform.scale.x")
+        animationOne.duration = 0.3
+        animationOne.repeatCount = 2
+        animationOne.autoreverses = true
+        animationOne.fromValue = 1
+        animationOne.toValue = 1.05
+        layer.add(animationOne, forKey: "transform.scale.x")
+        let animationTwo = CABasicAnimation(keyPath: "transform.scale.y")
+        animationTwo.duration = 0.3
+        animationTwo.repeatCount = 2
+        animationTwo.autoreverses = true
+        animationTwo.fromValue = 1
+        animationTwo.toValue = 1.05
+        layer.add(animationTwo, forKey: "transform.scale.y")
     }
 }

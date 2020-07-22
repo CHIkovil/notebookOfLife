@@ -67,10 +67,10 @@ class NewDayViewController: UIViewController {
     }
     //MARK: @objc
     @objc func startNewDay() {
-        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.transitionDelayNextViewController), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.transitionDelayInputPlanViewController), userInfo: nil, repeats: false)
     }
     
-    @objc func transitionDelayNextViewController() {
+    @objc func transitionDelayInputPlanViewController() {
         let viewController = InputPlanViewController()
         viewController.modalPresentationStyle = .fullScreen
         self.present(viewController, animated: true, completion: nil)
