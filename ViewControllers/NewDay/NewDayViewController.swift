@@ -26,6 +26,8 @@ class NewDayViewController: UIViewController {
         var param = WCLShineParams()
         param.enableFlashing = true
         param.animDuration = 1
+        param.shineCount = 10
+        param.shineSize = 15
         let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 60, height: 60), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.image = .smile

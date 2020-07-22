@@ -28,8 +28,8 @@ class InputPlanViewController: UIViewController {
     lazy var targetTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.text = "Just do it!"
-        textView.font = UIFont(name: "Chalkduster", size: 20)
+        textView.text = "One sentence is enough!"
+        textView.font = UIFont(name: "Chalkduster", size: 18)
         textView.tintColor = .lightGray
         textView.textColor = .lightGray
         textView.textAlignment = .justified
@@ -62,16 +62,9 @@ class InputPlanViewController: UIViewController {
         param.shineSize = 0
         let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 60, height: 60), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.image = .heart
+        button.image = .like
         button.color = .lightGray
         button.fillColor = .lightGray
-//        param.enableFlashing = true
-//        param.animDuration = 1
-//        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 60, height: 60), params: param)
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        button.image = .like
-//        button.color = .lightGray
-//        button.fillColor = UIColor(rgb: (50,205,50))
         button.addTarget(self, action: #selector(inputPlan), for: .valueChanged)
         return button
     }()
@@ -79,8 +72,7 @@ class InputPlanViewController: UIViewController {
     lazy var voiceInputTextButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("+", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setImage(UIImage(named: "Speech.png"), for: .normal)
         button.backgroundColor = .clear
         button.addTarget(self, action: #selector(voiceInputText), for: .touchUpInside)
         return button
@@ -135,10 +127,10 @@ class InputPlanViewController: UIViewController {
      }
     
     func createConstraintsVoiceInputTextButton() {
-        voiceInputTextButton.topAnchor.constraint(equalTo: targetTextView.topAnchor, constant: 5).isActive = true
-        voiceInputTextButton.trailingAnchor.constraint(equalTo: targetTextView.trailingAnchor, constant: -5).isActive = true
-        voiceInputTextButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        voiceInputTextButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        voiceInputTextButton.bottomAnchor.constraint(equalTo: targetTextView.topAnchor, constant: 6).isActive = true
+        voiceInputTextButton.leadingAnchor.constraint(equalTo: targetTextView.trailingAnchor, constant: -6).isActive = true
+        voiceInputTextButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        voiceInputTextButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -150,15 +142,17 @@ class InputPlanViewController: UIViewController {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if targetTextView.text.isEmpty {
-            targetTextView.text = "Just do it!"
+            targetTextView.text = "One sentence is enough!"
             targetTextView.textColor = .lightGray
         }
     }
     
     func addAnimationInputPlanButton() {
-       inputPlanButton.params.enableFlashing = true
-       inputPlanButton.params.animDuration = 1
-       inputPlanButton.fillColor = UIColor(rgb: (50,205,50))
+        inputPlanButton.params.enableFlashing = true
+        inputPlanButton.params.animDuration = 1
+        inputPlanButton.params.shineCount = 10
+        inputPlanButton.params.shineSize = 10
+        inputPlanButton.fillColor = UIColor(rgb: (50,205,50))
     }
     //MARK: @objc
     @objc func voiceInputText() {
@@ -175,11 +169,12 @@ class InputPlanViewController: UIViewController {
     }
    
     @objc func inputPlan() {
-        if targetTextView.text == "Just do it!" || targetTextView.text == "" {
+        if targetTextView.text == "One sentence is enough!" || targetTextView.text == "" {
             targetTextView.attention()
+            voiceInputTextButton.attention()
         } else {
-            RegistrationAndDateBirthday.targetText = targetTextView.text
-            Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.transitionDelayTimerViewController), userInfo: nil, repeats: false)
+//            RegistrationAndDateBirthday.targetText = targetTextView.text
+//            Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.transitionDelayTimerViewController), userInfo: nil, repeats: false)
         }
     }
     
@@ -191,7 +186,12 @@ class InputPlanViewController: UIViewController {
 }
 //MARK: Extension
 extension InputPlanViewController: UITextViewDelegate {
-    
+    func textViewDidChange(_ textView: UITextView) {
+        guard targetTextView.text == "One sentence is enough!" || targetTextView.text == "" else {
+            addAnimationInputPlanButton()
+            return
+        }
+    }
 }
 
 extension InputPlanViewController: VoiceOverlayDelegate {
@@ -216,6 +216,26 @@ extension UITextView {
         animationTwo.autoreverses = true
         animationTwo.fromValue = 1
         animationTwo.toValue = 1.05
+        layer.add(animationTwo, forKey: "transform.scale.y")
+    }
+}
+
+extension UIButton {
+    
+    func attention() {
+        let animationOne = CABasicAnimation(keyPath: "transform.scale.x")
+        animationOne.duration = 0.3
+        animationOne.repeatCount = 2
+        animationOne.autoreverses = true
+        animationOne.fromValue = 1
+        animationOne.toValue = 1.20
+        layer.add(animationOne, forKey: "transform.scale.x")
+        let animationTwo = CABasicAnimation(keyPath: "transform.scale.y")
+        animationTwo.duration = 0.3
+        animationTwo.repeatCount = 2
+        animationTwo.autoreverses = true
+        animationTwo.fromValue = 1
+        animationTwo.toValue = 1.20
         layer.add(animationTwo, forKey: "transform.scale.y")
     }
 }
