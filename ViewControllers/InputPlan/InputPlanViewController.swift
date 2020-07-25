@@ -33,7 +33,7 @@ class InputPlanViewController: UIViewController {
         textView.tintColor = .lightGray
         textView.textColor = .lightGray
         textView.textAlignment = .justified
-        textView.layer.cornerRadius = 15
+        textView.layer.cornerRadius = 30
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.lightGray.cgColor
         textView.backgroundColor = .clear
@@ -45,12 +45,10 @@ class InputPlanViewController: UIViewController {
         let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Target"
-        label.font = UIFont(name: "Chalkduster", size: 50)
+        label.font = UIFont(name: "Chalkduster", size: 55)
+        label.textColor = .lightGray
         label.textAlignment = .center
-        label.textColor = .white
-        label.backgroundColor = .white
-        label.placeHolderColor = .lightGray
-        label.animationType = .wave
+        label.animationType = .fade
         return label
     }()
     
@@ -60,9 +58,9 @@ class InputPlanViewController: UIViewController {
         param.smallShineColor = .white
         param.shineCount = 0
         param.shineSize = 0
-        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 60, height: 60), params: param)
+        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 80, height: 80), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.image = .like
+        button.image = .custom(UIImage(named: "penIcon.png")!)
         button.color = .lightGray
         button.fillColor = .lightGray
         button.addTarget(self, action: #selector(inputPlan), for: .valueChanged)
@@ -72,7 +70,7 @@ class InputPlanViewController: UIViewController {
     lazy var voiceInputTextButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "Speech.png"), for: .normal)
+        button.setImage(UIImage(named: "microphoneIcon.png"), for: .normal)
         button.backgroundColor = .clear
         button.addTarget(self, action: #selector(voiceInputText), for: .touchUpInside)
         return button
@@ -94,7 +92,8 @@ class InputPlanViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        targetTitleLabel.startAnimation(duration: 150, .none)
+        targetTitleLabel.startAnimation(duration: 7, .none)
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -121,14 +120,14 @@ class InputPlanViewController: UIViewController {
     //MARK: ConstraintsButton
     func createConstraintsInputPlanButton() {
         inputPlanButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        inputPlanButton.topAnchor.constraint(equalTo: targetTextView.bottomAnchor, constant: 20).isActive = true
-        inputPlanButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        inputPlanButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        inputPlanButton.topAnchor.constraint(equalTo: targetTextView.bottomAnchor, constant: 5).isActive = true
+        inputPlanButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        inputPlanButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
      }
     
     func createConstraintsVoiceInputTextButton() {
-        voiceInputTextButton.bottomAnchor.constraint(equalTo: targetTextView.topAnchor, constant: 6).isActive = true
-        voiceInputTextButton.leadingAnchor.constraint(equalTo: targetTextView.trailingAnchor, constant: -6).isActive = true
+        voiceInputTextButton.leadingAnchor.constraint(equalTo: targetTitleLabel.trailingAnchor, constant: 10).isActive = true
+        voiceInputTextButton.bottomAnchor.constraint(equalTo: targetTextView.topAnchor, constant: -28).isActive = true
         voiceInputTextButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         voiceInputTextButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
     }
@@ -152,7 +151,7 @@ class InputPlanViewController: UIViewController {
         inputPlanButton.params.animDuration = 1
         inputPlanButton.params.shineCount = 10
         inputPlanButton.params.shineSize = 10
-        inputPlanButton.fillColor = UIColor(rgb: (50,205,50))
+        inputPlanButton.fillColor = UIColor(rgb: (60,179,113))
     }
     //MARK: @objc
     @objc func voiceInputText() {
@@ -170,24 +169,24 @@ class InputPlanViewController: UIViewController {
    
     @objc func inputPlan() {
         if targetTextView.text == "One sentence is enough!" || targetTextView.text == "" {
-            targetTextView.attention()
-            voiceInputTextButton.attention()
+            targetTextView.attentionTextViewIPVC()
+            voiceInputTextButton.attentionButtonIPVC()
         } else {
-//            RegistrationAndDateBirthday.targetText = targetTextView.text
-//            Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.transitionDelayTimerViewController), userInfo: nil, repeats: false)
+            RegistrationAndDateBirthday.targetText = targetTextView.text
+            Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.transitionDelayTimerViewController), userInfo: nil, repeats: false)
         }
     }
     
     @objc func transitionDelayTimerViewController() {
-//        let viewController = TimerViewController()
-//        viewController.modalPresentationStyle = .fullScreen
-//        self.present(viewController, animated: true, completion: nil)
+        let viewController = TimerViewController()
+        viewController.modalPresentationStyle = .fullScreen
+        self.present(viewController, animated: true, completion: nil)
     }
 }
 //MARK: Extension
 extension InputPlanViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        guard targetTextView.text == "One sentence is enough!" || targetTextView.text == "" else {
+        guard textView.text == "One sentence is enough!" || textView.text == "" else {
             addAnimationInputPlanButton()
             return
         }
@@ -196,13 +195,11 @@ extension InputPlanViewController: UITextViewDelegate {
 
 extension InputPlanViewController: VoiceOverlayDelegate {
     func recording(text: String?, final: Bool?, error: Error?) {
-        
     }
 }
 
 extension UITextView {
-    
-    func attention() {
+    func attentionTextViewIPVC() {
         let animationOne = CABasicAnimation(keyPath: "transform.scale.x")
         animationOne.duration = 0.3
         animationOne.repeatCount = 2
@@ -221,8 +218,7 @@ extension UITextView {
 }
 
 extension UIButton {
-    
-    func attention() {
+    func attentionButtonIPVC() {
         let animationOne = CABasicAnimation(keyPath: "transform.scale.x")
         animationOne.duration = 0.3
         animationOne.repeatCount = 2

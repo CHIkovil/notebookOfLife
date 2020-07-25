@@ -31,10 +31,10 @@ class BirthdayPickerViewController: UIViewController {
         let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "NoL"
-        label.font = UIFont(name: "Chalkduster", size: 50)
+        label.font = UIFont(name: "Chalkduster", size: 55)
         label.textColor = .lightGray
         label.textAlignment = .center
-        label.animationType = .fade
+        label.animationType = .shine
         return label
     }()
     
@@ -46,7 +46,7 @@ class BirthdayPickerViewController: UIViewController {
         param.shineSize = 0
         let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 60, height: 60), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.image = .heart
+        button.image = .custom(UIImage(named: "dateIcon.png")!)
         button.color = .lightGray
         button.fillColor = .lightGray
         button.addTarget(self, action: #selector(saveBirthday), for: .valueChanged)
@@ -102,7 +102,7 @@ class BirthdayPickerViewController: UIViewController {
     func createConstraintsBirthdayField() {
         birthdayField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         birthdayField.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        birthdayField.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        birthdayField.widthAnchor.constraint(equalToConstant: 260).isActive = true
         birthdayField.heightAnchor.constraint(equalToConstant: 50).isActive =  true
     }
     //MARK: ConstraintsLabel
@@ -113,7 +113,7 @@ class BirthdayPickerViewController: UIViewController {
     //MARK: ConstraintsButton
     func createConstraintsSaveBirthdayButton() {
         saveBirthdayButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        saveBirthdayButton.topAnchor.constraint(equalTo: birthdayField.bottomAnchor, constant: 10).isActive = true
+        saveBirthdayButton.topAnchor.constraint(equalTo: birthdayField.bottomAnchor, constant: 7).isActive = true
         saveBirthdayButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
         saveBirthdayButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
@@ -123,13 +123,14 @@ class BirthdayPickerViewController: UIViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
         birthdayField.text = formatter.string(from: birthdayPicker.date)
+        birthdayField.font = UIFont(name: "Chalkduster", size: 25)
     }
     
     func addAnimationSaveBirthdayButton() {
         saveBirthdayButton.params.enableFlashing = true
         saveBirthdayButton.params.animDuration = 1
-        saveBirthdayButton.params.shineCount = 50
-        saveBirthdayButton.params.shineSize = 10
+        saveBirthdayButton.params.shineCount = 10
+        saveBirthdayButton.params.shineSize = 12
         saveBirthdayButton.fillColor = UIColor(rgb: (153,152,38))
     }
     
@@ -137,8 +138,8 @@ class BirthdayPickerViewController: UIViewController {
         guard applicationTitleLabel.text == "NotebookOfLife" else {
             applicationTitleLabel.text = "NotebookOfLife"
             applicationTitleLabel.font = UIFont(name: "Chalkduster", size: 35)
-            applicationTitleLabel.animationType = .fade
-            applicationTitleLabel.startAnimation(duration: 5, .none)
+            applicationTitleLabel.animationType = .shine
+            applicationTitleLabel.startAnimation(duration: 7, .none)
             return
         }
     }
@@ -146,13 +147,12 @@ class BirthdayPickerViewController: UIViewController {
     @objc func dateChangedInBithdayPicker() {
         changeTextApplicationTitleLabel()
         getDateFromBirthdayPicker()
-        birthdayField.shake()
-
+        birthdayField.shakeTextFieldBPVC()
     }
     
     @objc func saveBirthday() {
         if birthdayField.text == "" {
-            birthdayField.attention()
+            birthdayField.attentionTextFieldBPVC()
         } else {
             RegistrationAndDateBirthday.dateBirthday = birthdayField.text
             Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.transitionDelayNewDayViewController), userInfo: nil, repeats: false)
@@ -167,35 +167,33 @@ class BirthdayPickerViewController: UIViewController {
 }
 //MARK: Extension
 extension BirthdayPickerViewController: UITextFieldDelegate {
-    
 }
 
 extension UITextField {
-    
-    func shake() {
+    func shakeTextFieldBPVC() {
         let animationTwo = CABasicAnimation(keyPath: "transform.scale.x")
         animationTwo.duration = 0.3
         animationTwo.repeatCount = 1
         animationTwo.autoreverses = true
         animationTwo.fromValue = 1
-        animationTwo.toValue = 1.03
+        animationTwo.toValue = 1.02
         layer.add(animationTwo, forKey: "transform.scale.x")
       }
     
-    func attention() {
+    func attentionTextFieldBPVC() {
         let animationOne = CABasicAnimation(keyPath: "transform.scale.x")
         animationOne.duration = 0.3
         animationOne.repeatCount = 2
         animationOne.autoreverses = true
         animationOne.fromValue = 1
-        animationOne.toValue = 1.05
+        animationOne.toValue = 1.04
         layer.add(animationOne, forKey: "transform.scale.x")
         let animationTwo = CABasicAnimation(keyPath: "transform.scale.y")
         animationTwo.duration = 0.3
         animationTwo.repeatCount = 2
         animationTwo.autoreverses = true
         animationTwo.fromValue = 1
-        animationTwo.toValue = 1.05
+        animationTwo.toValue = 1.04
         layer.add(animationTwo, forKey: "transform.scale.y")
     }
 }

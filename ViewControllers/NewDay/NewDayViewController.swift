@@ -28,9 +28,9 @@ class NewDayViewController: UIViewController {
         param.animDuration = 1
         param.shineCount = 10
         param.shineSize = 15
-        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 60, height: 60), params: param)
+        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 90, height: 90), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.image = .smile
+        button.image = .custom(UIImage(named: "handshakeIcon.png")!)
         button.color = .lightGray
         button.fillColor = UIColor(rgb: (255,127,80))
         button.addTarget(self, action: #selector(startNewDay), for: .valueChanged)
@@ -58,14 +58,14 @@ class NewDayViewController: UIViewController {
     //MARK: ConstraintsLabel
     func createConstraintsNewDayLabel() {
         newDayLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        newDayLabel.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: -7).isActive = true
+        newDayLabel.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: -5).isActive = true
     }
     //MARK: ConstraintsButton
     func createConstraintsStartNewDayButton() {
         startNewDayButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         startNewDayButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 7).isActive = true
-        startNewDayButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        startNewDayButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        startNewDayButton.widthAnchor.constraint(equalToConstant: 90).isActive = true
+        startNewDayButton.heightAnchor.constraint(equalToConstant: 90).isActive = true
     }
     //MARK: @objc
     @objc func startNewDay() {

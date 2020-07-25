@@ -8,6 +8,7 @@
 
 import UIKit
 import CountdownLabel
+import DWAnimatedLabel
 
 class TimerViewController: UIViewController {
     //MARK: Let, Var
@@ -18,18 +19,23 @@ class TimerViewController: UIViewController {
     lazy var targetView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 5
+        view.layer.cornerRadius = 30
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.black.cgColor
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.backgroundColor = .clear
         return view
     }()
     
-    lazy var planTitleLabel: UILabel = {
-        let label = UILabel()
+    lazy var planTitleLabel: DWAnimatedLabel = {
+        let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "My plan"
-        label.font = .systemFont(ofSize: 40, weight: .bold)
+        label.font = UIFont(name: "Chalkduster", size: 45)
         label.textAlignment = .center
+        label.textColor = UIColor(rgb: (135,206,250))
+        label.backgroundColor = .white
+        label.placeHolderColor = .lightGray
+        label.animationType = .wave
         return label
     }()
     
@@ -39,7 +45,8 @@ class TimerViewController: UIViewController {
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.text = RegistrationAndDateBirthday.targetText
-        label.font = .systemFont(ofSize: 25)
+        label.font = UIFont(name: "Chalkduster", size: 20)
+        label.textColor = .lightGray
         label.textAlignment = .justified
         return label
     }()
@@ -47,12 +54,10 @@ class TimerViewController: UIViewController {
     lazy var timerLabel: CountdownLabel = {
         let label = CountdownLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name:"Courier", size: 30)
-        label.animationType = .Evaporate
+        label.font = UIFont(name: "Chalkduster", size: 35)
+        label.textColor = .orange
+        label.animationType = .Fall
         label.textAlignment = .center
-        label.layer.cornerRadius = 5
-        label.layer.borderWidth = 1
-        label.layer.borderColor = UIColor.black.cgColor
         label.countdownDelegate = self
         return label
     }()
@@ -61,24 +66,23 @@ class TimerViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = lifeTime
-        label.font = .systemFont(ofSize: 10)
+        label.font = UIFont(name: "Chalkduster", size: 15)
+        label.textColor = .lightGray
         label.textAlignment = .center
-        label.layer.cornerRadius = 5
-        label.layer.borderWidth = 1
-        label.layer.borderColor = UIColor.black.cgColor
+        label.layer.cornerRadius = 15
+        label.layer.borderWidth = 0.5
+        label.layer.borderColor = UIColor.lightGray.cgColor
         return label
     }()
     
     lazy var inputNotesButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("N", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setImage(UIImage(named: "thinkingIcon.png"), for: .normal)
         button.backgroundColor = .clear
         button.addTarget(self, action: #selector(addNotes), for: .touchUpInside)
         return button
     }()
-    
     
     //MARK: Override
     override func viewDidLoad() {
@@ -105,6 +109,7 @@ class TimerViewController: UIViewController {
         getNowDateInSecondsForTimer()
         timerLabel.setCountDownTime(minutes: counterTime)
         timerLabel.start()
+        planTitleLabel.startAnimation(duration: 150, .none)
     }
     //MARK: Func
     
@@ -112,8 +117,8 @@ class TimerViewController: UIViewController {
     
     //MARK: ConstraintsView
     func createConstraintsTargetView(){
-        targetView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
-        targetView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
+        targetView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
+        targetView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
         targetView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         targetView.heightAnchor.constraint(equalToConstant: 150).isActive = true
     }
@@ -125,31 +130,30 @@ class TimerViewController: UIViewController {
     
     func createConstraintsTargetLabel(){
         targetLabel.topAnchor.constraint(equalTo: targetView.topAnchor, constant: 5).isActive = true
-        targetLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 70).isActive = true
-        targetLabel.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -70).isActive = true
+        targetLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60).isActive = true
+        targetLabel.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -60).isActive = true
         targetLabel.heightAnchor.constraint(lessThanOrEqualToConstant: 140).isActive = true
     }
     
     func createConstraintsTimerLabel(){
-        timerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100).isActive = true
-        timerLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -100).isActive = true
-        timerLabel.topAnchor.constraint(equalTo: targetView.bottomAnchor, constant: 20).isActive = true
-        timerLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        timerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 90).isActive = true
+        timerLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -90).isActive = true
+        timerLabel.topAnchor.constraint(equalTo: targetView.bottomAnchor, constant: 1).isActive = true
+        timerLabel.heightAnchor.constraint(equalToConstant: 110).isActive = true
     }
     
     func createConstraintsLifeTimeLabel(){
-        lifeTimeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 140).isActive = true
-        lifeTimeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -140).isActive = true
-        lifeTimeLabel.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 10).isActive = true
+        lifeTimeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 90).isActive = true
+        lifeTimeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -90).isActive = true
+        lifeTimeLabel.topAnchor.constraint(equalTo: targetView.bottomAnchor, constant: 5).isActive = true
         lifeTimeLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
-
     }
     //MARK: ConstraintsButton
     func createConstraintsInputNotesButton(){
-        inputNotesButton.topAnchor.constraint(equalTo: targetView.topAnchor, constant: 5).isActive = true
-        inputNotesButton.trailingAnchor.constraint(equalTo: targetView.trailingAnchor, constant: -5).isActive = true
-        inputNotesButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        inputNotesButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        inputNotesButton.leadingAnchor.constraint(equalTo: planTitleLabel.trailingAnchor, constant: 7).isActive = true
+        inputNotesButton.bottomAnchor.constraint(equalTo: targetView.topAnchor, constant: -26).isActive = true
+        inputNotesButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        inputNotesButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
     }
     
     func conversionDateBirthdayForLifeTimeLabel() {
@@ -158,7 +162,7 @@ class TimerViewController: UIViewController {
         let date = Date()
         let calendar = Calendar.current
         let startDate = formatter.date(from: RegistrationAndDateBirthday.dateBirthday!)
-        lifeTime = "Your " + String(calendar.dateComponents([.day], from: startDate!, to: date).day! + 1) + " day:)"
+        lifeTime = "Your " + String(calendar.dateComponents([.day], from: startDate!, to: date).day! + 1) + " day"
     }
 
     func getNowDateInSecondsForTimer() {
@@ -179,10 +183,53 @@ class TimerViewController: UIViewController {
 }
 
 extension TimerViewController: CountdownLabelDelegate {
+    func countingAt(timeCounted: TimeInterval, timeRemaining: TimeInterval) {
+        inputNotesButton.attentionButtonTVC()
+        targetView.attentionViewTVC()
+    }
+    
     func countdownFinished() {
         RegistrationAndDateBirthday.targetText = nil
         let viewController = NewDayViewController()
         viewController.modalPresentationStyle = .fullScreen
         self.present(viewController, animated: true, completion: nil)
+    }
+}
+
+extension UIButton {
+    func attentionButtonTVC() {
+        let animationOne = CABasicAnimation(keyPath: "transform.scale.x")
+        animationOne.duration = 0.3
+        animationOne.repeatCount = 1
+        animationOne.autoreverses = true
+        animationOne.fromValue = 1
+        animationOne.toValue = 1.02
+        layer.add(animationOne, forKey: "transform.scale.x")
+        let animationTwo = CABasicAnimation(keyPath: "transform.scale.y")
+        animationTwo.duration = 0.3
+        animationTwo.repeatCount = 1
+        animationTwo.autoreverses = true
+        animationTwo.fromValue = 1
+        animationTwo.toValue = 1.02
+        layer.add(animationTwo, forKey: "transform.scale.y")
+    }
+}
+
+extension UIView {
+    func attentionViewTVC() {
+        let animationOne = CABasicAnimation(keyPath: "transform.scale.x")
+        animationOne.duration = 0.3
+        animationOne.repeatCount = 1
+        animationOne.autoreverses = true
+        animationOne.fromValue = 1
+        animationOne.toValue = 1.005
+        layer.add(animationOne, forKey: "transform.scale.x")
+        let animationTwo = CABasicAnimation(keyPath: "transform.scale.y")
+        animationTwo.duration = 0.3
+        animationTwo.repeatCount = 1
+        animationTwo.autoreverses = true
+        animationTwo.fromValue = 1
+        animationTwo.toValue = 1.005
+        layer.add(animationTwo, forKey: "transform.scale.y")
     }
 }
