@@ -32,7 +32,7 @@ class InputPlanViewController: UIViewController {
         textView.font = UIFont(name: "Chalkduster", size: 18)
         textView.tintColor = .lightGray
         textView.textColor = .lightGray
-        textView.textAlignment = .justified
+        textView.textAlignment = .center
         textView.layer.cornerRadius = 30
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.lightGray.cgColor
@@ -93,6 +93,7 @@ class InputPlanViewController: UIViewController {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
         targetTitleLabel.startAnimation(duration: 7, .none)
+        Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.appearVC), userInfo: nil, repeats: false)
         
     }
     
@@ -181,6 +182,11 @@ class InputPlanViewController: UIViewController {
         let viewController = TimerViewController()
         viewController.modalPresentationStyle = .fullScreen
         self.present(viewController, animated: true, completion: nil)
+    }
+    
+    @objc func appearVC() {
+        targetTextView.attentionTextViewIPVC()
+        voiceInputTextButton.attentionButtonIPVC()
     }
 }
 //MARK: Extension

@@ -47,14 +47,14 @@ class TimerViewController: UIViewController {
         label.text = RegistrationAndDateBirthday.targetText
         label.font = UIFont(name: "Chalkduster", size: 20)
         label.textColor = .lightGray
-        label.textAlignment = .justified
+        label.textAlignment = .center
         return label
     }()
     
     lazy var timerLabel: CountdownLabel = {
         let label = CountdownLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "Chalkduster", size: 35)
+        label.font = UIFont(name: "Chalkduster", size: 50)
         label.textColor = .orange
         label.animationType = .Fall
         label.textAlignment = .center
@@ -136,10 +136,10 @@ class TimerViewController: UIViewController {
     }
     
     func createConstraintsTimerLabel(){
-        timerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 90).isActive = true
-        timerLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -90).isActive = true
+        timerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60).isActive = true
+        timerLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60).isActive = true
         timerLabel.topAnchor.constraint(equalTo: targetView.bottomAnchor, constant: 1).isActive = true
-        timerLabel.heightAnchor.constraint(equalToConstant: 110).isActive = true
+        timerLabel.heightAnchor.constraint(equalToConstant: 140).isActive = true
     }
     
     func createConstraintsLifeTimeLabel(){

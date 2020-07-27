@@ -89,6 +89,7 @@ class BirthdayPickerViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
         applicationTitleLabel.startAnimation(duration: 7, .none)
         birthdayField.inputView = birthdayPicker
+        Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.appearVC), userInfo: nil, repeats: false)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -113,7 +114,7 @@ class BirthdayPickerViewController: UIViewController {
     //MARK: ConstraintsButton
     func createConstraintsSaveBirthdayButton() {
         saveBirthdayButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        saveBirthdayButton.topAnchor.constraint(equalTo: birthdayField.bottomAnchor, constant: 7).isActive = true
+        saveBirthdayButton.topAnchor.constraint(equalTo: birthdayField.bottomAnchor, constant: 15).isActive = true
         saveBirthdayButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
         saveBirthdayButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
@@ -163,6 +164,10 @@ class BirthdayPickerViewController: UIViewController {
         let viewController = NewDayViewController()
         viewController.modalPresentationStyle = .fullScreen
         self.present(viewController, animated: true, completion: nil)
+    }
+    
+    @objc func appearVC() {
+        birthdayField.attentionTextFieldBPVC()
     }
 }
 //MARK: Extension
