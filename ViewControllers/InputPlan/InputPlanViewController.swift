@@ -32,10 +32,11 @@ class InputPlanViewController: UIViewController {
         textView.font = UIFont(name: "Chalkduster", size: 18)
         textView.tintColor = .lightGray
         textView.textColor = .lightGray
-        textView.textAlignment = .center
+        textView.textAlignment = .justified
         textView.layer.cornerRadius = 30
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.lightGray.cgColor
+        textView.tintColor = .clear
         textView.backgroundColor = .clear
         textView.delegate = self
         return textView
@@ -134,16 +135,16 @@ class InputPlanViewController: UIViewController {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if targetTextView.textColor == UIColor.lightGray {
+        if targetTextView.textColor == .lightGray {
             targetTextView.text = nil
-            targetTextView.textColor = UIColor.lightGray
+            targetTextView.textColor = .lightGray
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if targetTextView.text.isEmpty {
             targetTextView.text = "One sentence is enough!"
-            targetTextView.textColor = .lightGray
+//            targetTextView.textColor = .lightGray
         }
     }
     
@@ -160,7 +161,7 @@ class InputPlanViewController: UIViewController {
             if final {
             
             } else {
-                self.targetTextView.textColor = .black
+//                self.targetTextView.textColor = .lightGray
                 self.targetTextView.text = text
             }
         }, errorHandler: { error in
@@ -218,7 +219,7 @@ extension UITextView {
         animationTwo.repeatCount = 2
         animationTwo.autoreverses = true
         animationTwo.fromValue = 1
-        animationTwo.toValue = 1.05
+        animationTwo.toValue = 1.02
         layer.add(animationTwo, forKey: "transform.scale.y")
     }
 }
@@ -230,14 +231,14 @@ extension UIButton {
         animationOne.repeatCount = 2
         animationOne.autoreverses = true
         animationOne.fromValue = 1
-        animationOne.toValue = 1.20
+        animationOne.toValue = 1.10
         layer.add(animationOne, forKey: "transform.scale.x")
         let animationTwo = CABasicAnimation(keyPath: "transform.scale.y")
         animationTwo.duration = 0.3
         animationTwo.repeatCount = 2
         animationTwo.autoreverses = true
         animationTwo.fromValue = 1
-        animationTwo.toValue = 1.20
+        animationTwo.toValue = 1.10
         layer.add(animationTwo, forKey: "transform.scale.y")
     }
 }

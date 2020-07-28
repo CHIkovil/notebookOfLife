@@ -8,6 +8,7 @@
 
 import UIKit
 import DWAnimatedLabel
+import WCLShineButton
 import InstantSearchVoiceOverlay
 
 class NotesViewController: UIViewController {
@@ -28,13 +29,15 @@ class NotesViewController: UIViewController {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.text = "What have you decided?"
-        textView.font = .systemFont(ofSize: 20)
-        textView.textAlignment = .justified
-        textView.layer.cornerRadius = 10
-        textView.layer.borderWidth = 1
-        textView.layer.borderColor = UIColor.black.cgColor
-        textView.backgroundColor = .clear
+        textView.font = UIFont(name: "Chalkduster", size: 18)
+        textView.tintColor = .lightGray
         textView.textColor = .lightGray
+        textView.textAlignment = .justified
+        textView.layer.cornerRadius = 30
+        textView.layer.borderWidth = 1
+        textView.layer.borderColor = UIColor.lightGray.cgColor
+        textView.tintColor = .clear
+        textView.backgroundColor = .clear
         textView.delegate = self
         return textView
     }()
@@ -43,25 +46,24 @@ class NotesViewController: UIViewController {
         let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Notes"
-        label.font = .systemFont(ofSize: 40, weight: .bold)
+        label.font = UIFont(name: "Chalkduster", size: 55)
+        label.textColor = .lightGray
         label.textAlignment = .center
-        label.textColor = .white
-        label.backgroundColor = .white
-        label.placeHolderColor = .black
-        label.animationType = .wave
+        label.animationType = .fade
         return label
     }()
     
-    lazy var inputNotesButton: UIButton = {
-        let button = UIButton()
+    lazy var inputNotesButton: WCLShineButton = {
+        var param = WCLShineParams()
+        param.bigShineColor = .white
+        param.smallShineColor = .white
+        param.shineCount = 0
+        param.shineSize = 0
+        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 80, height: 80), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Let it rain", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        
-        button.backgroundColor = .clear
-        button.layer.cornerRadius = 20
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.image = .custom(UIImage(named: "penIcon.png")!)
+        button.color = .lightGray
+        button.fillColor = .lightGray
         button.addTarget(self, action: #selector(inputNotes), for: .touchUpInside)
         return button
     }()
@@ -69,8 +71,7 @@ class NotesViewController: UIViewController {
     lazy var voiceInputTextNotesButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("+", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setImage(UIImage(named: "microphoneIcon.png"), for: .normal)
         button.backgroundColor = .clear
         button.addTarget(self, action: #selector(voiceInputTextNotes), for: .touchUpInside)
         return button
@@ -92,7 +93,8 @@ class NotesViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        notesTitleLabel.startAnimation(duration: 150, .none)
+        notesTitleLabel.startAnimation(duration: 7, .none)
+        Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.appearVC), userInfo: nil, repeats: false)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -119,38 +121,53 @@ class NotesViewController: UIViewController {
     //MARK: ConstraintsButton
     func createConstraintsInputNotesButton() {
         inputNotesButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        inputNotesButton.topAnchor.constraint(equalTo: notesTextView.bottomAnchor, constant: 20).isActive = true
-        inputNotesButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
-        inputNotesButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        inputNotesButton.topAnchor.constraint(equalTo: notesTextView.bottomAnchor, constant: 5).isActive = true
+        inputNotesButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        inputNotesButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
      }
     
     func createConstraintsVoiceInputTextNotesButton() {
-        voiceInputTextNotesButton.topAnchor.constraint(equalTo: notesTextView.topAnchor, constant: 5).isActive = true
-        voiceInputTextNotesButton.trailingAnchor.constraint(equalTo: notesTextView.trailingAnchor, constant: -5).isActive = true
-        voiceInputTextNotesButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        voiceInputTextNotesButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        voiceInputTextNotesButton.leadingAnchor.constraint(equalTo: notesTitleLabel.trailingAnchor, constant: 10).isActive = true
+        voiceInputTextNotesButton.bottomAnchor.constraint(equalTo: notesTextView.topAnchor, constant: -28).isActive = true
+        voiceInputTextNotesButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        voiceInputTextNotesButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if notesTextView.textColor == UIColor.lightGray {
+        if notesTextView.textColor == .lightGray {
             notesTextView.text = nil
-            notesTextView.textColor = UIColor.black
+            notesTextView.textColor = .lightGray
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if notesTextView.text.isEmpty {
             notesTextView.text = "What have you decided?"
-            notesTextView.textColor = .lightGray
+//            notesTextView.textColor = .lightGray
         }
     }
+    
+    func addAnimationInputNotesButton() {
+         inputNotesButton.params.enableFlashing = true
+         inputNotesButton.params.animDuration = 1
+         inputNotesButton.params.shineCount = 10
+         inputNotesButton.params.shineSize = 10
+         inputNotesButton.fillColor = UIColor(rgb: (60,179,113))
+     }
+    
     //MARK: @objc
     @objc func inputNotes() {
         if notesTextView.text == "What have you decided?" || notesTextView.text == ""{
-            
+            notesTextView.attentionTextViewNVC()
+            voiceInputTextNotesButton.attentionButtonNVC()
         } else {
-            self.dismissMe(animated: true)
+            Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.transitionDelayTimerViewController), userInfo: nil, repeats: false)
+            
         }
+    }
+    
+    @objc func transitionDelayTimerViewController() {
+        self.dismissMe(animated: true)
     }
     
     @objc func voiceInputTextNotes() {
@@ -158,21 +175,69 @@ class NotesViewController: UIViewController {
             if final {
             
             } else {
-                self.notesTextView.textColor = .black
+//                self.notesTextView.textColor = .lightGray
                 self.notesTextView.text = text
             }
         }, errorHandler: { error in
             
         })
     }
+    
+    @objc func appearVC() {
+        notesTextView.attentionTextViewNVC()
+        voiceInputTextNotesButton.attentionButtonNVC()
+    }
 }
 //MARK: Extension
 extension NotesViewController: UITextViewDelegate {
-    
+    func textViewDidChange(_ textView: UITextView) {
+        guard textView.text == "What have you decided?" || textView.text == "" else {
+            addAnimationInputNotesButton()
+            return
+        }
+    }
 }
 
 extension NotesViewController: VoiceOverlayDelegate {
     func recording(text: String?, final: Bool?, error: Error?) {
         
+    }
+}
+
+extension UITextView {
+    func attentionTextViewNVC() {
+        let animationOne = CABasicAnimation(keyPath: "transform.scale.x")
+        animationOne.duration = 0.3
+        animationOne.repeatCount = 2
+        animationOne.autoreverses = true
+        animationOne.fromValue = 1
+        animationOne.toValue = 1.05
+        layer.add(animationOne, forKey: "transform.scale.x")
+        let animationTwo = CABasicAnimation(keyPath: "transform.scale.y")
+        animationTwo.duration = 0.3
+        animationTwo.repeatCount = 2
+        animationTwo.autoreverses = true
+        animationTwo.fromValue = 1
+        animationTwo.toValue = 1.02
+        layer.add(animationTwo, forKey: "transform.scale.y")
+    }
+}
+
+extension UIButton {
+    func attentionButtonNVC() {
+        let animationOne = CABasicAnimation(keyPath: "transform.scale.x")
+        animationOne.duration = 0.3
+        animationOne.repeatCount = 2
+        animationOne.autoreverses = true
+        animationOne.fromValue = 1
+        animationOne.toValue = 1.10
+        layer.add(animationOne, forKey: "transform.scale.x")
+        let animationTwo = CABasicAnimation(keyPath: "transform.scale.y")
+        animationTwo.duration = 0.3
+        animationTwo.repeatCount = 2
+        animationTwo.autoreverses = true
+        animationTwo.fromValue = 1
+        animationTwo.toValue = 1.10
+        layer.add(animationTwo, forKey: "transform.scale.y")
     }
 }

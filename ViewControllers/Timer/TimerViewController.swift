@@ -151,7 +151,7 @@ class TimerViewController: UIViewController {
     //MARK: ConstraintsButton
     func createConstraintsInputNotesButton(){
         inputNotesButton.leadingAnchor.constraint(equalTo: planTitleLabel.trailingAnchor, constant: 7).isActive = true
-        inputNotesButton.bottomAnchor.constraint(equalTo: targetView.topAnchor, constant: -26).isActive = true
+        inputNotesButton.bottomAnchor.constraint(equalTo: targetView.topAnchor, constant: -24).isActive = true
         inputNotesButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         inputNotesButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
     }
@@ -181,7 +181,7 @@ class TimerViewController: UIViewController {
         self.present(viewController, animated: true, completion: nil)
     }
 }
-
+//MARK: Extension
 extension TimerViewController: CountdownLabelDelegate {
     func countingAt(timeCounted: TimeInterval, timeRemaining: TimeInterval) {
         inputNotesButton.attentionButtonTVC()
