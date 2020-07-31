@@ -69,6 +69,7 @@ class BirthdayPickerViewController: UIViewController {
         let minDate = calendar.date(byAdding: comps, to: Date())
         datePicker.maximumDate = maxDate
         datePicker.minimumDate = minDate
+        datePicker.dat
         return datePicker
     }()
     
@@ -152,6 +153,8 @@ class BirthdayPickerViewController: UIViewController {
     }
     
     @objc func saveBirthday() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
         if birthdayField.text == "" {
             birthdayField.attentionTextFieldBPVC()
         } else {

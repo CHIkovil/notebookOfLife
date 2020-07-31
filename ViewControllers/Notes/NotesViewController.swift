@@ -37,7 +37,7 @@ class NotesViewController: UIViewController {
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.lightGray.cgColor
         textView.tintColor = .clear
-        textView.backgroundColor = .clear
+        textView.backgroundColor = .lightGray
         textView.delegate = self
         return textView
     }()
@@ -134,16 +134,14 @@ class NotesViewController: UIViewController {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if notesTextView.textColor == .lightGray {
+        if notesTextView.text == "What have you decided?" {
             notesTextView.text = nil
-            notesTextView.textColor = .lightGray
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if notesTextView.text.isEmpty {
             notesTextView.text = "What have you decided?"
-//            notesTextView.textColor = .lightGray
         }
     }
     
@@ -175,7 +173,6 @@ class NotesViewController: UIViewController {
             if final {
             
             } else {
-//                self.notesTextView.textColor = .lightGray
                 self.notesTextView.text = text
             }
         }, errorHandler: { error in
@@ -241,3 +238,5 @@ extension UIButton {
         layer.add(animationTwo, forKey: "transform.scale.y")
     }
 }
+
+

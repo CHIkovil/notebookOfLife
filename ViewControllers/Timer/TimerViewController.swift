@@ -55,7 +55,7 @@ class TimerViewController: UIViewController {
         let label = CountdownLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Chalkduster", size: 50)
-        label.textColor = .orange
+        label.textColor = .lightGray
         label.animationType = .Fall
         label.textAlignment = .center
         label.countdownDelegate = self

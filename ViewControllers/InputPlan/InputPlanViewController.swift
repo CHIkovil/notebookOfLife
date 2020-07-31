@@ -36,7 +36,7 @@ class InputPlanViewController: UIViewController {
         textView.layer.cornerRadius = 30
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.lightGray.cgColor
-        textView.tintColor = .clear
+        textView.tintColor = .lightGray
         textView.backgroundColor = .clear
         textView.delegate = self
         return textView
@@ -135,16 +135,14 @@ class InputPlanViewController: UIViewController {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if targetTextView.textColor == .lightGray {
+        if targetTextView.text == "One sentence is enough!"{
             targetTextView.text = nil
-            targetTextView.textColor = .lightGray
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if targetTextView.text.isEmpty {
             targetTextView.text = "One sentence is enough!"
-//            targetTextView.textColor = .lightGray
         }
     }
     
@@ -161,7 +159,6 @@ class InputPlanViewController: UIViewController {
             if final {
             
             } else {
-//                self.targetTextView.textColor = .lightGray
                 self.targetTextView.text = text
             }
         }, errorHandler: { error in
