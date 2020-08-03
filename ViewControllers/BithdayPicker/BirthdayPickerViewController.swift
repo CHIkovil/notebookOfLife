@@ -69,7 +69,6 @@ class BirthdayPickerViewController: UIViewController {
         let minDate = calendar.date(byAdding: comps, to: Date())
         datePicker.maximumDate = maxDate
         datePicker.minimumDate = minDate
-        datePicker.dat
         return datePicker
     }()
     
@@ -175,6 +174,13 @@ class BirthdayPickerViewController: UIViewController {
 }
 //MARK: Extension
 extension BirthdayPickerViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string.rangeOfCharacter(from: NSCharacterSet.decimalDigits) != nil {
+            return true
+        } else {
+            return false
+        }
+    }
 }
 
 extension UITextField {

@@ -54,8 +54,8 @@ class TimerViewController: UIViewController {
     lazy var timerLabel: CountdownLabel = {
         let label = CountdownLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "Chalkduster", size: 50)
-        label.textColor = .lightGray
+        label.font = UIFont(name: "Chalkduster", size: 48)
+        label.textColor = UIColor(rgb: (135,206,250))
         label.animationType = .Fall
         label.textAlignment = .center
         label.countdownDelegate = self
@@ -78,7 +78,7 @@ class TimerViewController: UIViewController {
     lazy var inputNotesButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "thinkingIcon.png"), for: .normal)
+        button.setImage(UIImage(named: "thoughtIcon.png"), for: .normal)
         button.backgroundColor = .clear
         button.addTarget(self, action: #selector(addNotes), for: .touchUpInside)
         return button
@@ -109,7 +109,7 @@ class TimerViewController: UIViewController {
         getNowDateInSecondsForTimer()
         timerLabel.setCountDownTime(minutes: counterTime)
         timerLabel.start()
-        planTitleLabel.startAnimation(duration: 150, .none)
+        planTitleLabel.startAnimation(duration: 250, .none)
     }
     //MARK: Func
     
@@ -150,10 +150,10 @@ class TimerViewController: UIViewController {
     }
     //MARK: ConstraintsButton
     func createConstraintsInputNotesButton(){
-        inputNotesButton.leadingAnchor.constraint(equalTo: planTitleLabel.trailingAnchor, constant: 7).isActive = true
-        inputNotesButton.bottomAnchor.constraint(equalTo: targetView.topAnchor, constant: -24).isActive = true
-        inputNotesButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        inputNotesButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        inputNotesButton.leadingAnchor.constraint(equalTo: planTitleLabel.trailingAnchor, constant: 10).isActive = true
+        inputNotesButton.bottomAnchor.constraint(equalTo: targetView.topAnchor, constant: -34).isActive = true
+        inputNotesButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        inputNotesButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
     }
     
     func conversionDateBirthdayForLifeTimeLabel() {
@@ -203,14 +203,14 @@ extension UIButton {
         animationOne.repeatCount = 1
         animationOne.autoreverses = true
         animationOne.fromValue = 1
-        animationOne.toValue = 1.02
+        animationOne.toValue = 1.03
         layer.add(animationOne, forKey: "transform.scale.x")
         let animationTwo = CABasicAnimation(keyPath: "transform.scale.y")
         animationTwo.duration = 0.3
         animationTwo.repeatCount = 1
         animationTwo.autoreverses = true
         animationTwo.fromValue = 1
-        animationTwo.toValue = 1.02
+        animationTwo.toValue = 1.03
         layer.add(animationTwo, forKey: "transform.scale.y")
     }
 }
@@ -222,14 +222,14 @@ extension UIView {
         animationOne.repeatCount = 1
         animationOne.autoreverses = true
         animationOne.fromValue = 1
-        animationOne.toValue = 1.005
+        animationOne.toValue = 1.01
         layer.add(animationOne, forKey: "transform.scale.x")
         let animationTwo = CABasicAnimation(keyPath: "transform.scale.y")
         animationTwo.duration = 0.3
         animationTwo.repeatCount = 1
         animationTwo.autoreverses = true
         animationTwo.fromValue = 1
-        animationTwo.toValue = 1.005
+        animationTwo.toValue = 1.01
         layer.add(animationTwo, forKey: "transform.scale.y")
     }
 }

@@ -36,8 +36,8 @@ class NotesViewController: UIViewController {
         textView.layer.cornerRadius = 30
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.lightGray.cgColor
-        textView.tintColor = .clear
-        textView.backgroundColor = .lightGray
+        textView.tintColor = .lightGray
+        textView.backgroundColor = .clear
         textView.delegate = self
         return textView
     }()
@@ -61,7 +61,7 @@ class NotesViewController: UIViewController {
         param.shineSize = 0
         let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 80, height: 80), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.image = .custom(UIImage(named: "penIcon.png")!)
+        button.image = .custom(UIImage(named: "recycleIcon.png")!)
         button.color = .lightGray
         button.fillColor = .lightGray
         button.addTarget(self, action: #selector(inputNotes), for: .touchUpInside)
@@ -71,7 +71,7 @@ class NotesViewController: UIViewController {
     lazy var voiceInputTextNotesButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "microphoneIcon.png"), for: .normal)
+        button.setImage(UIImage(named: "recordIcon.png"), for: .normal)
         button.backgroundColor = .clear
         button.addTarget(self, action: #selector(voiceInputTextNotes), for: .touchUpInside)
         return button
@@ -121,16 +121,16 @@ class NotesViewController: UIViewController {
     //MARK: ConstraintsButton
     func createConstraintsInputNotesButton() {
         inputNotesButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        inputNotesButton.topAnchor.constraint(equalTo: notesTextView.bottomAnchor, constant: 5).isActive = true
+        inputNotesButton.topAnchor.constraint(equalTo: notesTextView.bottomAnchor, constant: 10).isActive = true
         inputNotesButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
         inputNotesButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
      }
     
     func createConstraintsVoiceInputTextNotesButton() {
         voiceInputTextNotesButton.leadingAnchor.constraint(equalTo: notesTitleLabel.trailingAnchor, constant: 10).isActive = true
-        voiceInputTextNotesButton.bottomAnchor.constraint(equalTo: notesTextView.topAnchor, constant: -28).isActive = true
-        voiceInputTextNotesButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        voiceInputTextNotesButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        voiceInputTextNotesButton.bottomAnchor.constraint(equalTo: notesTextView.topAnchor, constant: -18).isActive = true
+        voiceInputTextNotesButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        voiceInputTextNotesButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -208,7 +208,7 @@ extension UITextView {
         animationOne.repeatCount = 2
         animationOne.autoreverses = true
         animationOne.fromValue = 1
-        animationOne.toValue = 1.05
+        animationOne.toValue = 1.02
         layer.add(animationOne, forKey: "transform.scale.x")
         let animationTwo = CABasicAnimation(keyPath: "transform.scale.y")
         animationTwo.duration = 0.3
@@ -227,14 +227,14 @@ extension UIButton {
         animationOne.repeatCount = 2
         animationOne.autoreverses = true
         animationOne.fromValue = 1
-        animationOne.toValue = 1.10
+        animationOne.toValue = 1.1
         layer.add(animationOne, forKey: "transform.scale.x")
         let animationTwo = CABasicAnimation(keyPath: "transform.scale.y")
         animationTwo.duration = 0.3
         animationTwo.repeatCount = 2
         animationTwo.autoreverses = true
         animationTwo.fromValue = 1
-        animationTwo.toValue = 1.10
+        animationTwo.toValue = 1.1
         layer.add(animationTwo, forKey: "transform.scale.y")
     }
 }
