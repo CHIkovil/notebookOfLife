@@ -30,7 +30,7 @@ class TimerViewController: UIViewController {
         let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "My plan"
-        label.font = UIFont(name: "Chalkduster", size: 45)
+        label.font = UIFont(name: "Chalkduster", size: 50)
         label.textAlignment = .center
         label.textColor = UIColor(rgb: (135,206,250))
         label.backgroundColor = .white
@@ -45,7 +45,7 @@ class TimerViewController: UIViewController {
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.text = RegistrationAndDateBirthday.targetText
-        label.font = UIFont(name: "Chalkduster", size: 20)
+        label.font = UIFont(name: "Chalkduster", size: 25)
         label.textColor = .lightGray
         label.textAlignment = .center
         return label
@@ -78,7 +78,7 @@ class TimerViewController: UIViewController {
     lazy var inputNotesButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "thoughtIcon.png"), for: .normal)
+        button.setImage(UIImage(named: "garden.png"), for: .normal)
         button.backgroundColor = .clear
         button.addTarget(self, action: #selector(addNotes), for: .touchUpInside)
         return button
@@ -139,19 +139,19 @@ class TimerViewController: UIViewController {
         timerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60).isActive = true
         timerLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60).isActive = true
         timerLabel.topAnchor.constraint(equalTo: targetView.bottomAnchor, constant: 1).isActive = true
-        timerLabel.heightAnchor.constraint(equalToConstant: 140).isActive = true
+        timerLabel.heightAnchor.constraint(equalToConstant: 80).isActive = true
     }
     
     func createConstraintsLifeTimeLabel(){
         lifeTimeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 90).isActive = true
         lifeTimeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -90).isActive = true
-        lifeTimeLabel.topAnchor.constraint(equalTo: targetView.bottomAnchor, constant: 5).isActive = true
+        lifeTimeLabel.bottomAnchor.constraint(equalTo: targetView.bottomAnchor, constant: -5).isActive = true
         lifeTimeLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
     //MARK: ConstraintsButton
     func createConstraintsInputNotesButton(){
-        inputNotesButton.leadingAnchor.constraint(equalTo: planTitleLabel.trailingAnchor, constant: 10).isActive = true
-        inputNotesButton.bottomAnchor.constraint(equalTo: targetView.topAnchor, constant: -34).isActive = true
+        inputNotesButton.leadingAnchor.constraint(equalTo: planTitleLabel.trailingAnchor, constant: 5).isActive = true
+        inputNotesButton.bottomAnchor.constraint(equalTo: targetView.topAnchor, constant: -35).isActive = true
         inputNotesButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
         inputNotesButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
     }

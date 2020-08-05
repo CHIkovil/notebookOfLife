@@ -29,11 +29,11 @@ class InputPlanViewController: UIViewController {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.text = "One sentence is enough!"
-        textView.font = UIFont(name: "Chalkduster", size: 18)
+        textView.font = UIFont(name: "Chalkduster", size: 19)
         textView.tintColor = .lightGray
         textView.textColor = .lightGray
         textView.textAlignment = .justified
-        textView.layer.cornerRadius = 30
+        textView.layer.cornerRadius = 25
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.lightGray.cgColor
         textView.tintColor = .lightGray
@@ -46,7 +46,7 @@ class InputPlanViewController: UIViewController {
         let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Target"
-        label.font = UIFont(name: "Chalkduster", size: 55)
+        label.font = UIFont(name: "Chalkduster", size: 60)
         label.textColor = .lightGray
         label.textAlignment = .center
         label.animationType = .fade
@@ -61,7 +61,7 @@ class InputPlanViewController: UIViewController {
         param.shineSize = 0
         let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 80, height: 80), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.image = .custom(UIImage(named: "recycleIcon.png")!)
+        button.image = .custom(UIImage(named: "goalIcon.png")!)
         button.color = .lightGray
         button.fillColor = .lightGray
         button.addTarget(self, action: #selector(inputPlan), for: .valueChanged)
@@ -71,7 +71,7 @@ class InputPlanViewController: UIViewController {
     lazy var voiceInputTextButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "recordIcon.png"), for: .normal)
+        button.setImage(UIImage(named: "voiceIcon.png"), for: .normal)
         button.backgroundColor = .clear
         button.addTarget(self, action: #selector(voiceInputText), for: .touchUpInside)
         return button
@@ -128,8 +128,8 @@ class InputPlanViewController: UIViewController {
      }
     
     func createConstraintsVoiceInputTextButton() {
-        voiceInputTextButton.leadingAnchor.constraint(equalTo: targetTitleLabel.trailingAnchor, constant: 10).isActive = true
-        voiceInputTextButton.bottomAnchor.constraint(equalTo: targetTextView.topAnchor, constant: -18).isActive = true
+        voiceInputTextButton.leadingAnchor.constraint(equalTo: targetTitleLabel.trailingAnchor, constant: 5).isActive = true
+        voiceInputTextButton.bottomAnchor.constraint(equalTo: targetTextView.topAnchor, constant: -31).isActive = true
         voiceInputTextButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
         voiceInputTextButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
     }
@@ -179,6 +179,7 @@ class InputPlanViewController: UIViewController {
     @objc func transitionDelayTimerViewController() {
         let viewController = TimerViewController()
         viewController.modalPresentationStyle = .fullScreen
+        viewController.modalTransitionStyle = .partialCurl
         self.present(viewController, animated: true, completion: nil)
     }
     

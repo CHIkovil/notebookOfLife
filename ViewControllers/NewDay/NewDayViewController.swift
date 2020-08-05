@@ -63,7 +63,7 @@ class NewDayViewController: UIViewController {
     //MARK: ConstraintsButton
     func createConstraintsStartNewDayButton() {
         startNewDayButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        startNewDayButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 7).isActive = true
+        startNewDayButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 6).isActive = true
         startNewDayButton.widthAnchor.constraint(equalToConstant: 90).isActive = true
         startNewDayButton.heightAnchor.constraint(equalToConstant: 90).isActive = true
     }
@@ -79,3 +79,5 @@ class NewDayViewController: UIViewController {
         self.present(viewController, animated: true, completion: nil)
     }
 }
+
+
