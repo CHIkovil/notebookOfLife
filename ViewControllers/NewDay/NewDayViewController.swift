@@ -49,7 +49,7 @@ class NewDayViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        newDayLabel.startAnimation(duration: 7, .none)
+        newDayLabel.startAnimation(duration: 5, .none)
     }
     //MARK: Func
     
@@ -75,6 +75,7 @@ class NewDayViewController: UIViewController {
     @objc func transitionDelayInputPlanViewController() {
         let viewController = InputPlanViewController()
         viewController.modalPresentationStyle = .fullScreen
+        viewController.modalTransitionStyle = .partialCurl
         self.present(viewController, animated: true, completion: nil)
     }
 }

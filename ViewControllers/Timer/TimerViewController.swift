@@ -178,6 +178,7 @@ class TimerViewController: UIViewController {
     @objc func addNotes() {
         let viewController = NotesViewController()
         viewController.modalPresentationStyle = .fullScreen
+        viewController.modalTransitionStyle = .partialCurl
         self.present(viewController, animated: true, completion: nil)
     }
 }
@@ -192,6 +193,7 @@ extension TimerViewController: CountdownLabelDelegate {
         RegistrationAndDateBirthday.targetText = nil
         let viewController = NewDayViewController()
         viewController.modalPresentationStyle = .fullScreen
+        viewController.modalTransitionStyle = .partialCurl
         self.present(viewController, animated: true, completion: nil)
     }
 }

@@ -165,7 +165,7 @@ class NotesViewController: UIViewController {
     }
     
     @objc func transitionDelayTimerViewController() {
-        self.dismissMe(animated: true)
+        self.dismissMe(animated: false)
     }
     
     @objc func voiceInputTextNotes() {

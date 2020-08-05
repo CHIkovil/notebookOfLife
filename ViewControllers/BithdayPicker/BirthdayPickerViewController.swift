@@ -15,7 +15,7 @@ class BirthdayPickerViewController: UIViewController {
     lazy var birthdayField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = UIFont(name: "Chalkduster", size: 20)
+        textField.font = UIFont(name: "Chalkduster", size: 21)
         textField.placeholder = "Enter date of birth"
         textField.textColor = .lightGray
         textField.textAlignment = .center
@@ -31,7 +31,7 @@ class BirthdayPickerViewController: UIViewController {
         let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "NoL"
-        label.font = UIFont(name: "Chalkduster", size: 55)
+        label.font = UIFont(name: "Chalkduster", size: 65)
         label.textColor = .lightGray
         label.textAlignment = .center
         label.animationType = .shine
@@ -44,9 +44,9 @@ class BirthdayPickerViewController: UIViewController {
         param.smallShineColor = .white
         param.shineCount = 0
         param.shineSize = 0
-        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 60, height: 60), params: param)
+        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 70, height: 70), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.image = .custom(UIImage(named: "dateIcon.png")!)
+        button.image = .custom(UIImage(named: "calendar.png")!)
         button.color = .lightGray
         button.fillColor = .lightGray
         button.addTarget(self, action: #selector(saveBirthday), for: .valueChanged)
@@ -104,7 +104,7 @@ class BirthdayPickerViewController: UIViewController {
         birthdayField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         birthdayField.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         birthdayField.widthAnchor.constraint(equalToConstant: 260).isActive = true
-        birthdayField.heightAnchor.constraint(equalToConstant: 50).isActive =  true
+        birthdayField.heightAnchor.constraint(equalToConstant: 60).isActive =  true
     }
     //MARK: ConstraintsLabel
     func createConstraintsApplicationTitleLabel() {
@@ -114,9 +114,9 @@ class BirthdayPickerViewController: UIViewController {
     //MARK: ConstraintsButton
     func createConstraintsSaveBirthdayButton() {
         saveBirthdayButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        saveBirthdayButton.topAnchor.constraint(equalTo: birthdayField.bottomAnchor, constant: 15).isActive = true
-        saveBirthdayButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        saveBirthdayButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        saveBirthdayButton.topAnchor.constraint(equalTo: birthdayField.bottomAnchor, constant: 10).isActive = true
+        saveBirthdayButton.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        saveBirthdayButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
     }
     
     func getDateFromBirthdayPicker() {
@@ -124,7 +124,7 @@ class BirthdayPickerViewController: UIViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
         birthdayField.text = formatter.string(from: birthdayPicker.date)
-        birthdayField.font = UIFont(name: "Chalkduster", size: 25)
+        birthdayField.font = UIFont(name: "Chalkduster", size: 30)
     }
     
     func addAnimationSaveBirthdayButton() {
@@ -165,6 +165,7 @@ class BirthdayPickerViewController: UIViewController {
     @objc func transitionDelayNewDayViewController() {
         let viewController = NewDayViewController()
         viewController.modalPresentationStyle = .fullScreen
+        viewController.modalTransitionStyle = .partialCurl
         self.present(viewController, animated: true, completion: nil)
     }
     
