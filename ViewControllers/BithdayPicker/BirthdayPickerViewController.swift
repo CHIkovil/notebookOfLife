@@ -19,7 +19,7 @@ class BirthdayPickerViewController: UIViewController {
         textField.placeholder = "Enter date of birth"
         textField.textColor = .lightGray
         textField.textAlignment = .center
-        textField.layer.cornerRadius = 25
+        textField.layer.cornerRadius = 30
         textField.layer.borderWidth = 0.5
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.tintColor = .clear

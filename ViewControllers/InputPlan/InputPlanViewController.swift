@@ -28,13 +28,13 @@ class InputPlanViewController: UIViewController {
     lazy var targetTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.text = "One sentence is enough!"
+        textView.text = " One sentence is enough!"
         textView.font = UIFont(name: "Chalkduster", size: 19)
         textView.tintColor = .lightGray
         textView.textColor = .lightGray
         textView.textAlignment = .justified
         textView.layer.cornerRadius = 25
-        textView.layer.borderWidth = 1
+        textView.layer.borderWidth = 2
         textView.layer.borderColor = UIColor.lightGray.cgColor
         textView.tintColor = .lightGray
         textView.backgroundColor = .clear
@@ -59,7 +59,7 @@ class InputPlanViewController: UIViewController {
         param.smallShineColor = .white
         param.shineCount = 0
         param.shineSize = 0
-        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 80, height: 80), params: param)
+        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 85, height: 85), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.image = .custom(UIImage(named: "goalIcon.png")!)
         button.color = .lightGray
@@ -107,10 +107,10 @@ class InputPlanViewController: UIViewController {
     
     //MARK: ConstraintsTextView
     func createConstraintsTargetTextView() {
-        targetTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
-        targetTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
+        targetTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
+        targetTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
         targetTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        targetTextView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        targetTextView.heightAnchor.constraint(equalToConstant: 120).isActive = true
     }
     
     //MARK: ConstraintsLabel
@@ -121,28 +121,28 @@ class InputPlanViewController: UIViewController {
     
     //MARK: ConstraintsButton
     func createConstraintsInputPlanButton() {
-        inputPlanButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        inputPlanButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 3).isActive = true
         inputPlanButton.topAnchor.constraint(equalTo: targetTextView.bottomAnchor, constant: 10).isActive = true
-        inputPlanButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        inputPlanButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        inputPlanButton.widthAnchor.constraint(equalToConstant: 85).isActive = true
+        inputPlanButton.heightAnchor.constraint(equalToConstant: 85).isActive = true
      }
     
     func createConstraintsVoiceInputTextButton() {
-        voiceInputTextButton.leadingAnchor.constraint(equalTo: targetTitleLabel.trailingAnchor, constant: 5).isActive = true
-        voiceInputTextButton.bottomAnchor.constraint(equalTo: targetTextView.topAnchor, constant: -31).isActive = true
-        voiceInputTextButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
-        voiceInputTextButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
+        voiceInputTextButton.leadingAnchor.constraint(equalTo: targetTitleLabel.trailingAnchor).isActive = true
+        voiceInputTextButton.bottomAnchor.constraint(equalTo: targetTextView.topAnchor, constant: -30).isActive = true
+        voiceInputTextButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        voiceInputTextButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if targetTextView.text == "One sentence is enough!"{
-            targetTextView.text = nil
+        if targetTextView.text == " One sentence is enough!"{
+            targetTextView.text = " "
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if targetTextView.text.isEmpty {
-            targetTextView.text = "One sentence is enough!"
+        if targetTextView.text == " " {
+            targetTextView.text = " One sentence is enough!"
         }
     }
     
@@ -167,7 +167,7 @@ class InputPlanViewController: UIViewController {
     }
    
     @objc func inputPlan() {
-        if targetTextView.text == "One sentence is enough!" || targetTextView.text == "" {
+        if targetTextView.text == " One sentence is enough!" || targetTextView.text == " " {
             targetTextView.attentionTextViewIPVC()
             voiceInputTextButton.attentionButtonIPVC()
         } else {
@@ -191,7 +191,7 @@ class InputPlanViewController: UIViewController {
 //MARK: Extension
 extension InputPlanViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        guard textView.text == "One sentence is enough!" || textView.text == "" else {
+        guard textView.text == " One sentence is enough!" || textView.text == " " else {
             addAnimationInputPlanButton()
             return
         }

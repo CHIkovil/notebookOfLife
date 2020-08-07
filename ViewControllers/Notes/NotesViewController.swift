@@ -28,13 +28,13 @@ class NotesViewController: UIViewController {
     lazy var notesTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.text = "What have you decided?"
+        textView.text = " What have you decided?"
         textView.font = UIFont(name: "Chalkduster", size: 19)
         textView.tintColor = .lightGray
         textView.textColor = .lightGray
         textView.textAlignment = .justified
         textView.layer.cornerRadius = 25
-        textView.layer.borderWidth = 1
+        textView.layer.borderWidth = 2
         textView.layer.borderColor = UIColor.lightGray.cgColor
         textView.tintColor = .lightGray
         textView.backgroundColor = .clear
@@ -59,7 +59,7 @@ class NotesViewController: UIViewController {
         param.smallShineColor = .white
         param.shineCount = 0
         param.shineSize = 0
-        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 80, height: 80), params: param)
+        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 85, height: 85), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.image = .custom(UIImage(named: "leafIcon.png")!)
         button.color = .lightGray
@@ -106,10 +106,10 @@ class NotesViewController: UIViewController {
     
     //MARK: ConstraintsTextView
     func createConstraintsNotesTextView() {
-        notesTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
-        notesTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
+        notesTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
+        notesTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
         notesTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        notesTextView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        notesTextView.heightAnchor.constraint(equalToConstant: 120).isActive = true
     }
     
     //MARK: ConstraintsLabel
@@ -122,26 +122,26 @@ class NotesViewController: UIViewController {
     func createConstraintsInputNotesButton() {
         inputNotesButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputNotesButton.topAnchor.constraint(equalTo: notesTextView.bottomAnchor, constant: 10).isActive = true
-        inputNotesButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        inputNotesButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        inputNotesButton.widthAnchor.constraint(equalToConstant: 85).isActive = true
+        inputNotesButton.heightAnchor.constraint(equalToConstant: 85).isActive = true
      }
     
     func createConstraintsVoiceInputTextNotesButton() {
-        voiceInputTextNotesButton.leadingAnchor.constraint(equalTo: notesTitleLabel.trailingAnchor, constant: 5).isActive = true
+        voiceInputTextNotesButton.leadingAnchor.constraint(equalTo: notesTitleLabel.trailingAnchor, constant: 3).isActive = true
         voiceInputTextNotesButton.bottomAnchor.constraint(equalTo: notesTextView.topAnchor, constant: -31).isActive = true
-        voiceInputTextNotesButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
-        voiceInputTextNotesButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
+        voiceInputTextNotesButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        voiceInputTextNotesButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if notesTextView.text == "What have you decided?" {
-            notesTextView.text = nil
+        if notesTextView.text == " What have you decided?" {
+            notesTextView.text = " "
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if notesTextView.text.isEmpty {
-            notesTextView.text = "What have you decided?"
+        if notesTextView.text == " " {
+            notesTextView.text = " What have you decided?"
         }
     }
     
@@ -155,7 +155,7 @@ class NotesViewController: UIViewController {
     
     //MARK: @objc
     @objc func inputNotes() {
-        if notesTextView.text == "What have you decided?" || notesTextView.text == ""{
+        if notesTextView.text == " What have you decided?" || notesTextView.text == " "{
             notesTextView.attentionTextViewNVC()
             voiceInputTextNotesButton.attentionButtonNVC()
         } else {
