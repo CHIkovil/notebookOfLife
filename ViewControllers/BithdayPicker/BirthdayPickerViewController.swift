@@ -44,7 +44,7 @@ class BirthdayPickerViewController: UIViewController {
         param.smallShineColor = .white
         param.shineCount = 0
         param.shineSize = 0
-        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 70, height: 70), params: param)
+        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 75, height: 75), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.image = .custom(UIImage(named: "calendarIcon.png")!)
         button.color = .lightGray
@@ -103,7 +103,7 @@ class BirthdayPickerViewController: UIViewController {
     func createConstraintsBirthdayField() {
         birthdayField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         birthdayField.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        birthdayField.widthAnchor.constraint(equalToConstant: 260).isActive = true
+        birthdayField.widthAnchor.constraint(equalToConstant: 280).isActive = true
         birthdayField.heightAnchor.constraint(equalToConstant: 60).isActive =  true
     }
     //MARK: ConstraintsLabel

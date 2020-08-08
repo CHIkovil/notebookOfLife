@@ -130,8 +130,8 @@ class InputPlanViewController: UIViewController {
     func createConstraintsVoiceInputTextButton() {
         voiceInputTextButton.leadingAnchor.constraint(equalTo: targetTitleLabel.trailingAnchor).isActive = true
         voiceInputTextButton.bottomAnchor.constraint(equalTo: targetTextView.topAnchor, constant: -30).isActive = true
-        voiceInputTextButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        voiceInputTextButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        voiceInputTextButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        voiceInputTextButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
