@@ -44,7 +44,7 @@ class BirthdayPickerViewController: UIViewController {
         param.smallShineColor = .white
         param.shineCount = 0
         param.shineSize = 0
-        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 75, height: 75), params: param)
+        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 70, height: 70), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.image = .custom(UIImage(named: "calendarIcon.png")!)
         button.color = .lightGray

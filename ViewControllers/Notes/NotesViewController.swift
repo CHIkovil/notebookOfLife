@@ -129,13 +129,14 @@ class NotesViewController: UIViewController {
     func createConstraintsVoiceInputTextNotesButton() {
         voiceInputTextNotesButton.leadingAnchor.constraint(equalTo: notesTitleLabel.trailingAnchor, constant: 3).isActive = true
         voiceInputTextNotesButton.bottomAnchor.constraint(equalTo: notesTextView.topAnchor, constant: -31).isActive = true
-        voiceInputTextNotesButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
-        voiceInputTextNotesButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
+        voiceInputTextNotesButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        voiceInputTextNotesButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if notesTextView.text == " What have you decided?" {
             notesTextView.text = " "
+            notesTextView.font = UIFont(name: "Chalkduster", size: 19)
         }
     }
     

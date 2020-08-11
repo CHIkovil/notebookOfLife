@@ -130,13 +130,14 @@ class InputPlanViewController: UIViewController {
     func createConstraintsVoiceInputTextButton() {
         voiceInputTextButton.leadingAnchor.constraint(equalTo: targetTitleLabel.trailingAnchor).isActive = true
         voiceInputTextButton.bottomAnchor.constraint(equalTo: targetTextView.topAnchor, constant: -30).isActive = true
-        voiceInputTextButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
-        voiceInputTextButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
+        voiceInputTextButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        voiceInputTextButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if targetTextView.text == " One sentence is enough!"{
             targetTextView.text = " "
+            targetTextView.font = UIFont(name: "Chalkduster", size: 25)
         }
     }
     
@@ -195,6 +196,11 @@ extension InputPlanViewController: UITextViewDelegate {
             addAnimationInputPlanButton()
             return
         }
+    }
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
+        let numberOfChars = newText.count
+        return numberOfChars < 40
     }
 }
 
