@@ -28,8 +28,8 @@ class NotesViewController: UIViewController {
     lazy var notesTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.text = " What have you decided?"
-        textView.font = UIFont(name: "Chalkduster", size: 19)
+        textView.text = "What have you decided?"
+        textView.font = UIFont(name: "Chalkduster", size: 20)
         textView.tintColor = .lightGray
         textView.textColor = .lightGray
         textView.textAlignment = .justified
@@ -134,15 +134,15 @@ class NotesViewController: UIViewController {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if notesTextView.text == " What have you decided?" {
-            notesTextView.text = " "
-            notesTextView.font = UIFont(name: "Chalkduster", size: 19)
+        if notesTextView.text == "What have you decided?" {
+            notesTextView.font = UIFont(name: "Chalkduster", size: 20)
+            notesTextView.text = ""
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if notesTextView.text == " " {
-            notesTextView.text = " What have you decided?"
+        if notesTextView.text == "" {
+            notesTextView.text = "What have you decided?"
         }
     }
     
@@ -156,7 +156,7 @@ class NotesViewController: UIViewController {
     
     //MARK: @objc
     @objc func inputNotes() {
-        if notesTextView.text == " What have you decided?" || notesTextView.text == " "{
+        if notesTextView.text == "What have you decided?" || notesTextView.text == "" {
             notesTextView.attentionTextViewNVC()
             voiceInputTextNotesButton.attentionButtonNVC()
         } else {
@@ -189,7 +189,7 @@ class NotesViewController: UIViewController {
 //MARK: Extension
 extension NotesViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        guard textView.text == " What have you decided?" || textView.text == " " else {
+        guard textView.text == "What have you decided?" || textView.text == "" else {
             addAnimationInputNotesButton()
             return
         }

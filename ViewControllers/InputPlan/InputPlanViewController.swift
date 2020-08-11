@@ -28,8 +28,8 @@ class InputPlanViewController: UIViewController {
     lazy var targetTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.text = " One sentence is enough!"
-        textView.font = UIFont(name: "Chalkduster", size: 19)
+        textView.text = "Try not to be longer than this sentence for this purpose!"
+        textView.font = UIFont(name: "Chalkduster", size: 21)
         textView.tintColor = .lightGray
         textView.textColor = .lightGray
         textView.textAlignment = .justified
@@ -135,15 +135,15 @@ class InputPlanViewController: UIViewController {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if targetTextView.text == " One sentence is enough!"{
-            targetTextView.text = " "
-            targetTextView.font = UIFont(name: "Chalkduster", size: 25)
+        if targetTextView.text == "Try not to be longer than this sentence for this purpose!"{
+            targetTextView.font = UIFont(name: "Chalkduster", size: 21)
+            targetTextView.text = ""
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if targetTextView.text == " " {
-            targetTextView.text = " One sentence is enough!"
+        if targetTextView.text == "" {
+            targetTextView.text = "Try not to be longer than this sentence for this purpose!"
         }
     }
     
@@ -168,7 +168,7 @@ class InputPlanViewController: UIViewController {
     }
    
     @objc func inputPlan() {
-        if targetTextView.text == " One sentence is enough!" || targetTextView.text == " " {
+        if targetTextView.text == "Try not to be longer than this sentence for this purpose!" || targetTextView.text == "" {
             targetTextView.attentionTextViewIPVC()
             voiceInputTextButton.attentionButtonIPVC()
         } else {
@@ -192,7 +192,7 @@ class InputPlanViewController: UIViewController {
 //MARK: Extension
 extension InputPlanViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        guard textView.text == " One sentence is enough!" || textView.text == " " else {
+        guard textView.text == "Try not to be longer than this sentence for this purpose!" || textView.text == "" else {
             addAnimationInputPlanButton()
             return
         }
@@ -200,7 +200,7 @@ extension InputPlanViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
         let numberOfChars = newText.count
-        return numberOfChars < 40
+        return numberOfChars < 57
     }
 }
 

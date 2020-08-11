@@ -45,9 +45,9 @@ class TimerViewController: UIViewController {
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.text = RegistrationAndDateBirthday.targetText
-        label.font = UIFont(name: "Chalkduster", size: 25)
+        label.font = UIFont(name: "Chalkduster", size: 21)
         label.textColor = .lightGray
-        label.textAlignment = .center
+        label.textAlignment = .justified
         return label
     }()
     
@@ -120,7 +120,7 @@ class TimerViewController: UIViewController {
         targetView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         targetView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
         targetView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        targetView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        targetView.heightAnchor.constraint(equalToConstant: 180).isActive = true
     }
     //MARK: ConstraintsLabel
     func createConstraintsPlanTitleLabel(){
