@@ -11,7 +11,18 @@ import DWAnimatedLabel
 import WCLShineButton
 
 class NewDayViewController: UIViewController {
+    
     //MARK: View
+    lazy var rulesView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 30
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.clear.cgColor
+        view.backgroundColor = .clear
+        return view
+    }()
+    //MARK: Label
      lazy var newDayLabel: DWAnimatedLabel = {
         let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -21,7 +32,20 @@ class NewDayViewController: UIViewController {
         label.animationType = .shine
         return label
     }()
+     
+    lazy var rulesLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
+        label.text = "Rules for target:\n1)Try not to be longer than this sentence for this purpose!\n2)Start the day with a simple but important goal!"
+        label.font = UIFont(name: "Chalkduster", size: 15)
+        label.textAlignment = .center
+        label.textColor = .lightGray
+        return label
+    }()
     
+    //MARK: Button
     lazy var startNewDayButton: WCLShineButton = {
         var param = WCLShineParams()
         param.enableFlashing = true
@@ -42,10 +66,14 @@ class NewDayViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(newDayLabel)
         view.addSubview(startNewDayButton)
+        view.addSubview(rulesView)
+        view.addSubview(rulesLabel)
         createConstraintsNewDayLabel()
         createConstraintsStartNewDayButton()
+        createConstraintsRulesView()
+        createConstraintsRulesLabel()
     }
-    
+    //MARK: DidAppear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -55,6 +83,13 @@ class NewDayViewController: UIViewController {
     
     
     
+    //MARK: ConstraintsView
+    func createConstraintsRulesView(){
+        rulesView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
+        rulesView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
+        rulesView.topAnchor.constraint(equalTo: startNewDayButton.bottomAnchor, constant: 20).isActive = true
+        rulesView.heightAnchor.constraint(equalToConstant: 140).isActive = true
+    }
     //MARK: ConstraintsLabel
     func createConstraintsNewDayLabel() {
         newDayLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -66,6 +101,13 @@ class NewDayViewController: UIViewController {
         startNewDayButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 6).isActive = true
         startNewDayButton.widthAnchor.constraint(equalToConstant: 90).isActive = true
         startNewDayButton.heightAnchor.constraint(equalToConstant: 90).isActive = true
+    }
+    
+    func createConstraintsRulesLabel(){
+        rulesLabel.topAnchor.constraint(equalTo: rulesView.topAnchor, constant: 10).isActive = true
+        rulesLabel.leadingAnchor.constraint(equalTo: rulesView.leadingAnchor, constant: 10).isActive = true
+        rulesLabel.trailingAnchor.constraint(lessThanOrEqualTo: rulesView.trailingAnchor, constant: -10).isActive = true
+        rulesLabel.bottomAnchor.constraint(lessThanOrEqualTo: rulesView.bottomAnchor, constant: -10).isActive = true
     }
     //MARK: @objc
     @objc func startNewDay() {

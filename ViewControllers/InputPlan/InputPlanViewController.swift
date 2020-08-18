@@ -24,16 +24,16 @@ class InputPlanViewController: UIViewController {
 
         return controller
     }()
-    //MARK: View
+    //MARK: TextView
     lazy var targetTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.text = "Try not to be longer than this sentence for this purpose!"
+        textView.text = "Let's start! What is our goal?"
         textView.font = UIFont(name: "Chalkduster", size: 21)
         textView.tintColor = .lightGray
         textView.textColor = .lightGray
-        textView.textAlignment = .justified
-        textView.layer.cornerRadius = 25
+        textView.textAlignment = .center
+        textView.layer.cornerRadius = 30
         textView.layer.borderWidth = 2
         textView.layer.borderColor = UIColor.lightGray.cgColor
         textView.tintColor = .lightGray
@@ -41,7 +41,7 @@ class InputPlanViewController: UIViewController {
         textView.delegate = self
         return textView
     }()
-    
+    //MARK: Label
     lazy var targetTitleLabel: DWAnimatedLabel = {
         let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +52,7 @@ class InputPlanViewController: UIViewController {
         label.animationType = .fade
         return label
     }()
-    
+    //MARK: Button
     lazy var inputPlanButton: WCLShineButton = {
         var param = WCLShineParams()
         param.bigShineColor = .white
@@ -89,7 +89,7 @@ class InputPlanViewController: UIViewController {
         createConstraintsInputPlanButton()
         createConstraintsVoiceInputTextButton()
     }
-    
+    //MARK: DidAppear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -121,7 +121,7 @@ class InputPlanViewController: UIViewController {
     
     //MARK: ConstraintsButton
     func createConstraintsInputPlanButton() {
-        inputPlanButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 3).isActive = true
+        inputPlanButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 5).isActive = true
         inputPlanButton.topAnchor.constraint(equalTo: targetTextView.bottomAnchor, constant: 10).isActive = true
         inputPlanButton.widthAnchor.constraint(equalToConstant: 85).isActive = true
         inputPlanButton.heightAnchor.constraint(equalToConstant: 85).isActive = true
@@ -133,20 +133,20 @@ class InputPlanViewController: UIViewController {
         voiceInputTextButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         voiceInputTextButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
     }
-    
+    //MARK: textViewDidBeginEditing
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if targetTextView.text == "Try not to be longer than this sentence for this purpose!"{
+        if targetTextView.text == "Let's start! What is our goal?"{
             targetTextView.font = UIFont(name: "Chalkduster", size: 21)
             targetTextView.text = ""
         }
     }
-    
+    //MARK: textViewDidEndEditing
     func textViewDidEndEditing(_ textView: UITextView) {
         if targetTextView.text == "" {
-            targetTextView.text = "Try not to be longer than this sentence for this purpose!"
+            targetTextView.text = "Let's start! What is our goal?"
         }
     }
-    
+    //MARK: addAnimationInputPlanButton
     func addAnimationInputPlanButton() {
         inputPlanButton.params.enableFlashing = true
         inputPlanButton.params.animDuration = 1
@@ -168,7 +168,7 @@ class InputPlanViewController: UIViewController {
     }
    
     @objc func inputPlan() {
-        if targetTextView.text == "Try not to be longer than this sentence for this purpose!" || targetTextView.text == "" {
+        if targetTextView.text == "Let's start! What is our goal?" || targetTextView.text == "" {
             targetTextView.attentionTextViewIPVC()
             voiceInputTextButton.attentionButtonIPVC()
         } else {
@@ -192,7 +192,7 @@ class InputPlanViewController: UIViewController {
 //MARK: Extension
 extension InputPlanViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        guard textView.text == "Try not to be longer than this sentence for this purpose!" || textView.text == "" else {
+        guard textView.text == "Let's start! What is our goal?" || textView.text == "" else {
             addAnimationInputPlanButton()
             return
         }

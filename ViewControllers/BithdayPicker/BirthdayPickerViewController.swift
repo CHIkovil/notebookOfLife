@@ -11,7 +11,7 @@ import DWAnimatedLabel
 import WCLShineButton
 
 class BirthdayPickerViewController: UIViewController {
-    //MARK: View
+    //MARK: Field
     lazy var birthdayField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -26,7 +26,7 @@ class BirthdayPickerViewController: UIViewController {
         textField.delegate = self
         return textField
     }()
-    
+    //MARK: Label
     lazy var applicationTitleLabel: DWAnimatedLabel = {
         let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -37,7 +37,7 @@ class BirthdayPickerViewController: UIViewController {
         label.animationType = .shine
         return label
     }()
-    
+    //MARK: Button
     lazy var saveBirthdayButton: WCLShineButton = {
         var param = WCLShineParams()
         param.bigShineColor = .white
@@ -52,7 +52,7 @@ class BirthdayPickerViewController: UIViewController {
         button.addTarget(self, action: #selector(saveBirthday), for: .valueChanged)
         return button
     }()
-    
+    //MARK: Picker
     lazy var birthdayPicker:  UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.backgroundColor = .white
@@ -83,7 +83,7 @@ class BirthdayPickerViewController: UIViewController {
         createConstraintsApplicationTitleLabel()
         createConstraintsSaveBirthdayButton()
     }
-    
+    //MARK: DidAppear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -91,7 +91,7 @@ class BirthdayPickerViewController: UIViewController {
         birthdayField.inputView = birthdayPicker
         Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.appearVC), userInfo: nil, repeats: false)
     }
-    
+    //MARK: touchesBegan
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
@@ -118,7 +118,7 @@ class BirthdayPickerViewController: UIViewController {
         saveBirthdayButton.widthAnchor.constraint(equalToConstant: 70).isActive = true
         saveBirthdayButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
     }
-    
+    //MARK: getDateFromBirthdayPicker
     func getDateFromBirthdayPicker() {
         addAnimationSaveBirthdayButton()
         let formatter = DateFormatter()
@@ -126,7 +126,7 @@ class BirthdayPickerViewController: UIViewController {
         birthdayField.text = formatter.string(from: birthdayPicker.date)
         birthdayField.font = UIFont(name: "Chalkduster", size: 30)
     }
-    
+    //MARK: addAnimationSaveBirthdayButton
     func addAnimationSaveBirthdayButton() {
         saveBirthdayButton.params.enableFlashing = true
         saveBirthdayButton.params.animDuration = 1
@@ -134,7 +134,7 @@ class BirthdayPickerViewController: UIViewController {
         saveBirthdayButton.params.shineSize = 12
         saveBirthdayButton.fillColor = UIColor(rgb: (153,152,38))
     }
-    
+    //MARK:changeTextApplicationTitleLabel
     func changeTextApplicationTitleLabel() {
         guard applicationTitleLabel.text == "NotebookOfLife" else {
             applicationTitleLabel.text = "NotebookOfLife"

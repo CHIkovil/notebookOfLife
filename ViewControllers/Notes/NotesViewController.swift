@@ -24,7 +24,7 @@ class NotesViewController: UIViewController {
 
         return controller
     }()
-    //MARK: View
+    //MARK: TextView
     lazy var notesTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -32,8 +32,8 @@ class NotesViewController: UIViewController {
         textView.font = UIFont(name: "Chalkduster", size: 20)
         textView.tintColor = .lightGray
         textView.textColor = .lightGray
-        textView.textAlignment = .justified
-        textView.layer.cornerRadius = 25
+        textView.textAlignment = .center
+        textView.layer.cornerRadius = 30
         textView.layer.borderWidth = 2
         textView.layer.borderColor = UIColor.lightGray.cgColor
         textView.tintColor = .lightGray
@@ -41,7 +41,7 @@ class NotesViewController: UIViewController {
         textView.delegate = self
         return textView
     }()
-    
+    //MARK: Label
     lazy var notesTitleLabel: DWAnimatedLabel = {
         let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +52,7 @@ class NotesViewController: UIViewController {
         label.animationType = .fade
         return label
     }()
-    
+    //MARK: Button
     lazy var inputNotesButton: WCLShineButton = {
         var param = WCLShineParams()
         param.bigShineColor = .white
@@ -76,7 +76,7 @@ class NotesViewController: UIViewController {
         button.addTarget(self, action: #selector(voiceInputTextNotes), for: .touchUpInside)
         return button
     }()
- //MARK: Override
+    //MARK: Override
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -89,14 +89,14 @@ class NotesViewController: UIViewController {
         createConstraintsInputNotesButton()
         createConstraintsVoiceInputTextNotesButton()
     }
-    
+    //MARK: viewDidAppear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
         notesTitleLabel.startAnimation(duration: 7, .none)
         Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.appearVC), userInfo: nil, repeats: false)
     }
-
+    //MARK: touchesBegan
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
@@ -127,25 +127,25 @@ class NotesViewController: UIViewController {
      }
     
     func createConstraintsVoiceInputTextNotesButton() {
-        voiceInputTextNotesButton.leadingAnchor.constraint(equalTo: notesTitleLabel.trailingAnchor, constant: 3).isActive = true
+        voiceInputTextNotesButton.leadingAnchor.constraint(equalTo: notesTitleLabel.trailingAnchor, constant: 5).isActive = true
         voiceInputTextNotesButton.bottomAnchor.constraint(equalTo: notesTextView.topAnchor, constant: -31).isActive = true
         voiceInputTextNotesButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         voiceInputTextNotesButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
     }
-    
+    //MARK: textViewDidBeginEditing
     func textViewDidBeginEditing(_ textView: UITextView) {
         if notesTextView.text == "What have you decided?" {
             notesTextView.font = UIFont(name: "Chalkduster", size: 20)
             notesTextView.text = ""
         }
     }
-    
+    //MARK: textViewDidEndEditing
     func textViewDidEndEditing(_ textView: UITextView) {
         if notesTextView.text == "" {
             notesTextView.text = "What have you decided?"
         }
     }
-    
+    //MARK: addAnimationInputNotesButton
     func addAnimationInputNotesButton() {
          inputNotesButton.params.enableFlashing = true
          inputNotesButton.params.animDuration = 1
