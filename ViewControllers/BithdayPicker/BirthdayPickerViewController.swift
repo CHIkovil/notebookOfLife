@@ -71,7 +71,6 @@ class BirthdayPickerViewController: UIViewController {
         datePicker.minimumDate = minDate
         return datePicker
     }()
-    
     //MARK: Override
     override func viewDidLoad() {
         super.viewDidLoad()

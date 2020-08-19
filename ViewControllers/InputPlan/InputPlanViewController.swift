@@ -18,10 +18,9 @@ class InputPlanViewController: UIViewController {
         controller.delegate = self
         controller.settings.autoStart = false
         controller.settings.autoStop = true
-        controller.settings.autoStopTimeout = 5
-        controller.settings.layout.inputScreen.titleListening = "Speak and wait 5 sec"
+        controller.settings.autoStopTimeout = 2
+        controller.settings.layout.inputScreen.titleListening = "Speak and wait 2 sec"
         controller.settings.layout.inputScreen.subtitleBulletList = ["Do not forget to wash your hands", "Plant another tree"]
-
         return controller
     }()
     //MARK: TextView
@@ -29,11 +28,11 @@ class InputPlanViewController: UIViewController {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.text = "Let's start! What is our goal?"
-        textView.font = UIFont(name: "Chalkduster", size: 21)
+        textView.font = UIFont(name: "Chalkduster", size: 20)
         textView.tintColor = .lightGray
         textView.textColor = .lightGray
-        textView.textAlignment = .center
-        textView.layer.cornerRadius = 30
+        textView.textAlignment = .justified
+        textView.layer.cornerRadius = 25
         textView.layer.borderWidth = 2
         textView.layer.borderColor = UIColor.lightGray.cgColor
         textView.tintColor = .lightGray
@@ -45,7 +44,7 @@ class InputPlanViewController: UIViewController {
     lazy var targetTitleLabel: DWAnimatedLabel = {
         let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Target"
+        label.text = "Goal"
         label.font = UIFont(name: "Chalkduster", size: 60)
         label.textColor = .lightGray
         label.textAlignment = .center
@@ -59,7 +58,7 @@ class InputPlanViewController: UIViewController {
         param.smallShineColor = .white
         param.shineCount = 0
         param.shineSize = 0
-        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 85, height: 85), params: param)
+        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 80, height: 80), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.image = .custom(UIImage(named: "goalIcon.png")!)
         button.color = .lightGray
@@ -110,21 +109,19 @@ class InputPlanViewController: UIViewController {
         targetTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         targetTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
         targetTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        targetTextView.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        targetTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120).isActive = true
     }
-    
     //MARK: ConstraintsLabel
     func createConstraintsTargetTitleLabel() {
         targetTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         targetTitleLabel.bottomAnchor.constraint(equalTo: targetTextView.topAnchor, constant: -15).isActive = true
     }
-    
     //MARK: ConstraintsButton
     func createConstraintsInputPlanButton() {
-        inputPlanButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 5).isActive = true
+        inputPlanButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputPlanButton.topAnchor.constraint(equalTo: targetTextView.bottomAnchor, constant: 10).isActive = true
-        inputPlanButton.widthAnchor.constraint(equalToConstant: 85).isActive = true
-        inputPlanButton.heightAnchor.constraint(equalToConstant: 85).isActive = true
+        inputPlanButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        inputPlanButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
      }
     
     func createConstraintsVoiceInputTextButton() {
@@ -136,7 +133,6 @@ class InputPlanViewController: UIViewController {
     //MARK: textViewDidBeginEditing
     func textViewDidBeginEditing(_ textView: UITextView) {
         if targetTextView.text == "Let's start! What is our goal?"{
-            targetTextView.font = UIFont(name: "Chalkduster", size: 21)
             targetTextView.text = ""
         }
     }

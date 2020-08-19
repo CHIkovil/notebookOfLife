@@ -14,7 +14,6 @@ class TimerViewController: UIViewController {
     //MARK: Let, Var
     var counterTime: Double!
     var lifeTime: String!
-
     //MARK: View
     lazy var targetView: UIView = {
         let view = UIView()
@@ -83,7 +82,6 @@ class TimerViewController: UIViewController {
         button.addTarget(self, action: #selector(addNotes), for: .touchUpInside)
         return button
     }()
-    
     //MARK: Override
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -18,10 +18,9 @@ class NotesViewController: UIViewController {
         controller.delegate = self
         controller.settings.autoStart = false
         controller.settings.autoStop = true
-        controller.settings.autoStopTimeout = 5
-        controller.settings.layout.inputScreen.titleListening = "Speak and wait 5 sec"
+        controller.settings.autoStopTimeout = 2
+        controller.settings.layout.inputScreen.titleListening = "Speak and wait 2 sec"
         controller.settings.layout.inputScreen.subtitleBulletList = ["I think too much and drink"]
-
         return controller
     }()
     //MARK: TextView
@@ -32,8 +31,8 @@ class NotesViewController: UIViewController {
         textView.font = UIFont(name: "Chalkduster", size: 20)
         textView.tintColor = .lightGray
         textView.textColor = .lightGray
-        textView.textAlignment = .center
-        textView.layer.cornerRadius = 30
+        textView.textAlignment = .justified
+        textView.layer.cornerRadius = 25
         textView.layer.borderWidth = 2
         textView.layer.borderColor = UIColor.lightGray.cgColor
         textView.tintColor = .lightGray
@@ -59,7 +58,7 @@ class NotesViewController: UIViewController {
         param.smallShineColor = .white
         param.shineCount = 0
         param.shineSize = 0
-        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 85, height: 85), params: param)
+        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 80, height: 80), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.image = .custom(UIImage(named: "leafIcon.png")!)
         button.color = .lightGray
@@ -109,21 +108,19 @@ class NotesViewController: UIViewController {
         notesTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         notesTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
         notesTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        notesTextView.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        notesTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: 45).isActive = true
     }
-    
     //MARK: ConstraintsLabel
     func createConstraintsNotesTitleLabel() {
         notesTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         notesTitleLabel.bottomAnchor.constraint(equalTo: notesTextView.topAnchor, constant: -15).isActive = true
     }
-    
     //MARK: ConstraintsButton
     func createConstraintsInputNotesButton() {
         inputNotesButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputNotesButton.topAnchor.constraint(equalTo: notesTextView.bottomAnchor, constant: 10).isActive = true
-        inputNotesButton.widthAnchor.constraint(equalToConstant: 85).isActive = true
-        inputNotesButton.heightAnchor.constraint(equalToConstant: 85).isActive = true
+        inputNotesButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        inputNotesButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
      }
     
     func createConstraintsVoiceInputTextNotesButton() {
@@ -135,7 +132,7 @@ class NotesViewController: UIViewController {
     //MARK: textViewDidBeginEditing
     func textViewDidBeginEditing(_ textView: UITextView) {
         if notesTextView.text == "What have you decided?" {
-            notesTextView.font = UIFont(name: "Chalkduster", size: 20)
+            notesTextView.heightAnchor.constraint(equalToConstant: 200).isActive = true
             notesTextView.text = ""
         }
     }
@@ -153,7 +150,6 @@ class NotesViewController: UIViewController {
          inputNotesButton.params.shineSize = 10
          inputNotesButton.fillColor = UIColor(rgb: (60,179,113))
      }
-    
     //MARK: @objc
     @objc func inputNotes() {
         if notesTextView.text == "What have you decided?" || notesTextView.text == "" {

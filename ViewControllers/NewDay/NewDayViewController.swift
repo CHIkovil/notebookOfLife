@@ -11,7 +11,6 @@ import DWAnimatedLabel
 import WCLShineButton
 
 class NewDayViewController: UIViewController {
-    
     //MARK: View
     lazy var rulesView: UIView = {
         let view = UIView()
