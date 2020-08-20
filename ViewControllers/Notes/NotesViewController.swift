@@ -27,7 +27,7 @@ class NotesViewController: UIViewController {
     lazy var notesTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.text = "What have you decided?"
+        textView.text = " What have you decided?"
         textView.font = UIFont(name: "Chalkduster", size: 20)
         textView.tintColor = .lightGray
         textView.textColor = .lightGray
@@ -37,6 +37,7 @@ class NotesViewController: UIViewController {
         textView.layer.borderColor = UIColor.lightGray.cgColor
         textView.tintColor = .lightGray
         textView.backgroundColor = .clear
+        textView.alpha = 0
         textView.delegate = self
         return textView
     }()
@@ -63,6 +64,7 @@ class NotesViewController: UIViewController {
         button.image = .custom(UIImage(named: "leafIcon.png")!)
         button.color = .lightGray
         button.fillColor = .lightGray
+        button.alpha = 0
         button.addTarget(self, action: #selector(inputNotes), for: .touchUpInside)
         return button
     }()
@@ -72,6 +74,7 @@ class NotesViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "voiceIcon.png"), for: .normal)
         button.backgroundColor = .clear
+        button.alpha = 0
         button.addTarget(self, action: #selector(voiceInputTextNotes), for: .touchUpInside)
         return button
     }()
@@ -92,8 +95,11 @@ class NotesViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        notesTitleLabel.startAnimation(duration: 7, .none)
+        notesTitleLabel.startAnimation(duration: 5, .none)
         Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.appearVC), userInfo: nil, repeats: false)
+        notesTextView.fadeInNVC()
+        inputNotesButton.fadeInNVC()
+        voiceInputTextNotesButton.fadeInNVC()
     }
     //MARK: touchesBegan
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -131,7 +137,7 @@ class NotesViewController: UIViewController {
     }
     //MARK: textViewDidBeginEditing
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if notesTextView.text == "What have you decided?" {
+        if notesTextView.text == " What have you decided?" {
             notesTextView.heightAnchor.constraint(equalToConstant: 200).isActive = true
             notesTextView.text = ""
         }
@@ -139,7 +145,7 @@ class NotesViewController: UIViewController {
     //MARK: textViewDidEndEditing
     func textViewDidEndEditing(_ textView: UITextView) {
         if notesTextView.text == "" {
-            notesTextView.text = "What have you decided?"
+            notesTextView.text = " What have you decided?"
         }
     }
     //MARK: addAnimationInputNotesButton
@@ -152,7 +158,7 @@ class NotesViewController: UIViewController {
      }
     //MARK: @objc
     @objc func inputNotes() {
-        if notesTextView.text == "What have you decided?" || notesTextView.text == "" {
+        if notesTextView.text == " What have you decided?" || notesTextView.text == "" {
             notesTextView.attentionTextViewNVC()
             voiceInputTextNotesButton.attentionButtonNVC()
         } else {
@@ -185,7 +191,7 @@ class NotesViewController: UIViewController {
 //MARK: Extension
 extension NotesViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        guard textView.text == "What have you decided?" || textView.text == "" else {
+        guard textView.text == " What have you decided?" || textView.text == "" else {
             addAnimationInputNotesButton()
             return
         }
@@ -201,14 +207,14 @@ extension NotesViewController: VoiceOverlayDelegate {
 extension UITextView {
     func attentionTextViewNVC() {
         let animationOne = CABasicAnimation(keyPath: "transform.scale.x")
-        animationOne.duration = 0.3
+        animationOne.duration = 0.4
         animationOne.repeatCount = 2
         animationOne.autoreverses = true
         animationOne.fromValue = 1
         animationOne.toValue = 1.02
         layer.add(animationOne, forKey: "transform.scale.x")
         let animationTwo = CABasicAnimation(keyPath: "transform.scale.y")
-        animationTwo.duration = 0.3
+        animationTwo.duration = 0.4
         animationTwo.repeatCount = 2
         animationTwo.autoreverses = true
         animationTwo.fromValue = 1
@@ -220,14 +226,14 @@ extension UITextView {
 extension UIButton {
     func attentionButtonNVC() {
         let animationOne = CABasicAnimation(keyPath: "transform.scale.x")
-        animationOne.duration = 0.3
+        animationOne.duration = 0.4
         animationOne.repeatCount = 2
         animationOne.autoreverses = true
         animationOne.fromValue = 1
         animationOne.toValue = 1.1
         layer.add(animationOne, forKey: "transform.scale.x")
         let animationTwo = CABasicAnimation(keyPath: "transform.scale.y")
-        animationTwo.duration = 0.3
+        animationTwo.duration = 0.4
         animationTwo.repeatCount = 2
         animationTwo.autoreverses = true
         animationTwo.fromValue = 1
@@ -236,4 +242,10 @@ extension UIButton {
     }
 }
 
-
+extension UIView {
+    func fadeInNVC(duration: TimeInterval = 3.0) {
+        UIView.animate(withDuration: duration, animations: {
+          self.alpha = 1.0
+      })
+    }
+}

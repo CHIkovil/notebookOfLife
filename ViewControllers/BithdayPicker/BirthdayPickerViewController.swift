@@ -23,6 +23,7 @@ class BirthdayPickerViewController: UIViewController {
         textField.layer.borderWidth = 0.5
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.tintColor = .clear
+        textField.alpha = 0
         textField.delegate = self
         return textField
     }()
@@ -49,6 +50,7 @@ class BirthdayPickerViewController: UIViewController {
         button.image = .custom(UIImage(named: "calendarIcon.png")!)
         button.color = .lightGray
         button.fillColor = .lightGray
+        button.alpha = 0
         button.addTarget(self, action: #selector(saveBirthday), for: .valueChanged)
         return button
     }()
@@ -89,6 +91,8 @@ class BirthdayPickerViewController: UIViewController {
         applicationTitleLabel.startAnimation(duration: 7, .none)
         birthdayField.inputView = birthdayPicker
         Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.appearVC), userInfo: nil, repeats: false)
+        birthdayField.fadeInBPVC()
+        saveBirthdayButton.fadeInBPVC()
     }
     //MARK: touchesBegan
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -196,18 +200,26 @@ extension UITextField {
     
     func attentionTextFieldBPVC() {
         let animationOne = CABasicAnimation(keyPath: "transform.scale.x")
-        animationOne.duration = 0.3
+        animationOne.duration = 0.4
         animationOne.repeatCount = 2
         animationOne.autoreverses = true
         animationOne.fromValue = 1
         animationOne.toValue = 1.04
         layer.add(animationOne, forKey: "transform.scale.x")
         let animationTwo = CABasicAnimation(keyPath: "transform.scale.y")
-        animationTwo.duration = 0.3
+        animationTwo.duration = 0.4
         animationTwo.repeatCount = 2
         animationTwo.autoreverses = true
         animationTwo.fromValue = 1
         animationTwo.toValue = 1.04
         layer.add(animationTwo, forKey: "transform.scale.y")
+    }
+}
+
+extension UIView {
+    func fadeInBPVC(duration: TimeInterval = 3.0) {
+        UIView.animate(withDuration: duration, animations: {
+          self.alpha = 1.0
+      })
     }
 }

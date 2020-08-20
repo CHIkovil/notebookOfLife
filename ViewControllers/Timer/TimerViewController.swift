@@ -22,6 +22,7 @@ class TimerViewController: UIViewController {
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.lightGray.cgColor
         view.backgroundColor = .clear
+        view.alpha = 0
         return view
     }()
     //MARK: Label
@@ -35,6 +36,7 @@ class TimerViewController: UIViewController {
         label.backgroundColor = .white
         label.placeHolderColor = .lightGray
         label.animationType = .wave
+        label.alpha = 0
         return label
     }()
     
@@ -47,6 +49,7 @@ class TimerViewController: UIViewController {
         label.font = UIFont(name: "Chalkduster", size: 24)
         label.textColor = .lightGray
         label.textAlignment = .justified
+        label.alpha = 0
         return label
     }()
     
@@ -57,6 +60,7 @@ class TimerViewController: UIViewController {
         label.textColor = UIColor(rgb: (135,206,250))
         label.animationType = .Fall
         label.textAlignment = .center
+        label.alpha = 0
         label.countdownDelegate = self
         return label
     }()
@@ -71,6 +75,7 @@ class TimerViewController: UIViewController {
         label.layer.cornerRadius = 15
         label.layer.borderWidth = 0.5
         label.layer.borderColor = UIColor.lightGray.cgColor
+        label.alpha = 0
         return label
     }()
     //MARK: Button
@@ -79,6 +84,7 @@ class TimerViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "gardenIcon.png"), for: .normal)
         button.backgroundColor = .clear
+        button.alpha = 0
         button.addTarget(self, action: #selector(addNotes), for: .touchUpInside)
         return button
     }()
@@ -108,6 +114,12 @@ class TimerViewController: UIViewController {
         timerLabel.setCountDownTime(minutes: counterTime)
         timerLabel.start()
         planTitleLabel.startAnimation(duration: 300, .none)
+        targetView.fadeInTVC()
+        planTitleLabel.fadeInTVC()
+        targetLabel.fadeInTVC()
+        timerLabel.fadeInTVC()
+        lifeTimeLabel.fadeInTVC()
+        inputNotesButton.fadeInTVC()
     }
     //MARK: Func
     
@@ -231,5 +243,13 @@ extension UIView {
         animationTwo.fromValue = 1
         animationTwo.toValue = 1.02
         layer.add(animationTwo, forKey: "transform.scale.y")
+    }
+}
+
+extension UIView {
+    func fadeInTVC(duration: TimeInterval = 2.0) {
+        UIView.animate(withDuration: duration, animations: {
+          self.alpha = 1.0
+      })
     }
 }

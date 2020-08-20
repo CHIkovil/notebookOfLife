@@ -41,6 +41,7 @@ class NewDayViewController: UIViewController {
         label.font = UIFont(name: "Chalkduster", size: 15)
         label.textAlignment = .center
         label.textColor = .lightGray
+        label.alpha = 0
         return label
     }()
     
@@ -56,6 +57,7 @@ class NewDayViewController: UIViewController {
         button.image = .custom(UIImage(named: "handshakeIcon.png")!)
         button.color = .lightGray
         button.fillColor = UIColor(rgb: (255,127,80))
+        button.alpha = 0
         button.addTarget(self, action: #selector(startNewDay), for: .valueChanged)
         return button
     }()
@@ -77,6 +79,8 @@ class NewDayViewController: UIViewController {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
         newDayLabel.startAnimation(duration: 5, .none)
+        rulesLabel.fadeInNDVC()
+        startNewDayButton.fadeInNDVC()
     }
     //MARK: Func
     
@@ -121,4 +125,10 @@ class NewDayViewController: UIViewController {
     }
 }
 
-
+extension UIView {
+    func fadeInNDVC(duration: TimeInterval = 3.0) {
+        UIView.animate(withDuration: duration, animations: {
+          self.alpha = 1.0
+      })
+    }
+}

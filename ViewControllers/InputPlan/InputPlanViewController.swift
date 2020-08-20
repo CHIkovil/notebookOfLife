@@ -27,7 +27,7 @@ class InputPlanViewController: UIViewController {
     lazy var targetTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.text = "Let's start! What is our goal?"
+        textView.text = " Let's start!\n What is our goal?"
         textView.font = UIFont(name: "Chalkduster", size: 20)
         textView.tintColor = .lightGray
         textView.textColor = .lightGray
@@ -37,6 +37,7 @@ class InputPlanViewController: UIViewController {
         textView.layer.borderColor = UIColor.lightGray.cgColor
         textView.tintColor = .lightGray
         textView.backgroundColor = .clear
+        textView.alpha = 0
         textView.delegate = self
         return textView
     }()
@@ -63,6 +64,7 @@ class InputPlanViewController: UIViewController {
         button.image = .custom(UIImage(named: "goalIcon.png")!)
         button.color = .lightGray
         button.fillColor = .lightGray
+        button.alpha = 0
         button.addTarget(self, action: #selector(inputPlan), for: .valueChanged)
         return button
     }()
@@ -73,6 +75,7 @@ class InputPlanViewController: UIViewController {
         button.setImage(UIImage(named: "voiceIcon.png"), for: .normal)
         button.backgroundColor = .clear
         button.addTarget(self, action: #selector(voiceInputText), for: .touchUpInside)
+        button.alpha = 0
         return button
     }()
  //MARK: Override
@@ -92,9 +95,11 @@ class InputPlanViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        targetTitleLabel.startAnimation(duration: 7, .none)
+        targetTitleLabel.startAnimation(duration: 5, .none)
         Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.appearVC), userInfo: nil, repeats: false)
-        
+        targetTextView.fadeInIPVC()
+        inputPlanButton.fadeInIPVC()
+        voiceInputTextButton.fadeInIPVC()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -132,14 +137,14 @@ class InputPlanViewController: UIViewController {
     }
     //MARK: textViewDidBeginEditing
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if targetTextView.text == "Let's start! What is our goal?"{
+        if targetTextView.text == " Let's start!\n What is our goal?"{
             targetTextView.text = ""
         }
     }
     //MARK: textViewDidEndEditing
     func textViewDidEndEditing(_ textView: UITextView) {
         if targetTextView.text == "" {
-            targetTextView.text = "Let's start! What is our goal?"
+            targetTextView.text = " Let's start!\n What is our goal?"
         }
     }
     //MARK: addAnimationInputPlanButton
@@ -164,7 +169,7 @@ class InputPlanViewController: UIViewController {
     }
    
     @objc func inputPlan() {
-        if targetTextView.text == "Let's start! What is our goal?" || targetTextView.text == "" {
+        if targetTextView.text == " Let's start!\n What is our goal?" || targetTextView.text == "" {
             targetTextView.attentionTextViewIPVC()
             voiceInputTextButton.attentionButtonIPVC()
         } else {
@@ -188,7 +193,7 @@ class InputPlanViewController: UIViewController {
 //MARK: Extension
 extension InputPlanViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        guard textView.text == "Let's start! What is our goal?" || textView.text == "" else {
+        guard textView.text == " Let's start!\n What is our goal?" || textView.text == "" else {
             addAnimationInputPlanButton()
             return
         }
@@ -208,14 +213,14 @@ extension InputPlanViewController: VoiceOverlayDelegate {
 extension UITextView {
     func attentionTextViewIPVC() {
         let animationOne = CABasicAnimation(keyPath: "transform.scale.x")
-        animationOne.duration = 0.3
+        animationOne.duration = 0.4
         animationOne.repeatCount = 2
         animationOne.autoreverses = true
         animationOne.fromValue = 1
         animationOne.toValue = 1.02
         layer.add(animationOne, forKey: "transform.scale.x")
         let animationTwo = CABasicAnimation(keyPath: "transform.scale.y")
-        animationTwo.duration = 0.3
+        animationTwo.duration = 0.4
         animationTwo.repeatCount = 2
         animationTwo.autoreverses = true
         animationTwo.fromValue = 1
@@ -227,18 +232,26 @@ extension UITextView {
 extension UIButton {
     func attentionButtonIPVC() {
         let animationOne = CABasicAnimation(keyPath: "transform.scale.x")
-        animationOne.duration = 0.3
+        animationOne.duration = 0.4
         animationOne.repeatCount = 2
         animationOne.autoreverses = true
         animationOne.fromValue = 1
         animationOne.toValue = 1.1
         layer.add(animationOne, forKey: "transform.scale.x")
         let animationTwo = CABasicAnimation(keyPath: "transform.scale.y")
-        animationTwo.duration = 0.3
+        animationTwo.duration = 0.4
         animationTwo.repeatCount = 2
         animationTwo.autoreverses = true
         animationTwo.fromValue = 1
         animationTwo.toValue = 1.1
         layer.add(animationTwo, forKey: "transform.scale.y")
+    }
+}
+
+extension UIView {
+    func fadeInIPVC(duration: TimeInterval = 3.0) {
+        UIView.animate(withDuration: duration, animations: {
+          self.alpha = 1.0
+      })
     }
 }
