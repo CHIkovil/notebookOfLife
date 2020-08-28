@@ -249,7 +249,7 @@ extension UIButton {
 }
 
 extension UIView {
-    func fadeInIPVC(duration: TimeInterval = 3.0) {
+    func fadeInIPVC(duration: TimeInterval = 2.0) {
         UIView.animate(withDuration: duration, animations: {
           self.alpha = 1.0
       })
