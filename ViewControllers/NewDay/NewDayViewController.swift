@@ -12,6 +12,16 @@ import WCLShineButton
 
 class NewDayViewController: UIViewController {
     //MARK: View
+    lazy var backgroundEnvironmentImageView: UIImageView = {
+        let background = UIImage(named: "environmentImage.png")
+        var imageView : UIImageView!
+        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 350, height: 350))
+        imageView.contentMode =  UIView.ContentMode.scaleAspectFill
+        imageView.clipsToBounds = false
+        imageView.image = background
+        imageView.center = view.center
+        return imageView
+    }()
     lazy var rulesView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -27,7 +37,7 @@ class NewDayViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "New day!"
         label.font = UIFont(name: "Chalkduster", size: 60)
-        label.textColor = .lightGray
+        label.textColor = UIColor(rgb: (255,127,80))
         label.animationType = .shine
         return label
     }()
@@ -51,12 +61,11 @@ class NewDayViewController: UIViewController {
         param.enableFlashing = true
         param.animDuration = 1
         param.shineCount = 10
-        param.shineSize = 15
+        param.shineSize = 25
         let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 90, height: 90), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.image = .custom(UIImage(named: "handshakeIcon.png")!)
-        button.color = .lightGray
-        button.fillColor = UIColor(rgb: (255,127,80))
+        button.color = UIColor(rgb: (178,34,34))
         button.alpha = 0
         button.addTarget(self, action: #selector(startNewDay), for: .valueChanged)
         return button
@@ -69,6 +78,8 @@ class NewDayViewController: UIViewController {
         view.addSubview(startNewDayButton)
         view.addSubview(rulesView)
         view.addSubview(rulesLabel)
+        view.addSubview(backgroundEnvironmentImageView)
+        view.sendSubviewToBack(backgroundEnvironmentImageView)
         createConstraintsNewDayLabel()
         createConstraintsStartNewDayButton()
         createConstraintsRulesView()
@@ -90,7 +101,7 @@ class NewDayViewController: UIViewController {
     func createConstraintsRulesView(){
         rulesView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
         rulesView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
-        rulesView.topAnchor.constraint(equalTo: startNewDayButton.bottomAnchor, constant: 20).isActive = true
+        rulesView.topAnchor.constraint(equalTo: startNewDayButton.bottomAnchor, constant: 70).isActive = true
         rulesView.heightAnchor.constraint(equalToConstant: 140).isActive = true
     }
     //MARK: ConstraintsLabel

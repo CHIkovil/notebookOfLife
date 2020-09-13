@@ -196,7 +196,7 @@ class TimerViewController: UIViewController {
 extension TimerViewController: CountdownLabelDelegate {
     func countingAt(timeCounted: TimeInterval, timeRemaining: TimeInterval) {
         inputNotesButton.attentionButtonTVC()
-        targetView.attentionViewTVC()
+        targetView.attentionViewTVCА()
     }
     
     func countdownFinished() {
@@ -228,7 +228,7 @@ extension UIButton {
 }
 
 extension UIView {
-    func attentionViewTVC() {
+    func attentionViewTVCА() {
         let animationOne = CABasicAnimation(keyPath: "transform.scale.x")
         animationOne.duration = 0.3
         animationOne.repeatCount = 1
