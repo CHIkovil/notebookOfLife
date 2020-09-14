@@ -23,19 +23,29 @@ class InputPlanViewController: UIViewController {
         controller.settings.layout.inputScreen.subtitleBulletList = ["Do not forget to wash your hands", "Plant another tree"]
         return controller
     }()
+    //MARK: View
+    lazy var backgroundPaperImageView: UIImageView = {
+        let background = UIImage(named: "postImage.png")
+        var imageView : UIImageView!
+        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 350, height: 350))
+        imageView.contentMode =  UIView.ContentMode.scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        return imageView
+    }()
     //MARK: TextView
     lazy var targetTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.text = " Let's start!\n What is our goal?"
         textView.font = UIFont(name: "Chalkduster", size: 20)
-        textView.tintColor = .lightGray
-        textView.textColor = .lightGray
-        textView.textAlignment = .justified
+        textView.tintColor = UIColor(rgb: (105,105,105))
+        textView.textColor = UIColor(rgb: (105,105,105))
+        textView.textAlignment = .center
         textView.layer.cornerRadius = 25
         textView.layer.borderWidth = 2
-        textView.layer.borderColor = UIColor.lightGray.cgColor
-        textView.tintColor = .lightGray
+        textView.layer.borderColor = UIColor.clear.cgColor
         textView.backgroundColor = .clear
         textView.alpha = 0
         textView.delegate = self
@@ -47,7 +57,7 @@ class InputPlanViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Goal"
         label.font = UIFont(name: "Chalkduster", size: 60)
-        label.textColor = .lightGray
+        label.textColor = .white
         label.textAlignment = .center
         label.animationType = .fade
         return label
@@ -55,15 +65,13 @@ class InputPlanViewController: UIViewController {
     //MARK: Button
     lazy var inputPlanButton: WCLShineButton = {
         var param = WCLShineParams()
-        param.bigShineColor = .white
-        param.smallShineColor = .white
         param.shineCount = 0
         param.shineSize = 0
         let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 80, height: 80), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.image = .custom(UIImage(named: "goalIcon.png")!)
-        button.color = .lightGray
-        button.fillColor = .lightGray
+        button.color = .white
+        button.fillColor = .white
         button.alpha = 0
         button.addTarget(self, action: #selector(inputPlan), for: .valueChanged)
         return button
@@ -86,6 +94,8 @@ class InputPlanViewController: UIViewController {
         view.addSubview(targetTitleLabel)
         view.addSubview(inputPlanButton)
         view.addSubview(voiceInputTextButton)
+        view.addSubview(backgroundPaperImageView)
+        view.sendSubviewToBack(backgroundPaperImageView)
         createConstraintsTargetTextView()
         createConstraintsTargetTitleLabel()
         createConstraintsInputPlanButton()
@@ -113,13 +123,13 @@ class InputPlanViewController: UIViewController {
     func createConstraintsTargetTextView() {
         targetTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         targetTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
-        targetTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        targetTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 20).isActive = true
         targetTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120).isActive = true
     }
     //MARK: ConstraintsLabel
     func createConstraintsTargetTitleLabel() {
         targetTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        targetTitleLabel.bottomAnchor.constraint(equalTo: targetTextView.topAnchor, constant: -15).isActive = true
+        targetTitleLabel.bottomAnchor.constraint(equalTo: targetTextView.topAnchor, constant: -5).isActive = true
     }
     //MARK: ConstraintsButton
     func createConstraintsInputPlanButton() {
@@ -131,7 +141,7 @@ class InputPlanViewController: UIViewController {
     
     func createConstraintsVoiceInputTextButton() {
         voiceInputTextButton.leadingAnchor.constraint(equalTo: targetTitleLabel.trailingAnchor).isActive = true
-        voiceInputTextButton.bottomAnchor.constraint(equalTo: targetTextView.topAnchor, constant: -30).isActive = true
+        voiceInputTextButton.bottomAnchor.constraint(equalTo: targetTextView.topAnchor, constant: -20).isActive = true
         voiceInputTextButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         voiceInputTextButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
     }
@@ -153,7 +163,6 @@ class InputPlanViewController: UIViewController {
         inputPlanButton.params.animDuration = 1
         inputPlanButton.params.shineCount = 10
         inputPlanButton.params.shineSize = 10
-        inputPlanButton.fillColor = UIColor(rgb: (60,179,113))
     }
     //MARK: @objc
     @objc func voiceInputText() {

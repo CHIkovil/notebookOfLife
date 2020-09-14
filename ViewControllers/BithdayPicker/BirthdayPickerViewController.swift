@@ -53,8 +53,6 @@ class BirthdayPickerViewController: UIViewController {
     //MARK: Button
     lazy var saveBirthdayButton: WCLShineButton = {
         var param = WCLShineParams()
-        param.bigShineColor = .white
-        param.smallShineColor = .white
         param.shineCount = 0
         param.shineSize = 0
         let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 70, height: 70), params: param)

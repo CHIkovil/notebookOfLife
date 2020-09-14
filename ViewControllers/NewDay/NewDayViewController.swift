@@ -17,7 +17,7 @@ class NewDayViewController: UIViewController {
         var imageView : UIImageView!
         imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 350, height: 350))
         imageView.contentMode =  UIView.ContentMode.scaleAspectFill
-        imageView.clipsToBounds = false
+        imageView.clipsToBounds = true
         imageView.image = background
         imageView.center = view.center
         return imageView
@@ -59,13 +59,14 @@ class NewDayViewController: UIViewController {
     lazy var startNewDayButton: WCLShineButton = {
         var param = WCLShineParams()
         param.enableFlashing = true
-        param.animDuration = 1
+        param.animDuration = 1.2
         param.shineCount = 10
         param.shineSize = 25
         let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 90, height: 90), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.image = .custom(UIImage(named: "handshakeIcon.png")!)
         button.color = UIColor(rgb: (178,34,34))
+        button.fillColor = UIColor(rgb: (178,34,34))
         button.alpha = 0
         button.addTarget(self, action: #selector(startNewDay), for: .valueChanged)
         return button
@@ -107,12 +108,12 @@ class NewDayViewController: UIViewController {
     //MARK: ConstraintsLabel
     func createConstraintsNewDayLabel() {
         newDayLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        newDayLabel.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: -5).isActive = true
+        newDayLabel.bottomAnchor.constraint(equalTo: startNewDayButton.topAnchor, constant: -5).isActive = true
     }
     //MARK: ConstraintsButton
     func createConstraintsStartNewDayButton() {
         startNewDayButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        startNewDayButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 6).isActive = true
+        startNewDayButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 15).isActive = true
         startNewDayButton.widthAnchor.constraint(equalToConstant: 90).isActive = true
         startNewDayButton.heightAnchor.constraint(equalToConstant: 90).isActive = true
     }
