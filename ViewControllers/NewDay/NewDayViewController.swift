@@ -48,7 +48,7 @@ class NewDayViewController: UIViewController {
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.text = "Rules for target:\n1)Try not to be longer than this sentence for this purpose!\n2)Start the day with a simple but important goal!"
-        label.font = UIFont(name: "Chalkduster", size: 15)
+        label.font = UIFont(name: "Chalkduster", size: 12)
         label.textAlignment = .center
         label.textColor = .lightGray
         label.alpha = 0
@@ -59,9 +59,9 @@ class NewDayViewController: UIViewController {
     lazy var startNewDayButton: WCLShineButton = {
         var param = WCLShineParams()
         param.enableFlashing = true
-        param.animDuration = 1.2
+        param.animDuration = 1
         param.shineCount = 10
-        param.shineSize = 25
+        param.shineSize = 20
         let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 90, height: 90), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.image = .custom(UIImage(named: "handshakeIcon.png")!)
