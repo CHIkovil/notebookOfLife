@@ -13,7 +13,7 @@ import WCLShineButton
 class NewDayViewController: UIViewController {
     //MARK: View
     lazy var backgroundEnvironmentImageView: UIImageView = {
-        let background = UIImage(named: "environmentImage.png")
+        let background = UIImage(named: "sunImage.png")
         var imageView : UIImageView!
         imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 350, height: 350))
         imageView.contentMode =  UIView.ContentMode.scaleAspectFill
@@ -37,7 +37,7 @@ class NewDayViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "New day!"
         label.font = UIFont(name: "Chalkduster", size: 60)
-        label.textColor = UIColor(rgb: (255,127,80))
+        label.textColor = .white
         label.animationType = .shine
         return label
     }()
@@ -50,7 +50,7 @@ class NewDayViewController: UIViewController {
         label.text = "Rules for target:\n1)Try not to be longer than this sentence for this purpose!\n2)Start the day with a simple but important goal!"
         label.font = UIFont(name: "Chalkduster", size: 12)
         label.textAlignment = .center
-        label.textColor = .lightGray
+        label.textColor = UIColor(rgb: (105,105,105))
         label.alpha = 0
         return label
     }()
@@ -65,8 +65,8 @@ class NewDayViewController: UIViewController {
         let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 90, height: 90), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.image = .custom(UIImage(named: "handshakeIcon.png")!)
-        button.color = UIColor(rgb: (178,34,34))
-        button.fillColor = UIColor(rgb: (178,34,34))
+        button.color = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        button.fillColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         button.alpha = 0
         button.addTarget(self, action: #selector(startNewDay), for: .valueChanged)
         return button
@@ -74,7 +74,7 @@ class NewDayViewController: UIViewController {
     //MARK: Override
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = #colorLiteral(red: 0.6374439597, green: 0.8331997991, blue: 0.9999315143, alpha: 1)
         view.addSubview(newDayLabel)
         view.addSubview(startNewDayButton)
         view.addSubview(rulesView)
@@ -102,18 +102,18 @@ class NewDayViewController: UIViewController {
     func createConstraintsRulesView(){
         rulesView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
         rulesView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
-        rulesView.topAnchor.constraint(equalTo: startNewDayButton.bottomAnchor, constant: 70).isActive = true
+        rulesView.topAnchor.constraint(equalTo: startNewDayButton.bottomAnchor, constant: 5).isActive = true
         rulesView.heightAnchor.constraint(equalToConstant: 140).isActive = true
     }
     //MARK: ConstraintsLabel
     func createConstraintsNewDayLabel() {
         newDayLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        newDayLabel.bottomAnchor.constraint(equalTo: startNewDayButton.topAnchor, constant: -5).isActive = true
+        newDayLabel.bottomAnchor.constraint(equalTo: startNewDayButton.topAnchor).isActive = true
     }
     //MARK: ConstraintsButton
     func createConstraintsStartNewDayButton() {
         startNewDayButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        startNewDayButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 15).isActive = true
+        startNewDayButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 80).isActive = true
         startNewDayButton.widthAnchor.constraint(equalToConstant: 90).isActive = true
         startNewDayButton.heightAnchor.constraint(equalToConstant: 90).isActive = true
     }
