@@ -89,7 +89,7 @@ class InputPlanViewController: UIViewController {
  //MARK: Override
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 0.6374439597, green: 0.8331997991, blue: 0.9999315143, alpha: 1)
+        view.backgroundColor = .white
         view.addSubview(targetTextView)
         view.addSubview(targetTitleLabel)
         view.addSubview(inputPlanButton)

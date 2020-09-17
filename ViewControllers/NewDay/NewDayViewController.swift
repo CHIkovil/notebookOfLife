@@ -12,7 +12,7 @@ import WCLShineButton
 
 class NewDayViewController: UIViewController {
     //MARK: View
-    lazy var backgroundEnvironmentImageView: UIImageView = {
+    lazy var backgroundSunImageiew: UIImageView = {
         let background = UIImage(named: "sunImage.png")
         var imageView : UIImageView!
         imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 350, height: 350))
@@ -22,6 +22,19 @@ class NewDayViewController: UIViewController {
         imageView.center = view.center
         return imageView
     }()
+    
+    lazy var backgroundRainbowImageView: UIImageView = {
+        let background = UIImage(named: "rainbowImage.png")
+        var imageView : UIImageView!
+        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
+        imageView.contentMode =  UIView.ContentMode.scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        return imageView
+    }()
+    
     lazy var rulesView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -74,17 +87,20 @@ class NewDayViewController: UIViewController {
     //MARK: Override
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 0.6374439597, green: 0.8331997991, blue: 0.9999315143, alpha: 1)
+        view.backgroundColor = .white
         view.addSubview(newDayLabel)
         view.addSubview(startNewDayButton)
         view.addSubview(rulesView)
         view.addSubview(rulesLabel)
-        view.addSubview(backgroundEnvironmentImageView)
-        view.sendSubviewToBack(backgroundEnvironmentImageView)
+        view.addSubview(backgroundSunImageiew)
+        view.sendSubviewToBack(backgroundSunImageiew)
+        view.addSubview(backgroundRainbowImageView)
+        view.sendSubviewToBack(backgroundRainbowImageView)
         createConstraintsNewDayLabel()
         createConstraintsStartNewDayButton()
         createConstraintsRulesView()
         createConstraintsRulesLabel()
+        createConstraintsBackgroundRainbowImageView()
     }
     //MARK: DidAppear
     override func viewDidAppear(_ animated: Bool) {
@@ -99,6 +115,10 @@ class NewDayViewController: UIViewController {
     
     
     //MARK: ConstraintsView
+    func createConstraintsBackgroundRainbowImageView(){
+        backgroundRainbowImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        backgroundRainbowImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50).isActive = true
+    }
     func createConstraintsRulesView(){
         rulesView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
         rulesView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
