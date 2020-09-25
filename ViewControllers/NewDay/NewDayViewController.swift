@@ -12,7 +12,7 @@ import WCLShineButton
 
 class NewDayViewController: UIViewController {
     //MARK: View
-    lazy var backgroundSunImageiew: UIImageView = {
+    lazy var backgroundSunImageView: UIImageView = {
         let background = UIImage(named: "sunImage.png")
         var imageView : UIImageView!
         imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 350, height: 350))
@@ -26,7 +26,7 @@ class NewDayViewController: UIViewController {
     lazy var backgroundRainbowImageView: UIImageView = {
         let background = UIImage(named: "rainbowImage.png")
         var imageView : UIImageView!
-        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
+        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         imageView.contentMode =  UIView.ContentMode.scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
@@ -92,8 +92,8 @@ class NewDayViewController: UIViewController {
         view.addSubview(startNewDayButton)
         view.addSubview(rulesView)
         view.addSubview(rulesLabel)
-        view.addSubview(backgroundSunImageiew)
-        view.sendSubviewToBack(backgroundSunImageiew)
+        view.addSubview(backgroundSunImageView)
+        view.sendSubviewToBack(backgroundSunImageView)
         view.addSubview(backgroundRainbowImageView)
         view.sendSubviewToBack(backgroundRainbowImageView)
         createConstraintsNewDayLabel()

@@ -23,6 +23,19 @@ class BirthdayPickerViewController: UIViewController {
         return imageView
     }()
     
+    //MARK: View
+    lazy var backgroundBenchImageView: UIImageView = {
+        let background = UIImage(named: "bench.png")
+        var imageView : UIImageView!
+        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        imageView.contentMode =  UIView.ContentMode.scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        return imageView
+    }()
+    
     //MARK: Field
     lazy var birthdayField: UITextField = {
         let textField = UITextField()
@@ -89,11 +102,14 @@ class BirthdayPickerViewController: UIViewController {
         view.addSubview(birthdayField)
         view.addSubview(applicationTitleLabel)
         view.addSubview(saveBirthdayButton)
+        view.addSubview(backgroundBenchImageView)
+        view.sendSubviewToBack(backgroundBenchImageView)
         view.addSubview(backgroundTreeImageView)
         view.sendSubviewToBack(backgroundTreeImageView)
         createConstraintsBirthdayField()
         createConstraintsApplicationTitleLabel()
         createConstraintsSaveBirthdayButton()
+        createConstraintsBackgroundBenchImageView()
         
     }
     //MARK: DidAppear
@@ -114,6 +130,14 @@ class BirthdayPickerViewController: UIViewController {
     
     
     
+    //MARK: ConstraintsView
+    func createConstraintsBackgroundBenchImageView(){
+        backgroundBenchImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 5).isActive = true
+        backgroundBenchImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 260).isActive = true
+        backgroundBenchImageView.widthAnchor.constraint(equalToConstant: 180).isActive = true
+        backgroundBenchImageView.heightAnchor.constraint(equalToConstant: 180).isActive =  true
+        
+    }
     //MARK: ConstraintsField
     func createConstraintsBirthdayField() {
         birthdayField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true

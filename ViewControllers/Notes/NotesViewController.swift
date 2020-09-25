@@ -23,19 +23,29 @@ class NotesViewController: UIViewController {
         controller.settings.layout.inputScreen.subtitleBulletList = ["I think too much and drink"]
         return controller
     }()
+    //MARK: View
+    lazy var backgroundSoiImageView: UIImageView = {
+        let background = UIImage(named: "soiImage.png")
+        var imageView : UIImageView!
+        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 350, height: 350))
+        imageView.contentMode =  UIView.ContentMode.scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        return imageView
+    }()
     //MARK: TextView
     lazy var notesTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.text = " What have you decided?"
         textView.font = UIFont(name: "Chalkduster", size: 20)
-        textView.tintColor = .lightGray
-        textView.textColor = .lightGray
-        textView.textAlignment = .justified
+        textView.tintColor = .black
+        textView.textColor = .black
+        textView.textAlignment = .center
         textView.layer.cornerRadius = 25
         textView.layer.borderWidth = 2
-        textView.layer.borderColor = UIColor.lightGray.cgColor
-        textView.tintColor = .lightGray
+        textView.layer.borderColor = UIColor.clear.cgColor
         textView.backgroundColor = .clear
         textView.alpha = 0
         textView.delegate = self
@@ -47,7 +57,7 @@ class NotesViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Notes"
         label.font = UIFont(name: "Chalkduster", size: 60)
-        label.textColor = .lightGray
+        label.textColor = .white
         label.textAlignment = .center
         label.animationType = .fade
         return label
@@ -55,15 +65,13 @@ class NotesViewController: UIViewController {
     //MARK: Button
     lazy var inputNotesButton: WCLShineButton = {
         var param = WCLShineParams()
-        param.bigShineColor = .white
-        param.smallShineColor = .white
         param.shineCount = 0
         param.shineSize = 0
         let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 80, height: 80), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.image = .custom(UIImage(named: "leafIcon.png")!)
-        button.color = .lightGray
-        button.fillColor = .lightGray
+        button.image = .custom(UIImage(named: "dropIcon.png")!)
+        button.color = #colorLiteral(red: 0.5034754276, green: 0.8359741569, blue: 1, alpha: 1)
+        button.fillColor = #colorLiteral(red: 0.5034754276, green: 0.8359741569, blue: 1, alpha: 1)
         button.alpha = 0
         button.addTarget(self, action: #selector(inputNotes), for: .touchUpInside)
         return button
@@ -72,7 +80,7 @@ class NotesViewController: UIViewController {
     lazy var voiceInputTextNotesButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "voiceIcon.png"), for: .normal)
+        button.setImage(UIImage(named: "podcastIcon.png"), for: .normal)
         button.backgroundColor = .clear
         button.alpha = 0
         button.addTarget(self, action: #selector(voiceInputTextNotes), for: .touchUpInside)
@@ -86,6 +94,8 @@ class NotesViewController: UIViewController {
         view.addSubview(notesTitleLabel)
         view.addSubview(inputNotesButton)
         view.addSubview(voiceInputTextNotesButton)
+        view.addSubview(backgroundSoiImageView)
+        view.sendSubviewToBack(backgroundSoiImageView)
         createConstraintsNotesTextView()
         createConstraintsNotesTitleLabel()
         createConstraintsInputNotesButton()
@@ -113,8 +123,8 @@ class NotesViewController: UIViewController {
     func createConstraintsNotesTextView() {
         notesTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         notesTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
-        notesTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        notesTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: 45).isActive = true
+        notesTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 30).isActive = true
+        notesTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
     }
     //MARK: ConstraintsLabel
     func createConstraintsNotesTitleLabel() {
@@ -124,13 +134,13 @@ class NotesViewController: UIViewController {
     //MARK: ConstraintsButton
     func createConstraintsInputNotesButton() {
         inputNotesButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        inputNotesButton.topAnchor.constraint(equalTo: notesTextView.bottomAnchor, constant: 10).isActive = true
+        inputNotesButton.topAnchor.constraint(equalTo: notesTextView.bottomAnchor, constant: 5).isActive = true
         inputNotesButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
         inputNotesButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
      }
     
     func createConstraintsVoiceInputTextNotesButton() {
-        voiceInputTextNotesButton.leadingAnchor.constraint(equalTo: notesTitleLabel.trailingAnchor, constant: 5).isActive = true
+        voiceInputTextNotesButton.leadingAnchor.constraint(equalTo: notesTitleLabel.trailingAnchor, constant: 10).isActive = true
         voiceInputTextNotesButton.bottomAnchor.constraint(equalTo: notesTextView.topAnchor, constant: -31).isActive = true
         voiceInputTextNotesButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         voiceInputTextNotesButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
@@ -138,7 +148,6 @@ class NotesViewController: UIViewController {
     //MARK: textViewDidBeginEditing
     func textViewDidBeginEditing(_ textView: UITextView) {
         if notesTextView.text == " What have you decided?" {
-            notesTextView.heightAnchor.constraint(equalToConstant: 200).isActive = true
             notesTextView.text = ""
         }
     }
