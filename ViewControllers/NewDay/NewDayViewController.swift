@@ -31,15 +31,12 @@ class NewDayViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
         imageView.image = background
-        imageView.center = view.center
         return imageView
     }()
     
     lazy var rulesView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 30
-        view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.clear.cgColor
         view.backgroundColor = .clear
         return view
@@ -49,7 +46,7 @@ class NewDayViewController: UIViewController {
         let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "New day!"
-        label.font = UIFont(name: "Chalkduster", size: 60)
+        label.font = UIFont(name: "Chalkduster", size: 70)
         label.textColor = .white
         label.animationType = .shine
         return label
@@ -77,11 +74,11 @@ class NewDayViewController: UIViewController {
         param.shineSize = 20
         let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 90, height: 90), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.image = .custom(UIImage(named: "handshakeIcon.png")!)
-        button.color = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        button.fillColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        button.alpha = 0
+        button.image = .custom(UIImage(named: "loveIcon.png")!)
+        button.color = .black
+        button.fillColor = .black
         button.addTarget(self, action: #selector(startNewDay), for: .valueChanged)
+        button.alpha = 0
         return button
     }()
     //MARK: Override
@@ -128,7 +125,7 @@ class NewDayViewController: UIViewController {
     //MARK: ConstraintsLabel
     func createConstraintsNewDayLabel() {
         newDayLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        newDayLabel.bottomAnchor.constraint(equalTo: startNewDayButton.topAnchor).isActive = true
+        newDayLabel.bottomAnchor.constraint(equalTo: startNewDayButton.topAnchor, constant: -20).isActive = true
     }
     //MARK: ConstraintsButton
     func createConstraintsStartNewDayButton() {

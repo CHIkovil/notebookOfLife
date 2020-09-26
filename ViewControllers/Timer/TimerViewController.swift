@@ -18,11 +18,8 @@ class TimerViewController: UIViewController {
     lazy var targetView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 35
-        view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.clear.cgColor
         view.backgroundColor = .clear
-        view.alpha = 0
         return view
     }()
     //MARK: View
@@ -47,7 +44,6 @@ class TimerViewController: UIViewController {
         label.backgroundColor = .white
         label.placeHolderColor = .lightGray
         label.animationType = .wave
-        label.alpha = 0
         return label
     }()
     
@@ -127,8 +123,6 @@ class TimerViewController: UIViewController {
         timerLabel.setCountDownTime(minutes: counterTime)
         timerLabel.start()
         planTitleLabel.startAnimation(duration: 300, .none)
-        targetView.fadeInTVC()
-        planTitleLabel.fadeInTVC()
         targetLabel.fadeInTVC()
         timerLabel.fadeInTVC()
         lifeTimeLabel.fadeInTVC()

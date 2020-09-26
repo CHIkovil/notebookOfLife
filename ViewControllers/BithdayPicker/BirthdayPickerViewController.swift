@@ -22,17 +22,15 @@ class BirthdayPickerViewController: UIViewController {
         imageView.center = view.center
         return imageView
     }()
-    
-    //MARK: View
+
     lazy var backgroundBenchImageView: UIImageView = {
-        let background = UIImage(named: "bench.png")
+        let background = UIImage(named: "benchImage.png")
         var imageView : UIImageView!
         imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        imageView.contentMode =  UIView.ContentMode.scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode =  UIView.ContentMode.scaleAspectFill
         imageView.clipsToBounds = true
         imageView.image = background
-        imageView.center = view.center
         return imageView
     }()
     
@@ -48,8 +46,8 @@ class BirthdayPickerViewController: UIViewController {
         textField.layer.borderWidth = 2
         textField.layer.borderColor = UIColor.white.cgColor
         textField.tintColor = .clear
-        textField.alpha = 0
         textField.delegate = self
+        textField.alpha = 0
         return textField
     }()
     //MARK: Label
@@ -57,7 +55,7 @@ class BirthdayPickerViewController: UIViewController {
         let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "NoL"
-        label.font = UIFont(name: "Chalkduster", size: 65)
+        label.font = UIFont(name: "Chalkduster", size: 80)
         label.textColor = .white
         label.textAlignment = .center
         label.animationType = .shine
@@ -68,13 +66,13 @@ class BirthdayPickerViewController: UIViewController {
         var param = WCLShineParams()
         param.shineCount = 0
         param.shineSize = 0
-        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 70, height: 70), params: param)
+        let button = WCLShineButton(frame: .init(x: 0, y: 0, width: 75, height: 75), params: param)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.image = .custom(UIImage(named: "calendarIcon.png")!)
         button.color = .black
         button.fillColor = .black
-        button.alpha = 0
         button.addTarget(self, action: #selector(saveBirthday), for: .valueChanged)
+        button.alpha = 0
         return button
     }()
     //MARK: Picker
@@ -110,7 +108,6 @@ class BirthdayPickerViewController: UIViewController {
         createConstraintsApplicationTitleLabel()
         createConstraintsSaveBirthdayButton()
         createConstraintsBackgroundBenchImageView()
-        
     }
     //MARK: DidAppear
     override func viewDidAppear(_ animated: Bool) {
@@ -154,8 +151,8 @@ class BirthdayPickerViewController: UIViewController {
     func createConstraintsSaveBirthdayButton() {
         saveBirthdayButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         saveBirthdayButton.topAnchor.constraint(equalTo: birthdayField.bottomAnchor, constant: 10).isActive = true
-        saveBirthdayButton.widthAnchor.constraint(equalToConstant: 70).isActive = true
-        saveBirthdayButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        saveBirthdayButton.widthAnchor.constraint(equalToConstant: 75).isActive = true
+        saveBirthdayButton.heightAnchor.constraint(equalToConstant: 75).isActive = true
     }
     //MARK: getDateFromBirthdayPicker
     func getDateFromBirthdayPicker() {
@@ -169,7 +166,7 @@ class BirthdayPickerViewController: UIViewController {
         saveBirthdayButton.params.enableFlashing = true
         saveBirthdayButton.params.animDuration = 1.2
         saveBirthdayButton.params.shineCount = 10
-        saveBirthdayButton.params.shineSize = 25
+        saveBirthdayButton.params.shineSize = 20
     }
     //MARK:changeTextApplicationTitleLabel
     func changeTextApplicationTitleLabel() {

@@ -39,12 +39,10 @@ class NotesViewController: UIViewController {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.text = " What have you decided?"
-        textView.font = UIFont(name: "Chalkduster", size: 20)
+        textView.font = UIFont(name: "Chalkduster", size: 18)
         textView.tintColor = .black
         textView.textColor = .black
         textView.textAlignment = .center
-        textView.layer.cornerRadius = 25
-        textView.layer.borderWidth = 2
         textView.layer.borderColor = UIColor.clear.cgColor
         textView.backgroundColor = .clear
         textView.alpha = 0
@@ -56,7 +54,7 @@ class NotesViewController: UIViewController {
         let label = DWAnimatedLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Notes"
-        label.font = UIFont(name: "Chalkduster", size: 60)
+        label.font = UIFont(name: "Chalkduster", size: 75)
         label.textColor = .white
         label.textAlignment = .center
         label.animationType = .fade
@@ -123,8 +121,8 @@ class NotesViewController: UIViewController {
     func createConstraintsNotesTextView() {
         notesTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         notesTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
-        notesTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 30).isActive = true
-        notesTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
+        notesTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 35).isActive = true
+        notesTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: 75).isActive = true
     }
     //MARK: ConstraintsLabel
     func createConstraintsNotesTitleLabel() {
@@ -134,14 +132,14 @@ class NotesViewController: UIViewController {
     //MARK: ConstraintsButton
     func createConstraintsInputNotesButton() {
         inputNotesButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        inputNotesButton.topAnchor.constraint(equalTo: notesTextView.bottomAnchor, constant: 5).isActive = true
+        inputNotesButton.topAnchor.constraint(equalTo: notesTextView.bottomAnchor,constant: 10).isActive = true
         inputNotesButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
         inputNotesButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
      }
     
     func createConstraintsVoiceInputTextNotesButton() {
         voiceInputTextNotesButton.leadingAnchor.constraint(equalTo: notesTitleLabel.trailingAnchor, constant: 10).isActive = true
-        voiceInputTextNotesButton.bottomAnchor.constraint(equalTo: notesTextView.topAnchor, constant: -31).isActive = true
+        voiceInputTextNotesButton.bottomAnchor.constraint(equalTo: notesTextView.topAnchor, constant: -35).isActive = true
         voiceInputTextNotesButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         voiceInputTextNotesButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
     }
@@ -162,8 +160,7 @@ class NotesViewController: UIViewController {
          inputNotesButton.params.enableFlashing = true
          inputNotesButton.params.animDuration = 1
          inputNotesButton.params.shineCount = 10
-         inputNotesButton.params.shineSize = 10
-         inputNotesButton.fillColor = UIColor(rgb: (60,179,113))
+         inputNotesButton.params.shineSize = 20
      }
     //MARK: @objc
     @objc func inputNotes() {
@@ -209,7 +206,6 @@ extension NotesViewController: UITextViewDelegate {
 
 extension NotesViewController: VoiceOverlayDelegate {
     func recording(text: String?, final: Bool?, error: Error?) {
-        
     }
 }
 

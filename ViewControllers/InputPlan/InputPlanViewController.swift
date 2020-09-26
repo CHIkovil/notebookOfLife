@@ -43,8 +43,6 @@ class InputPlanViewController: UIViewController {
         textView.tintColor = UIColor(rgb: (245,245,245))
         textView.textColor = UIColor(rgb: (245,245,245))
         textView.textAlignment = .center
-        textView.layer.cornerRadius = 25
-        textView.layer.borderWidth = 2
         textView.layer.borderColor = UIColor.clear.cgColor
         textView.backgroundColor = .clear
         textView.alpha = 0
@@ -162,7 +160,7 @@ class InputPlanViewController: UIViewController {
         inputPlanButton.params.enableFlashing = true
         inputPlanButton.params.animDuration = 1
         inputPlanButton.params.shineCount = 10
-        inputPlanButton.params.shineSize = 15
+        inputPlanButton.params.shineSize = 20
     }
     //MARK: @objc
     @objc func voiceInputText() {
