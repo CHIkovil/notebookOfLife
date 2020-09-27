@@ -25,4 +25,6 @@ class RegistrationAndDateBirthday {
             UserDefaults.standard.set(newValue, forKey: "targetText")
         }
     }
+    
+
 }

@@ -38,7 +38,7 @@ class InputPlanViewController: UIViewController {
     lazy var targetTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.text = " Let's start!\n What is our target?"
+        textView.text = "Let's start!\n What is our target?"
         textView.font = UIFont(name: "Chalkduster", size: 20)
         textView.tintColor = UIColor(rgb: (245,245,245))
         textView.textColor = UIColor(rgb: (245,245,245))
