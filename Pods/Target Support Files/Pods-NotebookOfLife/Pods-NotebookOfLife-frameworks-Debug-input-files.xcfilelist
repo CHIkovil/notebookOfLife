@@ -1,0 +1,5 @@
+${PODS_ROOT}/Target Support Files/Pods-NotebookOfLife/Pods-NotebookOfLife-frameworks.sh
+${BUILT_PRODUCTS_DIR}/CountdownLabel/CountdownLabel.framework
+${BUILT_PRODUCTS_DIR}/DWAnimatedLabel/DWAnimatedLabel.framework
+${BUILT_PRODUCTS_DIR}/InstantSearchVoiceOverlay/InstantSearchVoiceOverlay.framework
+${BUILT_PRODUCTS_DIR}/WCLShineButton/WCLShineButton.framework

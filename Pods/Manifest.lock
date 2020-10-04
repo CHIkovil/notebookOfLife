@@ -1,0 +1,28 @@
+PODS:
+  - CountdownLabel (4.0.1)
+  - DWAnimatedLabel (1.2)
+  - InstantSearchVoiceOverlay (1.1.0)
+  - WCLShineButton (1.0.8)
+
+DEPENDENCIES:
+  - CountdownLabel
+  - DWAnimatedLabel
+  - InstantSearchVoiceOverlay
+  - WCLShineButton
+
+SPEC REPOS:
+  trunk:
+    - CountdownLabel
+    - DWAnimatedLabel
+    - InstantSearchVoiceOverlay
+    - WCLShineButton
+
+SPEC CHECKSUMS:
+  CountdownLabel: c9975e3f329140b5e7d1f45cd63b1300badd1712
+  DWAnimatedLabel: 2c5742ea5584187592508e5cee0a9b0e8e8c6af0
+  InstantSearchVoiceOverlay: 8fcbd0c143c872e6b39ef9b6475f1dfeb9ebfbcf
+  WCLShineButton: 315ee9b0024b1cc56dba34fb6a8878937eb8d0b1
+
+PODFILE CHECKSUM: c1e88dee83ffe7f7927f76643b87b3e64b5c62bf
+
+COCOAPODS: 1.9.3
