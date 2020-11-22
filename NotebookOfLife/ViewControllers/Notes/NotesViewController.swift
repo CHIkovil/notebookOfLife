@@ -87,7 +87,7 @@ class NotesViewController: UIViewController {
     //MARK: Override
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .black
         view.addSubview(notesTextView)
         view.addSubview(notesTitleLabel)
         view.addSubview(inputNotesButton)
@@ -122,7 +122,7 @@ class NotesViewController: UIViewController {
         notesTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         notesTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
         notesTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 35).isActive = true
-        notesTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: 75).isActive = true
+        notesTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: 70).isActive = true
     }
     //MARK: ConstraintsLabel
     func createConstraintsNotesTitleLabel() {

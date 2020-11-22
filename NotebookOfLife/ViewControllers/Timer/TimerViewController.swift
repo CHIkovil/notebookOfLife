@@ -41,8 +41,8 @@ class TimerViewController: UIViewController {
         label.font = UIFont(name: "Chalkduster", size: 60)
         label.textAlignment = .center
         label.textColor = #colorLiteral(red: 0.5034754276, green: 0.8359741569, blue: 1, alpha: 1)
-        label.backgroundColor = .white
-        label.placeHolderColor = .lightGray
+        label.backgroundColor = #colorLiteral(red: 0.5034754276, green: 0.8359741569, blue: 1, alpha: 1)
+        label.placeHolderColor = .white
         label.animationType = .wave
         return label
     }()
@@ -98,7 +98,7 @@ class TimerViewController: UIViewController {
     //MARK: Override
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = #colorLiteral(red: 0.5034754276, green: 0.8359741569, blue: 1, alpha: 1)
         conversionDateBirthdayForLifeTimeLabel()
         view.addSubview(targetView)
         view.addSubview(planTitleLabel)
@@ -142,7 +142,7 @@ class TimerViewController: UIViewController {
     //MARK: ConstraintsLabel
     func createConstraintsPlanTitleLabel(){
         planTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        planTitleLabel.bottomAnchor.constraint(equalTo: targetView.topAnchor, constant: -25).isActive = true
+        planTitleLabel.bottomAnchor.constraint(equalTo: targetView.topAnchor, constant: -70).isActive = true
     }
     
     func createConstraintsTargetLabel(){

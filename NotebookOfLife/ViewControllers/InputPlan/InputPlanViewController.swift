@@ -38,7 +38,7 @@ class InputPlanViewController: UIViewController {
     lazy var targetTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.text = "Let's start!\n What is our target?"
+        textView.text = " Let's start!\n What is our target?"
         textView.font = UIFont(name: "Chalkduster", size: 20)
         textView.tintColor = UIColor(rgb: (245,245,245))
         textView.textColor = UIColor(rgb: (245,245,245))
@@ -87,7 +87,7 @@ class InputPlanViewController: UIViewController {
  //MARK: Override
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = #colorLiteral(red: 0.6374439597, green: 0.8331997991, blue: 0.9999315143, alpha: 1)
         view.addSubview(targetTextView)
         view.addSubview(targetTitleLabel)
         view.addSubview(inputPlanButton)
